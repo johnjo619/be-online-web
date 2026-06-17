@@ -1,0 +1,65 @@
+---
+// /activar redirige a port.pandamovil.mx donde está el wizard completo
+// (activación, recarga, portabilidad con timer, cambio de región, HBB map).
+// Static output: redirect via meta refresh + JS instant.
+// Si viene ?flow=portar (etc.) se preserva como hash en destino.
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>Activar Be Online — Redirigiendo…</title>
+    <link rel="canonical" href="https://port.pandamovil.mx/" />
+    <meta http-equiv="refresh" content="0; url=https://port.pandamovil.mx/" />
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var flow = params.get("flow");
+        var dest =
+          "https://port.pandamovil.mx/" +
+          (flow ? "#" + encodeURIComponent(flow) : "");
+        window.location.replace(dest);
+      })();
+    </script>
+    <style is:inline>
+      .pm-redirect-root {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+        background: #fafafa;
+        color: #0f172a;
+      }
+      .pm-redirect-root .loader {
+        text-align: center;
+      }
+      .pm-redirect-root .loader p {
+        margin: 0;
+        font-size: 14px;
+        color: #7a7a7a;
+      }
+      .pm-redirect-root .loader a {
+        color: #ec3143;
+        text-decoration: none;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body class="pm-redirect-root">
+    <div class="loader">
+      <p>Redirigiendo al portal de Be Online…</p>
+      <p style="margin-top: 8px;">
+        <a href="https://port.pandamovil.mx/"
+          >Haz clic aquí si no se redirige automáticamente</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/astro/Header.astro";
+import Footer from "../components/astro/Footer.astro";
+import OrderStatusPoller from "../components/react/OrderStatusPoller";
+---
+
+<BaseLayout
+  title="Compra exitosa — Be Online"
+  description="Tu compra se ha realizado con éxito."
+>
+  <Header />
+
+  <main
+    class="pt-[72px] min-h-[80vh] flex items-center justify-center bg-panda-surface py-16"
+  >
+    <div class="max-w-md mx-auto px-4 text-center">
+      <noscript>
+        <div
+          class="w-20 h-20 rounded-full bg-panda-green/10 flex items-center justify-center mx-auto mb-6"
+        >
+          <svg
+            class="w-10 h-10 text-panda-green"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="3"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <h1 class="font-unbounded text-3xl font-bold text-panda-dark mb-4">
+          ¡Compra recibida!
+        </h1>
+        <p class="font-poppins text-panda-gray mb-8">
+          Te enviaremos un correo con los detalles.
+        </p>
+        <a
+          href="/"
+          class="inline-flex items-center px-8 py-4 rounded-full bg-panda-red text-white font-bold"
+          >Volver al inicio →</a
+        >
+      </noscript>
+
+      <OrderStatusPoller client:only="react" />
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

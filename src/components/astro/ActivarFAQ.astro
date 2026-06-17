@@ -1,0 +1,63 @@
+---
+const faqs = [
+  {
+    question: "¿Qué es el ICCID?",
+    answer:
+      "El ICCID es el número de identificación único de tu tarjeta SIM. Tiene entre 19 y 20 dígitos y lo puedes encontrar impreso en tu SIM o en la configuración de tu teléfono.",
+  },
+  {
+    question: "¿Cuánto tarda la portabilidad?",
+    answer:
+      "La portabilidad de tu número tarda entre 24 y 72 horas hábiles. Recibirás una notificación cuando tu número esté activo en Be Online.",
+  },
+  {
+    question: "¿Puedo recargar desde aquí?",
+    answer:
+      'Sí, ingresa tu número de 10 dígitos y selecciona "Recargar saldo" para elegir un plan y pagar al instante.',
+  },
+  {
+    question: "¿Necesito crear una cuenta?",
+    answer:
+      "No, todos los trámites se realizan sin necesidad de crear cuenta. Solo necesitas tu número o ICCID.",
+  },
+];
+---
+
+<section class="py-16 bg-white">
+  <div class="max-w-3xl mx-auto px-4">
+    <h2
+      class="font-unbounded text-2xl sm:text-3xl font-bold text-panda-dark mb-10 text-center"
+    >
+      Preguntas frecuentes
+    </h2>
+    <div class="space-y-0">
+      {
+        faqs.map((item) => (
+          <details class="group border-b border-gray-200 last:border-b-0">
+            <summary class="flex items-center justify-between w-full py-5 px-2 cursor-pointer list-none font-poppins font-semibold text-panda-dark text-left hover:text-panda-red transition-colors select-none">
+              <span class="pr-4">{item.question}</span>
+              <svg
+                class="w-5 h-5 flex-shrink-0 text-panda-gray transition-transform duration-300 group-open:rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </summary>
+            <div class="pb-5 px-2">
+              <p class="font-poppins text-panda-gray leading-relaxed">
+                {item.answer}
+              </p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

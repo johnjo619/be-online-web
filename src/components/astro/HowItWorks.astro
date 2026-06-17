@@ -1,0 +1,104 @@
+---
+import astronautaImg from "@/assets/images/astronauta.png";
+---
+
+<section
+  id="como-funciona"
+  class="bg-[#1a1e29] relative font-sans overflow-x-clip"
+>
+  <div class="w-full h-8 md:h-12 bg-[#fccd4d]"></div>
+
+  <div class="max-w-[1000px] mx-auto px-4 py-16 md:py-24 relative">
+    <h2
+      class="text-3xl md:text-4xl font-extrabold text-white text-center mb-20 tracking-tight"
+    >
+      ¿Cómo funciona?
+    </h2>
+
+    <div class="relative max-w-3xl mx-auto">
+      <div
+        class="absolute top-[12px] left-[-50vw] right-[-50vw] border-t-[1.5px] border-dashed border-white z-0"
+      >
+      </div>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-4 text-center relative z-10"
+      >
+        <div class="flex flex-col items-center">
+          <div
+            class="w-6 h-6 bg-[#fccd4d] rounded-t-[50%] rounded-br-[50%] -rotate-[30deg] mb-6 shadow-md"
+          >
+          </div>
+          <h3
+            class="text-white font-extrabold text-[17px] mb-1.5 tracking-wide"
+          >
+            Elige el plan
+          </h3>
+          <p class="text-white text-[13px] mb-3 font-medium">
+            Tu conexión, tus reglas.
+          </p>
+          <a
+            href="/planes"
+            class="text-white text-[10px] font-bold tracking-widest uppercase hover:text-[#fccd4d] transition-colors"
+          >
+            CHECA LOS PLANES &gt;
+          </a>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div
+            class="w-6 h-6 bg-[#fccd4d] rounded-t-[50%] rounded-br-[50%] -rotate-[30deg] mb-6 shadow-md"
+          >
+          </div>
+          <h3
+            class="text-white font-extrabold text-[17px] mb-1.5 tracking-wide"
+          >
+            Recibe tu SIM
+          </h3>
+          <p class="text-white text-[13px] mb-3 font-medium">
+            Te enviamos tu SIM o eSIM al momento.
+          </p>
+          <a
+            href="/tienda"
+            class="text-white text-[10px] font-bold tracking-widest uppercase hover:text-[#fccd4d] transition-colors"
+          >
+            COMPRA TU SIM &gt;
+          </a>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div
+            class="w-6 h-6 bg-[#fccd4d] rounded-t-[50%] rounded-br-[50%] -rotate-[30deg] mb-6 shadow-md"
+          >
+          </div>
+          <h3
+            class="text-white font-extrabold text-[17px] mb-1.5 tracking-wide"
+          >
+            Activa y disfruta
+          </h3>
+          <p class="text-white text-[13px] mb-3 font-medium">
+            Tu mundo activo en segundos.
+          </p>
+          <a
+            href="/activar"
+            class="text-white text-[10px] font-bold tracking-widest uppercase hover:text-[#fccd4d] transition-colors"
+          >
+            ACTIVA YA &gt;
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="hidden md:block absolute right-[-20px] lg:right-[-60px] top-[-60px] z-20 w-48 lg:w-60 animate-bounce"
+      style="animation-duration: 5s;"
+    >
+      <img
+        src={astronautaImg.src}
+        alt="Astronauta"
+        class="w-full h-auto drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)] hover:scale-105 transition-transform duration-500"
+        onerror="this.style.display='none'"
+      />
+    </div>
+  </div>
+</section>

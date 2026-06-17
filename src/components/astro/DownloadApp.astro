@@ -1,0 +1,104 @@
+---
+import astronautaApp from "@/assets/images/astronauta5.png";
+const playStoreUrl =
+  "https://play.google.com/store/apps/details?id=com.beonline.appbeonlinemx&hl=es_MX";
+const appStoreUrl = "https://apps.apple.com/us/app/panda-movil/id6467819848";
+// Usamos el color de fondo amarillo (fccd4d) para que el QR se integre perfectamente con el fondo
+const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=0&color=1a1e29&data=${encodeURIComponent(playStoreUrl)}`;
+---
+
+<section id="app" class="font-sans">
+  <div class="bg-[#1a1e29] py-16 md:py-20 px-4">
+    <div
+      class="max-w-[1000px] mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20"
+    >
+      <div class="w-64 md:w-80 lg:w-96 flex-shrink-0">
+        <img
+          src={astronautaApp.src}
+          alt="Astronauta sosteniendo celular con la App"
+          class="w-full h-auto drop-shadow-2xl"
+          onerror="this.style.display='none'"
+        />
+      </div>
+
+      <div class="text-white text-center md:text-left">
+        <h2
+          class="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6 tracking-tight"
+        >
+          Descarga la App
+        </h2>
+        <p class="text-lg md:text-[22px] font-medium leading-snug mb-6">
+          Todo el control de tu línea<br class="hidden md:block" />
+          en un solo lugar.<br class="hidden md:block" />
+          Así de simple.
+        </p>
+        <p class="text-lg md:text-[22px] font-medium leading-snug">
+          Consulta tu saldo y<br class="hidden md:block" />
+          recarga en segundos.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-[#fccd4d] py-12 px-4">
+    <div
+      class="max-w-[900px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-0 items-center"
+    >
+      <div
+        class="flex flex-col items-center text-center md:border-r-[3px] border-[#e64c2e] md:pr-8 lg:pr-12"
+      >
+        <p
+          class="text-[#1a1e29] text-[18px] md:text-[20px] font-bold mb-4 leading-tight"
+        >
+          Desde tu computadora,<br />
+          escanea con tu celular:
+        </p>
+        <div class="p-1">
+          <img
+            src={qrUrl}
+            alt="Código QR para descargar PandaMovil"
+            class="w-36 h-36 md:w-40 md:h-40 object-contain mix-blend-multiply"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center text-center md:pl-8 lg:pl-12">
+        <p
+          class="text-[#1a1e29] text-[18px] md:text-[20px] font-bold mb-6 leading-tight"
+        >
+          Desde tu celular<br />
+          descárgalas en:
+        </p>
+        <div class="flex flex-col gap-4">
+          <a
+            href={appStoreUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:scale-105 transition-transform duration-200"
+          >
+            <img
+              src="/img/badges/app-store-badge.svg"
+              alt="Available on the App Store"
+              class="h-12 md:h-[52px] w-auto bg-[#1a1e29] rounded-lg"
+              loading="lazy"
+            />
+          </a>
+          <a
+            href={playStoreUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:scale-105 transition-transform duration-200"
+          >
+            <img
+              src="/img/badges/google-play-badge.svg"
+              alt="Get it on Google Play"
+              class="h-12 md:h-[52px] w-auto bg-[#1a1e29] rounded-lg"
+              loading="lazy"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/astro/Header.astro";
+import Footer from "../components/astro/Footer.astro";
+import DynamicBanner from "../components/react/DynamicBanner";
+import HeroBanner from "../components/react/HeroBanner";
+import ServiceShell from "../components/astro/ServiceShell.astro";
+import MobileStickyCta from "../components/astro/MobileStickyCta.astro";
+import PlanSelector from "../components/react/PlanSelector";
+import MovilHowItWorks from "../components/astro/MovilHowItWorks.astro";
+import MovilIncluye from "../components/astro/MovilIncluye.astro";
+import MovilPlanTypes from "../components/astro/MovilPlanTypes.astro";
+import MovilSimVsEsim from "../components/astro/MovilSimVsEsim.astro";
+import MovilParaQuien from "../components/astro/MovilParaQuien.astro";
+import {
+  organizationSchema,
+  localBusinessSchema,
+  serviceProductSchema,
+} from "../lib/schema";
+---
+
+<BaseLayout
+  title="Telefonía Móvil sin contratos — desde $99/mes | Be Online"
+  description="Planes de telefonía móvil prepago con redes sociales ilimitadas, datos 4G LTE y cobertura nacional. Sin contratos, sin permanencia. Activa tu eSIM en minutos."
+  jsonLd={[
+    organizationSchema(),
+    localBusinessSchema(),
+    serviceProductSchema("telefonia"),
+  ]}
+>
+  <DynamicBanner
+    client:idle
+    transition:persist
+    transition:name="panda-banner"
+  />
+  <Header transition:persist transition:name="panda-header" />
+
+  <main transition:name="panda-main">
+    <ServiceShell
+      service="telefonia"
+      serviceLabel="Telefonía Móvil"
+      ctaTitle="Tu nuevo plan, en minutos"
+      ctaSubtitle="Activa tu eSIM o recibe tu SIM física en casa. Sin contratos, sin sorpresas."
+    >
+      <!-- HERO: banner conectado al CRM (section=movil). Si no hay banners,
+           cae al fallback estático con copy específico de telefonía móvil. -->
+      <div slot="hero">
+        <HeroBanner
+          client:load
+          section="movil"
+          fallbackImage="/img/banners/services/telefonia-01.webp"
+          proofText="Miles de usuarios conectados"
+          headlineLine1="Telefonía móvil"
+          headlineLine2="sin contratos"
+          description="Llamadas, SMS, datos 4G LTE y redes sociales ilimitadas. Sin permanencia ni letra chica. Activa tu eSIM en minutos."
+          primaryCta={{ label: "Ver planes", href: "#planes" }}
+          secondaryCta={{ label: "Verificar cobertura", href: "/cobertura" }}
+        />
+      </div>
+
+      <!-- PRODUCT -->
+      <div slot="product">
+        <PlanSelector client:visible />
+      </div>
+
+      <!-- CONTENT: banners del PSD distribuidos entre las 5 secciones visuales.
+           Banner strip (telefonia-02) sirve como CTA intermedio antes de los detalles.
+           ParaQuien usa telefonia-04 como bg. Banners en SimVsEsim + ParaQuien inyectados. -->
+      <div slot="content">
+        <MovilHowItWorks />
+        <MovilIncluye />
+
+        <!-- BG compartido S5+S6 — replica patrón home InternetSection
+             pero con bg-fixed para que la imagen no se estire al crecer la sección. -->
+        <section
+          class="relative overflow-hidden bg-cover bg-center bg-no-repeat md:bg-fixed"
+          style="background-image: url(/img/banners/services/telefonia-03.webp);"
+        >
+          <MovilPlanTypes />
+          <MovilSimVsEsim />
+        </section>
+
+        <MovilParaQuien />
+      </div>
+    </ServiceShell>
+  </main>
+
+  <MobileStickyCta
+    priceFrom="$99/mes"
+    ctaLabel="Ver planes"
+    ctaHref="#planes"
+  />
+  <Footer transition:persist transition:name="panda-footer" />
+</BaseLayout>

@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/astro/Header.astro";
+import DynamicBanner from "../components/react/DynamicBanner";
+import Footer from "../components/astro/Footer.astro";
+---
+
+<BaseLayout
+  title="Términos y Condiciones — Be Online"
+  description="Términos y condiciones de uso de los servicios de Be Online. Conoce tus derechos y obligaciones."
+>
+  <DynamicBanner client:idle />
+  <Header />
+  <main class="pt-24 pb-16 px-4">
+    <div class="max-w-3xl mx-auto prose prose-lg">
+      <h1 class="font-unbounded text-3xl font-bold text-panda-dark mb-8">
+        Términos y Condiciones
+      </h1>
+
+      <p class="font-poppins text-panda-gray">
+        Última actualización: Marzo 2026
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        1. Aceptación de los Términos
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Al utilizar los servicios de Be Online, operado por Celink Telecom S.A.
+        de C.V., usted acepta los presentes términos y condiciones en su
+        totalidad. Si no está de acuerdo con alguno de estos términos, le
+        pedimos que no utilice nuestros servicios.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        2. Descripción del Servicio
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Be Online ofrece servicios de telecomunicaciones móviles incluyendo
+        telefonía, datos móviles, Internet en Casa y dispositivos MiFi a través
+        de la Red Compartida de Altán Redes. Los planes incluyen diversas
+        opciones de prepago sin contrato de permanencia.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        3. Uso del Servicio
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        El usuario se compromete a utilizar el servicio de manera lícita y
+        conforme a la legislación mexicana vigente. Queda prohibido el uso del
+        servicio para actividades ilegales, spam, o cualquier actividad que
+        afecte la calidad del servicio para otros usuarios.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        4. Planes y Tarifas
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Los planes son de prepago. No existen contratos de permanencia. Los
+        precios publicados incluyen IVA. Be Online se reserva el derecho de
+        modificar tarifas previo aviso al usuario a través de los canales
+        oficiales.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        5. Portabilidad Numérica
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        El proceso de portabilidad se rige por las disposiciones del Instituto
+        Federal de Telecomunicaciones (IFT). El plazo de portabilidad es de 24 a
+        72 horas hábiles una vez aceptada la solicitud.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        6. Pagos y Reembolsos
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Los pagos se procesan a través de pasarelas seguras (Stripe,
+        MercadoPago, PayPal, OpenPay). Las recargas y planes activados no son
+        reembolsables una vez consumidos. Para solicitudes de reembolso,
+        contacte a soporte al *777.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        7. Limitación de Responsabilidad
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Be Online no será responsable por interrupciones del servicio causadas
+        por fuerza mayor, mantenimiento programado de la red, o causas fuera de
+        su control. La cobertura está sujeta a la disponibilidad de la Red
+        Compartida.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        8. Contacto
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Para cualquier duda sobre estos términos, puede contactarnos:
+      </p>
+      <ul class="font-poppins text-panda-gray">
+        <li>
+          Teléfono: <a href="tel:*777" class="text-panda-red hover:underline"
+            >*777</a
+          > (desde tu línea Be Online)
+        </li>
+        <li>
+          WhatsApp: <a
+            href="https://wa.me/524424401925"
+            class="text-panda-red hover:underline"
+            target="_blank"
+            rel="noopener noreferrer">442 440 1925</a>
+        </li>
+      </ul>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

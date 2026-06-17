@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/astro/Header.astro";
+import DynamicBanner from "../components/react/DynamicBanner";
+import TiendaFlowBO from "../components/react/TiendaFlowBO";
+import Footer from "../components/astro/Footer.astro";
+import { organizationSchema } from "../lib/schema";
+
+const jsonLd = [
+  organizationSchema(),
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "SIM / eSIM Be Online",
+    description:
+      "Compra tu SIM o eSIM digital Be Online. Planes sin contrato desde $99 MXN.",
+    brand: { "@type": "Brand", name: "Panda Movil" },
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "MXN",
+      lowPrice: "50",
+      highPrice: "599",
+      offerCount: 20,
+      availability: "https://schema.org/InStock",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Inicio",
+        item: "https://pandamovil.mx/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tienda",
+        item: "https://pandamovil.mx/tienda/",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Contratar Be Online — Móvil, Internet en casa o MiFi sin contratos"
+  description="Contrata telefonía móvil, internet en casa (HBB) o internet portátil (MiFi) Be Online. Sin contratos. Para HBB y MiFi elige si incluyes el equipo o solo activas el plan. Paga con tarjeta, OXXO o MercadoPago."
+  jsonLd={jsonLd}
+>
+  <DynamicBanner client:idle />
+  <Header />
+
+  <main>
+    <section class="py-12 sm:py-16 bg-[#1a1e29]">
+      <div class="mx-auto px-4">
+        <TiendaFlowBO client:visible />
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

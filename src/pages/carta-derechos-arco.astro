@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/astro/Header.astro";
+import DynamicBanner from "../components/react/DynamicBanner";
+import Footer from "../components/astro/Footer.astro";
+---
+
+<BaseLayout
+  title="Carta de Derechos ARCO — Be Online"
+  description="Ejerce tus derechos ARCO (Acceso, Rectificación, Cancelación y Oposición) con Be Online."
+>
+  <DynamicBanner client:idle />
+  <Header />
+  <main class="pt-24 pb-16 px-4">
+    <div class="max-w-3xl mx-auto prose prose-lg">
+      <h1 class="font-unbounded text-3xl font-bold text-panda-dark mb-8">
+        Carta de Derechos ARCO
+      </h1>
+
+      <p class="font-poppins text-panda-gray">
+        Última actualización: Marzo 2026
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        ¿Qué son los Derechos ARCO?
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        De acuerdo con la Ley Federal de Protección de Datos Personales en
+        Posesión de los Particulares (LFPDPPP), usted tiene derecho a Acceder,
+        Rectificar, Cancelar u Oponerse al tratamiento de sus datos personales.
+        Estos son los derechos ARCO.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        Acceso
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Usted tiene derecho a conocer qué datos personales tenemos sobre usted,
+        para qué los utilizamos y las condiciones de uso que les damos. Puede
+        solicitar una copia de sus datos personales en nuestro poder.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        Rectificación
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Tiene derecho a solicitar la corrección de sus datos personales cuando
+        sean inexactos, estén incompletos o no se encuentren actualizados.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        Cancelación
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Puede solicitar la eliminación de sus datos personales de nuestros
+        registros y bases de datos. Tenga en cuenta que existen excepciones
+        legales donde los datos deben conservarse por un periodo determinado.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        Oposición
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Tiene derecho a oponerse al tratamiento de sus datos personales con
+        fines específicos, como la recepción de comunicaciones comerciales o
+        promocionales.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        ¿Cómo ejercer tus derechos?
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Para ejercer cualquiera de sus derechos ARCO, envíe su solicitud a:
+      </p>
+      <ul class="font-poppins text-panda-gray">
+        <li>
+          Correo electrónico: <a
+            href="mailto:privacidad@pandamovil.mx"
+            class="text-panda-red hover:underline">privacidad@pandamovil.mx</a>
+        </li>
+        <li>
+          Teléfono: <a href="tel:*777" class="text-panda-red hover:underline"
+            >*777</a>
+        </li>
+      </ul>
+
+      <p class="font-poppins text-panda-gray leading-relaxed mt-4">
+        Su solicitud debe incluir: nombre completo, número de línea Be Online
+        (si aplica), descripción clara del derecho que desea ejercer, y
+        documento de identidad para verificar su titularidad.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        Plazo de Respuesta
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Celink Telecom S.A. de C.V. responderá a su solicitud en un plazo máximo
+        de 20 días hábiles contados a partir de la recepción de la misma,
+        conforme a lo establecido en la LFPDPPP.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-10 mb-4">
+        Responsable del Tratamiento
+      </h2>
+      <p class="font-poppins text-panda-gray leading-relaxed">
+        Celink Telecom S.A. de C.V., con domicilio en Querétaro, México, es
+        responsable del tratamiento de sus datos personales. Para más
+        información, consulte nuestro <a
+          href="/aviso-de-privacidad"
+          class="text-panda-red hover:underline">Aviso de Privacidad</a
+        >.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

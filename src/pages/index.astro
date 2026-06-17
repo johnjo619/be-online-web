@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/astro/Header.astro";
+import HeroBanner from "../components/react/HeroBanner";
+import HowItWorks from "../components/astro/HowItWorks.astro";
+import Portabilidad from "../components/astro/Portabilidad.astro";
+import FAQ from "../components/astro/FAQ.astro";
+import DownloadApp from "../components/astro/DownloadApp.astro";
+import CtaFinal from "../components/astro/CtaFinal.astro";
+import Footer from "../components/astro/Footer.astro";
+import PlanSelector from "../components/react/PlanSelector";
+import DynamicBanner from "../components/react/DynamicBanner";
+import BeProtected from "@/components/astro/BeProtected.astro";
+import {
+  organizationSchema,
+  webSiteSchema,
+  productAggregateSchema,
+} from "../lib/schema";
+import BannerSeparator from "@/components/astro/BannerSeparator.astro";
+
+const schemas = [
+  organizationSchema(),
+  webSiteSchema(),
+  productAggregateSchema(),
+];
+---
+
+<BaseLayout
+  title="Be Online — Planes de Telefonía Móvil, Internet y MiFi | Sin Contratos"
+  description="Planes de telefonía móvil, internet en casa y MiFi con cobertura nacional. Sin contratos, sin letra chica, a precios justos. ¡Conéctate con Be Online!"
+  jsonLd={schemas}
+>
+  <DynamicBanner
+    client:idle
+    transition:persist
+    transition:name="panda-banner"
+  />
+  <Header transition:persist transition:name="panda-header" />
+  <main transition:name="panda-main">
+    <HeroBanner
+      client:load
+      fallbackImage="/img/banners/hero-home.jpg"
+      fallbackSideImage="/img/banners/astronaut_pop.png"
+    />
+    <BannerSeparator />
+    <PlanSelector client:visible />
+    <!-- <InternetSection /> -->
+    <HowItWorks />
+    <Portabilidad />
+    <BeProtected />
+    <PlanSelector client:visible hideSimSelector />
+    <DownloadApp />
+    <FAQ />
+    <CtaFinal />
+  </main>
+  <Footer transition:persist transition:name="panda-footer" />
+</BaseLayout>

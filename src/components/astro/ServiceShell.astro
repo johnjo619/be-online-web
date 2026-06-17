@@ -1,0 +1,66 @@
+---
+import Breadcrumb from './Breadcrumb.astro';
+import ServiceSubNav, { type ServiceTab } from './ServiceSubNav.astro';
+import WhyPanda from './WhyPanda.astro';
+import CrossSellCards from './CrossSellCards.astro';
+import CtaService from './CtaService.astro';
+import FAQ from './FAQ.astro';
+import type { FAQCategory } from '../../data/faq';
+
+interface Props {
+  service: ServiceTab;
+  serviceLabel: string;       // visible en breadcrumb
+  faqCategory?: FAQCategory;  // por default usa el service key (telefonia/internet-hogar/mifi/cobertura)
+  ctaTitle?: string;
+  ctaSubtitle?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  ctaBgImage?: string;        // override bg image del CTA final
+}
+
+const { service, serviceLabel, faqCategory, ctaTitle, ctaSubtitle, ctaLabel, ctaHref, ctaBgImage } = Astro.props;
+
+// Default bgImage por service si no se pasa explícito
+const resolvedCtaBg = ctaBgImage ?? (
+  service === 'internet-hogar' ? '/img/banners/services/internet-casa-04.webp' :
+  service === 'mifi'           ? '/img/banners/services/mifi-03.webp' :
+  service === 'cobertura'      ? '/img/banners/services/cobertura-03.webp' :
+                                  '/img/banners/services/telefonia-06.webp'
+);
+
+const resolvedFaqCategory: FAQCategory = faqCategory ?? (
+  service === 'internet-hogar' ? 'internet-hogar' :
+  service === 'mifi'           ? 'mifi' :
+  service === 'cobertura'      ? 'cobertura' :
+                                  'telefonia'
+);
+
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Servicios', href: '/#servicios' },
+  { label: serviceLabel },
+];
+---
+
+<ServiceSubNav active={service} />
+
+<div class="bg-white pt-4">
+  <div class="max-w-6xl mx-auto px-4 pt-2">
+    <Breadcrumb items={breadcrumbItems} />
+  </div>
+</div>
+
+<slot name="hero" />
+<slot name="product" />
+<slot name="content" />
+
+<WhyPanda variant="service" />
+<CrossSellCards exclude={service} />
+<FAQ category={resolvedFaqCategory} injectSchema />
+<CtaService
+  title={ctaTitle}
+  subtitle={ctaSubtitle}
+  ctaLabel={ctaLabel}
+  ctaHref={ctaHref}
+  bgImage={resolvedCtaBg}
+/>

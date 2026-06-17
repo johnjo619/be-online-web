@@ -1,0 +1,36 @@
+---
+import { breadcrumbSchema } from '../../lib/schema';
+
+interface Props {
+  items: { label: string; href?: string }[];
+  injectSchema?: boolean;
+}
+
+const { items, injectSchema = true } = Astro.props;
+const origin = Astro.url.origin;
+const currentPath = Astro.url.pathname;
+
+const schemaItems = items.map((item) => ({
+  name: item.label,
+  url: item.href ? `${origin}${item.href}` : `${origin}${currentPath}`,
+}));
+---
+
+<nav aria-label="Breadcrumb" class="font-poppins text-sm text-panda-gray mb-6">
+  <ol class="flex items-center gap-2 flex-wrap">
+    {items.map((item, i) => (
+      <li class="flex items-center gap-2">
+        {i > 0 && <span class="text-gray-300">›</span>}
+        {item.href ? (
+          <a href={item.href} class="hover:text-panda-red transition-colors">{item.label}</a>
+        ) : (
+          <span class="text-panda-dark font-semibold" aria-current="page">{item.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+{injectSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema(schemaItems))} />
+)}

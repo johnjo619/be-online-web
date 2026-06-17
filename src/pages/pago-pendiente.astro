@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/astro/Header.astro";
+import Footer from "../components/astro/Footer.astro";
+---
+
+<BaseLayout
+  title="Referencia de pago — Be Online"
+  description="Tu referencia de pago ha sido generada."
+>
+  <Header />
+
+  <main
+    class="pt-[72px] min-h-[80vh] flex items-center justify-center bg-panda-surface"
+  >
+    <div class="max-w-md mx-auto px-4 text-center">
+      <!-- Pending Icon -->
+      <div
+        class="w-20 h-20 rounded-full bg-yellow-50 flex items-center justify-center mx-auto mb-6"
+      >
+        <svg
+          class="w-10 h-10 text-yellow-500"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+
+      <h1 class="font-unbounded text-3xl font-bold text-panda-dark mb-4">
+        Pago pendiente
+      </h1>
+
+      <p class="font-poppins text-panda-gray mb-8">
+        Tu referencia de pago ha sido generada. Acude a la tienda
+        correspondiente para completar tu pago.
+      </p>
+
+      <p class="font-poppins text-sm text-panda-gray mb-8">
+        Recibirás un correo de confirmación una vez que el pago sea procesado.
+      </p>
+
+      <a
+        href="/"
+        class="inline-flex items-center px-8 py-4 rounded-full bg-panda-red text-white font-bold shadow-lg shadow-panda-red/30 hover:bg-panda-red-dark transition-colors"
+      >
+        Volver al inicio →
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,25 @@
+---
+import SEOHead from '../components/astro/SEOHead.astro';
+import { ViewTransitions } from 'astro:transitions';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { title, description, ogImage, jsonLd } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <SEOHead title={title} description={description} ogImage={ogImage} jsonLd={jsonLd} />
+    <ViewTransitions />
+  </head>
+  <body class="bg-white text-panda-dark antialiased">
+    <slot />
+  </body>
+</html>

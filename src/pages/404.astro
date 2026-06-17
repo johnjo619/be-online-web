@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404 — Be Online" description="Página no encontrada">
+  <main class="min-h-screen flex items-center justify-center px-4">
+    <div class="text-center">
+      <h1 class="font-unbounded text-6xl font-bold text-panda-red mb-4">404</h1>
+      <p class="text-xl text-panda-gray mb-8 font-poppins">
+        Página no encontrada
+      </p>
+      <a
+        href="/"
+        class="inline-flex items-center px-6 py-3 rounded-full bg-panda-red text-white font-semibold hover:bg-panda-red-dark transition-colors shadow-lg shadow-panda-red/30"
+      >
+        Volver al inicio
+      </a>
+    </div>
+  </main>
+</BaseLayout>

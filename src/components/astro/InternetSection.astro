@@ -1,0 +1,220 @@
+---
+/**
+ * Bloque combinado Internet en Casa + Internet portátil MiFi.
+ * Per PDF: una sola sección con el banner panda PS5 como decoración lateral
+ * derecha cubriendo VERTICALMENTE ambos subbloques. NO incluye PlanCards de
+ * HBB en la home (el PDF solo muestra header + benefits + CTA "Ver más").
+ * Los planes detallados viven en /internet-en-casa/.
+ */
+---
+
+<section
+  id="internet"
+  class="relative overflow-hidden bg-white md:bg-cover md:bg-center md:bg-no-repeat md:bg-fixed"
+  style="background-image: url(/img/banners/hbb-panda-gaming.webp);"
+>
+  <!-- Parallax bg-fixed: hbb-panda-gaming visible en desktop con efecto fixed.
+       Mobile mantiene bg-white sin imagen (mismo patrón que telefonia/S5+S6). -->
+
+  <div class="relative max-w-6xl mx-auto px-4 py-14 md:py-20">
+    <!-- ── Internet en Casa heading + subtitle ─── -->
+    <div class="relative z-10">
+      <div id="internet-casa" class="max-w-xl mx-auto text-center mb-8 pt-2">
+        <h2
+          class="font-unbounded text-3xl sm:text-4xl font-bold text-panda-dark mb-3 leading-tight"
+        >
+          Internet en Casa
+        </h2>
+        <p
+          class="font-poppins text-sm sm:text-base text-panda-gray leading-relaxed"
+        >
+          Lleva internet de alta velocidad a tu hogar, sin instalaciones
+          complicadas ni contratos
+        </p>
+      </div>
+
+      <!-- Benefits strip + CTA — sin plan cards en home, viven en /internet-en-casa/ -->
+      <div class="mb-10 flex flex-col items-center">
+        <div class="flex flex-wrap justify-center gap-3 sm:gap-5">
+          <div
+            class="flex items-center gap-1.5 text-panda-dark font-poppins text-[11px]"
+          >
+            <div
+              class="w-[18px] h-[18px] rounded-[5px] bg-panda-red/10 flex items-center justify-center flex-shrink-0"
+            >
+              <svg
+                class="w-2.5 h-2.5 text-panda-red"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg
+              >
+            </div>
+            Sin instalación
+          </div>
+          <div
+            class="flex items-center gap-1.5 text-panda-dark font-poppins text-[11px]"
+          >
+            <div
+              class="w-[18px] h-[18px] rounded-[5px] bg-panda-red/10 flex items-center justify-center flex-shrink-0"
+            >
+              <svg
+                class="w-2.5 h-2.5 text-panda-red"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg
+              >
+            </div>
+            Activa al instante
+          </div>
+          <div
+            class="flex items-center gap-1.5 text-panda-dark font-poppins text-[11px]"
+          >
+            <div
+              class="w-[18px] h-[18px] rounded-[5px] bg-panda-red/10 flex items-center justify-center flex-shrink-0"
+            >
+              <svg
+                class="w-2.5 h-2.5 text-panda-red"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                ></path></svg
+              >
+            </div>
+            Sin contratos
+          </div>
+          <div
+            class="flex items-center gap-1.5 text-panda-dark font-poppins text-[11px]"
+          >
+            <div
+              class="w-[18px] h-[18px] rounded-[5px] bg-panda-red/10 flex items-center justify-center flex-shrink-0"
+            >
+              <svg
+                class="w-2.5 h-2.5 text-panda-red"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0"
+                ></path></svg
+              >
+            </div>
+            WiFi para todos
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ── /fin wrapper Internet en Casa (watermark scope) ── -->
+
+    <!-- ── Internet portátil MiFi ────────────────────────── -->
+    <div id="mifi" class="relative z-10 max-w-2xl mx-auto text-center mb-8">
+      <h2
+        class="font-unbounded text-3xl sm:text-4xl font-bold text-panda-dark mb-3 leading-tight"
+      >
+        Internet portátil MiFi
+      </h2>
+      <p class="font-poppins text-sm sm:text-base text-panda-gray">
+        Lleva tu conexión a donde vayas
+      </p>
+    </div>
+
+    <!-- Featured card MiFi — sobre el watermark del panda gaming (z-10 + bg-white opaco) -->
+    <div
+      class="relative z-10 max-w-3xl mx-auto bg-white rounded-xl shadow-2xl shadow-panda-dark/15 overflow-hidden border border-gray-100"
+    >
+      <div class="grid sm:grid-cols-[5fr_4fr] gap-0">
+        <!-- Image: banner mountain con panda — object-position left center para garantizar grupo + panda visibles -->
+        <div
+          class="relative aspect-[16/10] sm:aspect-auto sm:min-h-[280px] bg-gray-50"
+        >
+          <img
+            src="/img/banners/mifi-mountain.webp"
+            alt="Conectividad MiFi Be Online — grupo en montaña con panda"
+            class="absolute inset-0 w-full h-full object-cover"
+            style="object-position: 20% center;"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Content -->
+        <div class="p-6 sm:p-7 flex flex-col justify-center">
+          <h3 class="font-unbounded text-lg font-bold text-panda-dark mb-2">
+            Tu MiFi personal
+          </h3>
+          <p class="font-poppins text-xs text-panda-gray mb-4 leading-relaxed">
+            Un dispositivo compacto que te da internet de alta velocidad en
+            cualquier lugar.
+          </p>
+          <ul class="font-poppins text-xs text-panda-dark space-y-2 mb-4">
+            <li class="flex items-center gap-2">
+              <span
+                class="w-1.5 h-1.5 rounded-full bg-panda-green flex-shrink-0"
+              ></span>
+              Conecta hasta 10 dispositivos
+            </li>
+            <li class="flex items-center gap-2">
+              <span
+                class="w-1.5 h-1.5 rounded-full bg-panda-green flex-shrink-0"
+              ></span>
+              Batería de larga duración
+            </li>
+            <li class="flex items-center gap-2">
+              <span
+                class="w-1.5 h-1.5 rounded-full bg-panda-green flex-shrink-0"
+              ></span>
+              Sin instalación
+            </li>
+          </ul>
+          <div class="mb-5">
+            <span
+              class="font-poppins text-[10px] text-panda-gray uppercase tracking-wider"
+              >Desde</span
+            >
+            <div class="flex items-baseline gap-1.5">
+              <span class="font-unbounded text-3xl font-bold text-panda-red"
+                >$299</span
+              >
+              <span class="font-poppins text-panda-gray text-sm">/mes</span>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a
+              href="/tienda/?service=mifi"
+              class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-panda-red text-white font-bold hover:bg-panda-red-dark transition-colors shadow-lg shadow-panda-red/30 font-poppins text-xs"
+            >
+              Contratar MiFi
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"></path></svg
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

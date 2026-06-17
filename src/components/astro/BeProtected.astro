@@ -1,0 +1,206 @@
+---
+import BeProtected3Img from "@/assets/images/astronauta3.png";
+import BeProtected4Img from "@/assets/images/astronauta4.png";
+---
+
+<section class="bg-[#181d26] py-16 md:py-24 font-sans">
+  <div class="max-w-[1000px] mx-auto px-4 flex flex-col items-center">
+    <h2
+      class="text-white text-2xl md:text-3xl lg:text-[32px] font-extrabold mb-12 md:mb-16 text-center tracking-tight"
+    >
+      La vida no tiene pausa. Tus planes tampoco.
+    </h2>
+
+    <div
+      class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 w-full max-w-4xl"
+    >
+      <div class="relative w-56 md:w-72 lg:w-80 flex-shrink-0">
+        <img
+          src={BeProtected3Img.src}
+          alt="Astronauta con sombrilla amarilla"
+          class="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)] object-contain"
+          onerror="this.style.display='none'"
+        />
+      </div>
+
+      <div class="flex flex-col text-left">
+        <h3
+          class="text-white font-bold leading-[1.1] text-[50px] md:text-[60px] lg:text-[72px] tracking-wide mb-3"
+        >
+          <span class="block">Be</span>
+          <span class="block">Protected</span>
+        </h3>
+        <p
+          class="text-[#fccd4d] text-[18px] md:text-[20px] lg:text-[24px] font-bold tracking-wide"
+        >
+          Beneficios de otro mundo
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#fccd4d] py-16 md:py-24 font-sans overflow-hidden">
+  <div class="max-w-[1000px] mx-auto px-4">
+    <div class="text-center text-[#1a1e29] max-w-4xl mx-auto mb-10">
+      <p class="text-lg md:text-[21px] font-medium leading-relaxed mb-6">
+        <span class="font-extrabold">Be Protected:</span> Un programa de beneficios,
+        asistencias y coberturas;<br class="hidden md:block" />
+        es la herramienta clave para proteger tu salud y economía.
+      </p>
+      <p class="text-xl md:text-[23px] font-extrabold tracking-wide">
+        No es un gasto, es la inversión más inteligente para cuidar tu futuro.
+      </p>
+    </div>
+
+    <div class="text-center mb-16">
+      <a
+        href="/be-protected"
+        class="inline-block bg-[#1a1e29] text-white text-[15px] font-bold px-10 py-3 rounded-full hover:bg-black hover:scale-105 transition-all shadow-md tracking-wide"
+      >
+        Conoce más
+      </a>
+    </div>
+
+    <div
+      class="flex flex-col md:flex-row justify-center items-end gap-12 md:gap-24 mb-20 text-[#1a1e29]"
+    >
+      <div class="text-center relative">
+        <p class="text-[17px] font-medium mb-2">Costo mensual</p>
+        <div class="relative inline-block">
+          <p
+            class="text-[40px] md:text-[46px] font-extrabold leading-none tracking-tight"
+          >
+            $120 al mes
+          </p>
+
+          <div
+            class="absolute top-1/2 left-[-10%] right-[-10%] h-1.5 bg-[#ef4444] -translate-y-1/2 -rotate-3 rounded-full opacity-90 blur-[0.5px]"
+          >
+          </div>
+          <div
+            class="absolute top-1/2 left-[-5%] right-[-5%] h-1.5 bg-[#ef4444] -translate-y-1/2 rotate-3 rounded-full opacity-90 blur-[0.5px]"
+          >
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center relative">
+        <p
+          class="text-[17px] font-medium mb-2 max-w-[280px] leading-tight mx-auto"
+        >
+          Pero si lo contratas con tu plan,<br />te lo llevas por solo
+        </p>
+        <div class="relative inline-block mt-1">
+          <p
+            class="text-[40px] md:text-[46px] font-extrabold leading-none tracking-tight"
+          >
+            $90 al mes
+          </p>
+
+          <div
+            class="absolute -bottom-2 left-[-5%] right-[-5%] h-1.5 bg-[#ef4444] rounded-full opacity-90 blur-[0.5px] rotate-[-1deg]"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mb-6">
+      <h3 class="text-[20px] font-bold text-[#1a1e29]">
+        Algunos de nuestros beneficios:
+      </h3>
+    </div>
+
+    <div class="relative max-w-4xl mx-auto">
+      <div
+        class="absolute -left-6 md:-left-24 lg:-left-28 bottom-0 z-20 w-32 md:w-56 lg:w-64"
+      >
+        <img
+          src={BeProtected4Img.src}
+          alt="Astronauta abrazando un corazón"
+          class="w-full h-auto drop-shadow-[0_15px_15px_rgba(0,0,0,0.4)]"
+          onerror="this.style.display='none'"
+        />
+      </div>
+
+      <div
+        class="relative z-10 bg-[#ffe182] rounded-3xl overflow-hidden shadow-sm border border-[#f5b83d] md:ml-24 lg:ml-20"
+      >
+        <div class="grid grid-cols-2 md:grid-cols-3">
+          <div
+            class="flex flex-col justify-center items-center p-6 md:p-8 text-center border-b border-r border-[#f5b83d]"
+          >
+            <p class="text-[15px] font-medium text-[#1a1e29] mb-1">
+              Boletos de cine
+            </p>
+            <p class="text-2xl md:text-3xl font-extrabold text-[#1a1e29]">
+              2x1
+            </p>
+          </div>
+
+          <div
+            class="flex flex-col justify-center items-center p-6 md:p-8 text-center border-b md:border-r border-[#f5b83d]"
+          >
+            <p class="text-[15px] font-medium text-[#1a1e29] mb-1">
+              Check Up Médico
+            </p>
+            <p class="text-2xl md:text-3xl font-extrabold text-[#1a1e29]">
+              Gratis
+            </p>
+          </div>
+
+          <div
+            class="flex flex-col justify-center items-center p-6 md:p-8 text-center border-b border-[#f5b83d] col-span-2 md:col-span-1"
+          >
+            <p class="text-[15px] font-medium text-[#1a1e29] mb-1">
+              Limpieza dental
+            </p>
+            <p class="text-2xl md:text-3xl font-extrabold text-[#1a1e29]">
+              Gratis
+            </p>
+          </div>
+
+          <div
+            class="flex flex-col justify-center items-center p-6 md:p-8 text-center border-r border-[#f5b83d]"
+          >
+            <p
+              class="text-[15px] font-medium text-[#1a1e29] leading-tight mb-2 max-w-[140px]"
+            >
+              Gastos médicos por accidente
+            </p>
+            <p class="text-xl md:text-2xl font-extrabold text-[#1a1e29]">
+              50,000 mxn
+            </p>
+          </div>
+
+          <div
+            class="flex flex-col justify-center items-center p-6 md:p-8 text-center md:border-r border-[#f5b83d]"
+          >
+            <p
+              class="text-[15px] font-medium text-[#1a1e29] leading-tight mb-2 max-w-[140px]"
+            >
+              Seguro de vida por muerte accidental
+            </p>
+            <p class="text-xl md:text-2xl font-extrabold text-[#1a1e29]">
+              $230,000 mxn
+            </p>
+          </div>
+
+          <div
+            class="flex flex-col justify-center items-center p-6 md:p-8 text-center col-span-2 md:col-span-1 border-t md:border-t-0 border-[#f5b83d]"
+          >
+            <p
+              class="text-[15px] font-medium text-[#1a1e29] leading-tight mb-2 max-w-[140px]"
+            >
+              Apoyo para gastos funerarios
+            </p>
+            <p class="text-xl md:text-2xl font-extrabold text-[#1a1e29]">
+              $30,000 mxn
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

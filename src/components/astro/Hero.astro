@@ -1,0 +1,54 @@
+---
+import celularPanda from '../../assets/images/celular-panda.png';
+---
+
+<section class="relative min-h-[80vh] sm:min-h-[90vh] flex items-center pt-[72px] bg-gradient-to-br from-panda-dark via-red-900 to-panda-dark overflow-hidden">
+  <!-- Decorative circles -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-20 right-20 w-64 h-64 rounded-full border-2 border-white"></div>
+    <div class="absolute bottom-20 left-10 w-48 h-48 rounded-full border border-white"></div>
+  </div>
+
+  <div class="relative max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+    <!-- Text -->
+    <div class="text-white">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
+        <span class="w-2 h-2 rounded-full bg-panda-green animate-pulse"></span>
+        <span class="text-sm font-medium">Miles de usuarios conectados</span>
+      </div>
+
+      <h1 class="font-unbounded text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6">
+        Tu conexión<br/><span class="text-panda-red">sin límites</span>
+      </h1>
+
+      <p class="text-lg sm:text-xl text-white/80 max-w-lg mb-10 font-poppins">
+        Planes de telefonía móvil, internet en casa y MiFi. Sin contratos, sin letra chica, a precios justos.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a
+          href="/tienda/"
+          class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-panda-red text-white font-bold text-lg hover:bg-panda-red-dark transition-colors shadow-lg shadow-panda-red/30"
+        >
+          Ver Planes
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a
+          href="https://app.pandamovil.mx"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/30 text-white font-medium hover:bg-white/10 transition-colors"
+        >
+          ¿Ya eres cliente? Mi Cuenta
+        </a>
+      </div>
+    </div>
+
+    <!-- Hero image -->
+    <div class="hidden md:flex justify-center">
+      <img src={celularPanda.src} alt="Panda Movil - Telefonía Móvil" width="400" height="500" class="max-h-[500px] w-auto drop-shadow-2xl" />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,90 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/astro/Header.astro";
+import Footer from "../components/astro/Footer.astro";
+import DynamicBanner from "../components/react/DynamicBanner";
+import { appLinks } from "../data/apps";
+---
+
+<BaseLayout
+  title="Descarga la app Be Online — iOS y Android"
+  description="Descarga la app Be Online para administrar tu línea, recargar saldo, contratar paquetes y consultar tu consumo desde tu iPhone o Android."
+>
+  <DynamicBanner
+    client:idle
+    transition:persist
+    transition:name="panda-banner"
+  />
+  <Header transition:persist transition:name="panda-header" />
+  <main transition:name="panda-main">
+    <section class="pt-28 pb-16 px-4 bg-white">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1
+          class="font-unbounded text-4xl sm:text-5xl font-bold text-panda-dark mb-4"
+        >
+          Descarga la app Be Online
+        </h1>
+        <p class="font-poppins text-lg text-panda-gray max-w-2xl mx-auto mb-10">
+          Administra tu línea, recarga, contrata paquetes y consulta tu consumo.
+          Todo desde tu celular.
+        </p>
+
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          {
+            appLinks.map((app) => (
+              <a
+                href={app.href}
+                target="_blank"
+                rel="noopener"
+                aria-label={app.badgeAlt}
+                class="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-panda-dark text-white hover:bg-black transition-colors font-poppins"
+              >
+                <span class="text-xs opacity-80">Descarga en</span>
+                <span class="text-base font-semibold">{app.label}</span>
+              </a>
+            ))
+          }
+        </div>
+
+        <p class="text-xs text-panda-gray mt-6">
+          {
+            appLinks.every((a) => a.href === "#") &&
+              "Las apps oficiales se actualizarán pronto en las tiendas."
+          }
+        </p>
+      </div>
+    </section>
+
+    <section class="px-4 pb-20">
+      <div class="max-w-4xl mx-auto grid sm:grid-cols-3 gap-6">
+        <div class="bg-panda-surface rounded-xl p-6">
+          <h3 class="font-unbounded font-bold text-panda-dark mb-2">
+            Recarga al instante
+          </h3>
+          <p class="text-sm text-panda-gray font-poppins">
+            Recarga tu saldo desde la app en segundos, con tarjeta o tienda.
+          </p>
+        </div>
+        <div class="bg-panda-surface rounded-xl p-6">
+          <h3 class="font-unbounded font-bold text-panda-dark mb-2">
+            Consulta tu consumo
+          </h3>
+          <p class="text-sm text-panda-gray font-poppins">
+            Mira cuántos GB, minutos y SMS te quedan en tiempo real.
+          </p>
+        </div>
+        <div class="bg-panda-surface rounded-xl p-6">
+          <h3 class="font-unbounded font-bold text-panda-dark mb-2">
+            Contrata paquetes
+          </h3>
+          <p class="text-sm text-panda-gray font-poppins">
+            Activa nuevos paquetes y planes sin salir de la app.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer transition:persist transition:name="panda-footer" />
+</BaseLayout>

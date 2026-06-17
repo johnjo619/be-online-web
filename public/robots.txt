@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pandamovil.mx/sitemap-index.xml

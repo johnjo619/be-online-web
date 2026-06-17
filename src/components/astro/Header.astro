@@ -1,0 +1,555 @@
+---
+import logo from "../../assets/images/logo.png";
+
+const { compact = true } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) => {
+  const normalized = href.replace(/\/$/, "") || "/";
+  return path === normalized;
+};
+
+/* Tabs replicados 1:1 desde ServiceSubNav.astro */
+const serviceTabs = [
+  { label: "Telefonía móvil", href: "/telefonia-movil/", icon: "phone" },
+  { label: "Internet en casa", href: "/internet-en-casa/", icon: "home" },
+  { label: "Internet portátil", href: "/internet-portatil/", icon: "wifi" },
+  { label: "Cobertura", href: "/cobertura/", icon: "map" },
+];
+
+const servicesActive = serviceTabs.some((t) => isActive(t.href));
+const pageHasSubNav = servicesActive;
+---
+
+<header
+  class="fixed left-0 right-0 z-50 bg-[#ffce54] shadow-sm"
+  style="top: var(--banner-h, 0px);"
+>
+  <div
+    class:list={[
+      "max-w-6xl mx-auto px-4 flex items-center justify-between",
+      compact ? "h-16" : "h-24",
+    ]}
+  >
+    <a href="/" class="flex items-center">
+      {/* Reemplazar src con beOnlineLogo.src */}
+      <img
+        src={logo.src}
+        alt="Be Online"
+        class:list={[compact ? "h-10" : "h-16", "w-auto"]}
+      />
+    </a>
+
+    <nav
+      class:list={[
+        "hidden md:flex items-center font-poppins font-medium text-gray-900",
+        compact ? "gap-6 text-sm" : "gap-9 text-base",
+      ]}
+    >
+      <div class="group" data-services-trigger>
+        <button
+          type="button"
+          class:list={[
+            "nav-link flex items-center gap-1.5 hover:text-black transition-colors tracking-tight",
+            servicesActive && "text-black is-active",
+          ]}
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Servicios
+          <svg
+            class="w-4 h-4 transition-transform group-hover:rotate-180"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+      </div>
+
+      <a
+        href="/contrata/"
+        aria-current={isActive("/contrata") ? "page" : undefined}
+        class:list={[
+          "nav-link hover:text-black transition-colors tracking-tight",
+          isActive("/contrata") && "text-black is-active",
+        ]}>Contrata</a
+      >
+
+      <a
+        href="/activa/"
+        aria-current={isActive("/activa") ? "page" : undefined}
+        class:list={[
+          "nav-link hover:text-black transition-colors tracking-tight",
+          isActive("/activa") && "text-black is-active",
+        ]}>Activa</a
+      >
+
+      <a
+        href="/recarga/"
+        aria-current={isActive("/recarga") ? "page" : undefined}
+        class:list={[
+          "nav-link hover:text-black transition-colors tracking-tight",
+          isActive("/recarga") && "text-black is-active",
+        ]}>Recarga</a
+      >
+
+      <a
+        href="/portabilidad/"
+        aria-current={isActive("/portabilidad") ? "page" : undefined}
+        class:list={[
+          "nav-link hover:text-black transition-colors tracking-tight",
+          isActive("/portabilidad") && "text-black is-active",
+        ]}>Portabilidad</a
+      >
+
+      <a
+        href="/#faq"
+        class="nav-link hover:text-black transition-colors tracking-tight"
+        >FAQ</a
+      >
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href="https://app.beonline.mx"
+        target="_blank"
+        rel="noopener"
+        class:list={[
+          "hidden sm:inline-flex items-center gap-2 rounded-full bg-[#1b252f] text-white font-poppins font-semibold hover:bg-black transition-colors",
+          compact ? "px-5 py-2 text-sm" : "px-7 py-3 text-base",
+        ]}
+      >
+        Be Online Móvil
+      </a>
+
+      <button
+        type="button"
+        data-mobile-menu-toggle
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg bg-white/20 text-gray-900 hover:bg-white/40 active:bg-white/50 transition-colors flex-shrink-0 border border-gray-800/10"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          stroke-width="2.5"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu"
+    data-mobile-menu
+    aria-hidden="true"
+    class="md:hidden fixed inset-0 z-[80] invisible opacity-0 transition-opacity duration-300"
+  >
+    <div
+      data-mobile-menu-backdrop
+      class="absolute inset-0 bg-black/60 backdrop-blur-sm"
+    >
+    </div>
+    <div
+      data-mobile-menu-panel
+      role="dialog"
+      aria-modal="true"
+      aria-label="Menú principal"
+      class="fixed right-0 top-0 bottom-0 w-[88%] max-w-[360px] h-screen bg-[#ffce54] shadow-2xl flex flex-col translate-x-full transition-transform duration-300 ease-out"
+      style="height: 100dvh;"
+    >
+      <div
+        class="flex items-center justify-between px-5 py-4 border-b border-gray-800/10 bg-[#ffce54]"
+      >
+        <img
+          src="/logo-be-online.png"
+          alt="Be Online"
+          width="160"
+          height="46"
+          class="h-8 w-auto"
+        />
+        <button
+          type="button"
+          data-mobile-menu-close
+          aria-label="Cerrar menú"
+          class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/20 text-gray-900 hover:bg-white/40 active:bg-white/50 transition-colors"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            stroke-width="2.5"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <nav
+        class="flex-1 min-h-0 overflow-y-auto px-3 py-4 space-y-0.5 bg-[#ffce54]"
+      >
+        <details class="group" open={servicesActive}>
+          <summary
+            class="list-none cursor-pointer flex items-center justify-between py-3.5 px-4 rounded-xl hover:bg-white/20 transition-colors min-h-[48px]"
+          >
+            <span class="font-poppins font-semibold text-[15px] text-gray-900"
+              >Servicios</span
+            >
+            <svg
+              class="w-5 h-5 text-gray-800 transition-transform group-open:rotate-180"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <ul class="pl-2 mt-0.5 space-y-0.5">
+            {
+              serviceTabs.map((tab) => (
+                <li>
+                  <a
+                    href={tab.href}
+                    aria-current={isActive(tab.href) ? "page" : undefined}
+                    class:list={[
+                      "flex items-center gap-3 py-3 px-4 rounded-xl text-[14px] font-poppins transition-colors min-h-[44px]",
+                      isActive(tab.href)
+                        ? "text-black bg-black/5 font-semibold"
+                        : "text-gray-900 hover:bg-white/20",
+                    ]}
+                  >
+                    <svg
+                      class="w-5 h-5 shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      {tab.icon === "phone" && (
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                        />
+                      )}
+                      {tab.icon === "home" && (
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        />
+                      )}
+                      {tab.icon === "wifi" && (
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
+                        />
+                      )}
+                      {tab.icon === "map" && (
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                        />
+                      )}
+                    </svg>
+                    <span>{tab.label}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </details>
+
+        <a
+          href="/contrata/"
+          aria-current={isActive("/contrata") ? "page" : undefined}
+          class:list={[
+            "flex items-center py-3.5 px-4 rounded-xl font-poppins font-semibold text-[15px] transition-colors min-h-[48px]",
+            isActive("/contrata")
+              ? "text-black bg-black/5"
+              : "text-gray-900 hover:bg-white/20",
+          ]}>Contrata</a
+        >
+        <a
+          href="/activa/"
+          aria-current={isActive("/activa") ? "page" : undefined}
+          class:list={[
+            "flex items-center py-3.5 px-4 rounded-xl font-poppins font-semibold text-[15px] transition-colors min-h-[48px]",
+            isActive("/activa")
+              ? "text-black bg-black/5"
+              : "text-gray-900 hover:bg-white/20",
+          ]}>Activa</a
+        >
+        <a
+          href="/recarga/"
+          aria-current={isActive("/recarga") ? "page" : undefined}
+          class:list={[
+            "flex items-center py-3.5 px-4 rounded-xl font-poppins font-semibold text-[15px] transition-colors min-h-[48px]",
+            isActive("/recarga")
+              ? "text-black bg-black/5"
+              : "text-gray-900 hover:bg-white/20",
+          ]}>Recarga</a
+        >
+        <a
+          href="/portabilidad/"
+          aria-current={isActive("/portabilidad") ? "page" : undefined}
+          class:list={[
+            "flex items-center py-3.5 px-4 rounded-xl font-poppins font-semibold text-[15px] transition-colors min-h-[48px]",
+            isActive("/portabilidad")
+              ? "text-black bg-black/5"
+              : "text-gray-900 hover:bg-white/20",
+          ]}>Portabilidad</a
+        >
+        <a
+          href="/#faq"
+          class="flex items-center py-3.5 px-4 rounded-xl font-poppins font-semibold text-[15px] text-gray-900 hover:bg-white/20 transition-colors min-h-[48px]"
+          >FAQ</a
+        >
+      </nav>
+
+      <div class="p-4 border-t border-gray-800/10 bg-[#ffce54]">
+        <a
+          href="https://app.beonline.mx"
+          target="_blank"
+          rel="noopener"
+          class="flex items-center justify-center gap-2 w-full py-3 rounded-full bg-[#1b252f] text-white font-poppins font-bold text-[15px] hover:bg-black transition-colors"
+        >
+          Be Online Móvil
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {
+    !pageHasSubNav && (
+      <div
+        data-services-flyout
+        aria-hidden="true"
+        class="absolute left-0 right-0 top-full bg-white border-b border-gray-100 shadow-sm opacity-0 invisible -translate-y-1 transition-all duration-200"
+      >
+        <div class="max-w-6xl mx-auto px-4">
+          <ul
+            class="flex items-center gap-1 overflow-x-auto scrollbar-hide"
+            role="tablist"
+          >
+            {serviceTabs.map((tab) => (
+              <li class="flex-shrink-0">
+                <a
+                  href={tab.href}
+                  class="flex items-center gap-2 px-4 py-3 text-sm font-poppins font-medium whitespace-nowrap text-gray-600 hover:text-black hover:bg-black/5 transition-colors border-b-2 border-transparent hover:border-black"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    {tab.icon === "phone" && (
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    )}
+                    {tab.icon === "home" && (
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    )}
+                    {tab.icon === "wifi" && (
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
+                      />
+                    )}
+                    {tab.icon === "map" && (
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                      />
+                    )}
+                  </svg>
+                  <span>{tab.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )
+  }
+</header>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    scrollbar-width: none;
+  }
+
+  header:has([data-services-trigger]:hover) [data-services-flyout],
+  header:has([data-services-flyout]:hover) [data-services-flyout] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-link {
+    position: relative;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -2px;
+    height: 3px;
+    border-radius: 9999px;
+    background-color: #1b252f;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-link:hover::after,
+  .nav-link.is-active::after {
+    transform: scaleX(1);
+  }
+
+  [data-mobile-menu].is-open {
+    visibility: visible;
+    opacity: 1;
+  }
+  [data-mobile-menu].is-open [data-mobile-menu-panel] {
+    transform: translateX(0);
+  }
+</style>
+
+<script is:inline>
+  function initMobileMenu() {
+    const menu = document.querySelector("[data-mobile-menu]");
+    const panel = document.querySelector("[data-mobile-menu-panel]");
+    const toggle = document.querySelector("[data-mobile-menu-toggle]");
+    const closeBtn = document.querySelector("[data-mobile-menu-close]");
+    const backdrop = document.querySelector("[data-mobile-menu-backdrop]");
+    if (!menu || !panel || !toggle) return;
+    if (toggle.dataset.menuInit === "1") return;
+    toggle.dataset.menuInit = "1";
+
+    const FOCUSABLE =
+      'a[href], button:not([disabled]), summary, [tabindex]:not([tabindex="-1"]), input:not([disabled]), select:not([disabled])';
+    let lastFocused = null;
+
+    const getFocusable = () =>
+      Array.from(panel.querySelectorAll(FOCUSABLE)).filter(
+        (el) => !el.hasAttribute("disabled"),
+      );
+
+    const open = () => {
+      lastFocused = document.activeElement;
+      menu.classList.add("is-open");
+      menu.classList.remove("invisible", "opacity-0");
+      panel.classList.remove("translate-x-full");
+      menu.setAttribute("aria-hidden", "false");
+      toggle.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+      requestAnimationFrame(() => {
+        const focusables = getFocusable();
+        focusables[0]?.focus();
+      });
+    };
+    const close = () => {
+      menu.classList.remove("is-open");
+      menu.classList.add("invisible", "opacity-0");
+      panel.classList.add("translate-x-full");
+      menu.setAttribute("aria-hidden", "true");
+      toggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+      if (lastFocused && typeof lastFocused.focus === "function")
+        lastFocused.focus();
+    };
+
+    toggle.addEventListener("click", open);
+    closeBtn?.addEventListener("click", close);
+    backdrop?.addEventListener("click", close);
+
+    document.addEventListener("keydown", (e) => {
+      if (!menu.classList.contains("is-open")) return;
+      if (e.key === "Escape") {
+        close();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const focusables = getFocusable();
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    menu.querySelectorAll("a[href]").forEach((a) => {
+      a.addEventListener("click", () => {
+        const href = a.getAttribute("href") || "";
+        if (
+          href.startsWith("/") ||
+          href.startsWith("#") ||
+          href.startsWith("/#")
+        )
+          close();
+      });
+    });
+  }
+
+  initMobileMenu();
+  document.addEventListener("astro:page-load", initMobileMenu);
+</script>

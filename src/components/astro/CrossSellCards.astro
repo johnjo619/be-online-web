@@ -1,0 +1,116 @@
+---
+import type { ServiceTab } from "./ServiceSubNav.astro";
+
+interface Props {
+  exclude: ServiceTab;
+}
+
+const { exclude } = Astro.props;
+
+// Cards wide PSD-match (278x138 ≈ 2:1): solo título + descripción + CTA link.
+const allCards: {
+  key: ServiceTab;
+  title: string;
+  description: string;
+  href: string;
+  cta: string;
+}[] = [
+  {
+    key: "telefonia",
+    title: "Telefonía Móvil",
+    description:
+      "Planes con redes ilimitadas, minutos y datos. Desde $99/mes sin contrato.",
+    href: "/telefonia-movil/",
+    cta: "Ver planes",
+  },
+  {
+    key: "internet-hogar",
+    title: "Internet en Casa",
+    description:
+      "Internet HBB sin cables, sin instalación. Llega a donde la fibra no llega.",
+    href: "/internet-en-casa/",
+    cta: "Conocer planes",
+  },
+  {
+    key: "mifi",
+    title: "Internet Portátil MiFi",
+    description:
+      "Wi-Fi de bolsillo, 10 dispositivos, batería todo el día. Para llevar contigo.",
+    href: "/internet-portatil/",
+    cta: "Ver MiFi",
+  },
+  {
+    key: "cobertura",
+    title: "Mapa de Cobertura",
+    description:
+      "Verifica si tu zona tiene cobertura 4G LTE Be Online antes de comprar.",
+    href: "/cobertura/",
+    cta: "Ver mapa",
+  },
+];
+
+const cards = allCards.filter((c) => c.key !== exclude).slice(0, 3);
+---
+
+<section class="relative py-10 md:py-14 overflow-hidden">
+  <!-- BG telefonia-05 con object-position-left para mantener mano+phone visible a la izquierda -->
+  <div class="absolute inset-0">
+    <img
+      src="/img/banners/services/telefonia-05.webp"
+      alt=""
+      aria-hidden="true"
+      class="w-full h-full object-cover object-center md:object-left"
+      loading="lazy"
+    />
+    <!-- Overlay muy sutil solo para legibilidad -->
+    <div class="absolute inset-0 bg-white/30"></div>
+  </div>
+
+  <div class="relative max-w-5xl mx-auto px-4">
+    <div class="text-center mb-6">
+      <h2
+        class="font-unbounded text-2xl sm:text-3xl font-bold text-panda-dark mb-1.5 drop-shadow-sm"
+      >
+        También te puede interesar
+      </h2>
+      <p class="font-poppins text-[13px] text-panda-gray drop-shadow-sm">
+        Conoce todo lo que Be Online tiene para ti.
+      </p>
+    </div>
+
+    <!-- Cards compactas, alineadas a la derecha de la sección para dejar ver mano+phone en izq -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:ml-auto md:max-w-3xl">
+      {
+        cards.map((card) => (
+          <a
+            href={card.href}
+            class="group block bg-white rounded-xl shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 px-4 py-3.5"
+          >
+            <h3 class="font-unbounded text-[13px] font-bold text-panda-dark mb-1 group-hover:text-panda-red transition-colors leading-tight">
+              {card.title}
+            </h3>
+            <p class="font-poppins text-[11px] text-panda-gray leading-snug mb-2 line-clamp-2">
+              {card.description}
+            </p>
+            <span class="inline-flex items-center gap-0.5 text-[11px] font-bold text-panda-red-dark">
+              {card.cta}
+              <svg
+                class="w-3 h-3 transition-transform group-hover:translate-x-0.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

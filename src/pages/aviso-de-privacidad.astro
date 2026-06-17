@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/astro/Header.astro";
+import DynamicBanner from "../components/react/DynamicBanner";
+import Footer from "../components/astro/Footer.astro";
+---
+
+<BaseLayout
+  title="Aviso de Privacidad — Be Online"
+  description="Aviso de privacidad de Be Online. Conoce cómo protegemos tus datos personales."
+>
+  <DynamicBanner client:idle />
+  <Header />
+  <main class="pt-24 pb-16 px-4">
+    <div class="max-w-3xl mx-auto prose prose-lg">
+      <h1 class="font-unbounded text-3xl font-bold text-panda-dark mb-8">
+        Aviso de Privacidad
+      </h1>
+
+      <p class="text-panda-gray font-poppins">
+        <strong>Panda Movil</strong>, con domicilio en Querétaro, México, es
+        responsable del tratamiento de los datos personales que nos proporcione,
+        los cuales serán protegidos conforme a lo dispuesto por la Ley Federal
+        de Protección de Datos Personales en Posesión de los Particulares
+        (LFPDPPP) y demás normatividad aplicable.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-8">
+        Datos que recopilamos
+      </h2>
+      <p class="text-panda-gray font-poppins">
+        Para las finalidades señaladas en el presente Aviso de Privacidad,
+        podemos recabar sus datos personales de distintas formas: cuando usted
+        nos los proporciona directamente, cuando visita nuestro sitio web o
+        utiliza nuestros servicios en línea, y cuando obtenemos información a
+        través de otras fuentes permitidas por la ley.
+      </p>
+      <ul class="text-panda-gray font-poppins">
+        <li>Nombre completo</li>
+        <li>Correo electrónico</li>
+        <li>Número telefónico</li>
+        <li>Datos de facturación y pago</li>
+      </ul>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-8">
+        Finalidad del tratamiento
+      </h2>
+      <p class="text-panda-gray font-poppins">
+        Sus datos personales serán utilizados para: proveer los servicios de
+        telecomunicaciones contratados, procesar pagos, atender solicitudes de
+        soporte, cumplir con obligaciones legales y regulatorias, y enviar
+        comunicaciones relacionadas con su servicio.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-8">
+        Derechos ARCO
+      </h2>
+      <p class="text-panda-gray font-poppins">
+        Usted tiene derecho a conocer qué datos personales tenemos, para qué los
+        utilizamos y las condiciones de uso (Acceso). Asimismo, es su derecho
+        solicitar la corrección de su información personal en caso de que esté
+        desactualizada, sea inexacta o incompleta (Rectificación); que la
+        eliminemos de nuestros registros o bases de datos cuando considere que
+        la misma no está siendo utilizada adecuadamente (Cancelación); así como
+        oponerse al uso de sus datos personales para fines específicos
+        (Oposición).
+      </p>
+      <p class="text-panda-gray font-poppins">
+        Para ejercer sus derechos ARCO, puede contactarnos al correo
+        <a
+          href="mailto:privacidad@pandamovil.mx"
+          class="text-panda-red hover:underline">privacidad@pandamovil.mx</a
+        >
+        o llamando al <strong>*777</strong> desde su línea Be Online.
+      </p>
+
+      <h2 class="font-unbounded text-xl font-bold text-panda-dark mt-8">
+        Contacto
+      </h2>
+      <p class="text-panda-gray font-poppins">
+        Si tiene alguna duda sobre este Aviso de Privacidad, puede contactarnos
+        en:<br />
+        Correo: <a
+          href="mailto:privacidad@pandamovil.mx"
+          class="text-panda-red hover:underline">privacidad@pandamovil.mx</a
+        ><br />
+        Teléfono: *777
+      </p>
+
+      <p class="text-panda-gray font-poppins text-sm mt-8">
+        Última actualización: Marzo 2026
+      </p>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

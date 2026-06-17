@@ -1,0 +1,195 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/astro/Header.astro";
+import Footer from "../components/astro/Footer.astro";
+import DynamicBanner from "../components/react/DynamicBanner";
+import ServiceShell from "../components/astro/ServiceShell.astro";
+import MobileStickyCta from "../components/astro/MobileStickyCta.astro";
+import { organizationSchema, localBusinessSchema } from "../lib/schema";
+
+const mapUrl = "https://api.celink.mx/map/pandamovil";
+---
+
+<BaseLayout
+  title="Cobertura Be Online — 4G LTE en 32 estados | Mapa interactivo"
+  description="Consulta el mapa de cobertura Be Online en tu zona. Tecnología 4G LTE Altán Redes en 32 estados y más de 2,000 ciudades. Verifica tu zona antes de comprar."
+  jsonLd={[organizationSchema(), localBusinessSchema()]}
+>
+  <DynamicBanner
+    client:idle
+    transition:persist
+    transition:name="panda-banner"
+  />
+  <Header transition:persist transition:name="panda-header" />
+
+  <main transition:name="panda-main">
+    <ServiceShell
+      service="cobertura"
+      serviceLabel="Cobertura"
+      ctaTitle="¿Tu zona tiene cobertura?"
+      ctaSubtitle="Verifica en el mapa, elige tu plan y empieza hoy."
+      ctaLabel="Ver planes"
+      ctaHref="/telefonia-movil"
+    >
+      <!-- HERO -->
+      <section slot="hero" class="bg-white pt-6 pb-10 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+          <p
+            class="inline-block px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-700 text-xs font-semibold uppercase tracking-wider mb-4"
+          >
+            Cobertura 4G LTE
+          </p>
+          <h1
+            class="font-unbounded text-4xl sm:text-5xl lg:text-6xl font-bold text-panda-dark mb-4 leading-tight"
+          >
+            Cobertura en <span class="text-panda-red">32 estados</span>
+          </h1>
+          <p class="font-poppins text-lg text-panda-gray max-w-2xl mx-auto">
+            Verifica si tu zona tiene cobertura Be Online antes de comprar. Red
+            4G LTE Altán con presencia nacional.
+          </p>
+        </div>
+      </section>
+
+      <!-- PRODUCT (mapa) -->
+      <section slot="product" class="px-4 pb-12">
+        <div class="max-w-6xl mx-auto">
+          <div
+            class="rounded-2xl overflow-hidden shadow-xl border border-gray-100 bg-white"
+          >
+            <iframe
+              src={mapUrl}
+              title="Mapa de cobertura Be Online"
+              loading="lazy"
+              class="w-full h-[420px] sm:h-[500px] md:h-[70vh] md:min-h-[500px] border-0"
+              allow="geolocation"></iframe>
+          </div>
+          <p class="text-center text-sm text-panda-gray mt-3">
+            ¿Problemas con el mapa? <a
+              href={mapUrl}
+              target="_blank"
+              rel="noopener"
+              class="text-panda-red hover:underline">Abrir en pestaña nueva ↗</a
+            >
+          </p>
+        </div>
+      </section>
+
+      <!-- CONTENT (SEO long-form) -->
+      <section slot="content" class="py-16 px-4 bg-white">
+        <div class="max-w-3xl mx-auto prose prose-lg font-poppins">
+          <h2
+            class="font-unbounded text-2xl sm:text-3xl font-bold text-panda-dark mb-3"
+          >
+            Cobertura 4G LTE Be Online en México
+          </h2>
+          <p class="text-panda-gray leading-relaxed mb-6">
+            Be Online opera sobre la <strong
+              >Red Compartida 4G LTE de Altán Redes</strong
+            >, una red mayorista neutra construida específicamente para
+            Operadores Móviles Virtuales como nosotros. Esta infraestructura
+            cubre los 32 estados de la República Mexicana y más de 2,000
+            ciudades.
+          </p>
+          <p class="text-panda-gray leading-relaxed mb-6">
+            La cobertura sigue creciendo cada año. Si tu zona no aparece con
+            señal hoy, verifica de nuevo en unos meses — la red se expande
+            continuamente, especialmente en zonas rurales y suburbanas que las
+            grandes operadoras tradicionales no priorizan.
+          </p>
+
+          <h2
+            class="font-unbounded text-2xl sm:text-3xl font-bold text-panda-dark mt-10 mb-3"
+          >
+            ¿Qué red usamos?
+          </h2>
+          <p class="text-panda-gray leading-relaxed mb-6">
+            La <strong>Red Compartida</strong> es un proyecto de telecomunicaciones
+            nacido de la Reforma de Telecomunicaciones de 2013. Su objetivo: dar acceso
+            mayorista a banda 700 MHz para que múltiples operadores puedan competir
+            sin tener que invertir miles de millones en infraestructura propia.
+          </p>
+          <p class="text-panda-gray leading-relaxed mb-6">
+            Para ti, esto se traduce en una red moderna, con tecnología 4G LTE
+            pura (no 3G heredado), construida en los últimos años con equipo de
+            última generación.
+          </p>
+
+          <h2
+            class="font-unbounded text-2xl sm:text-3xl font-bold text-panda-dark mt-10 mb-3"
+          >
+            ¿Por qué tu teléfono no toma señal?
+          </h2>
+          <p class="text-panda-gray leading-relaxed mb-4">
+            Si tu zona aparece con cobertura pero no tomas señal, las causas más
+            comunes son:
+          </p>
+          <ul class="text-panda-gray leading-relaxed space-y-2 mb-6">
+            <li>
+              <strong>Equipo no compatible con banda 700 MHz:</strong> revisa que
+              tu teléfono soporte la banda B28 (LTE-FDD 700 APT). Casi todos los teléfonos
+              vendidos en México desde 2018 la incluyen.
+            </li>
+            <li>
+              <strong>SIM no activada:</strong> verifica que tu línea esté activa
+              desde la app Be Online.
+            </li>
+            <li>
+              <strong>Modo avión activado / red en manual:</strong> reinicia el equipo
+              y selecciona red automática.
+            </li>
+            <li>
+              <strong>APN incorrecto:</strong> usa <code
+                >internet.itelcel.com</code
+              > o el APN que aparece en tu app.
+            </li>
+            <li>
+              <strong>Zona con sombra:</strong> obstáculos físicos (cerros, edificios)
+              pueden bloquear señal en puntos específicos.
+            </li>
+          </ul>
+
+          <h2
+            class="font-unbounded text-2xl sm:text-3xl font-bold text-panda-dark mt-10 mb-3"
+          >
+            Servicios disponibles según cobertura
+          </h2>
+          <p class="text-panda-gray leading-relaxed mb-6">
+            Donde tu zona tenga cobertura 4G LTE puedes contratar cualquiera de
+            nuestros servicios:
+          </p>
+          <ul class="text-panda-gray leading-relaxed space-y-2 mb-6">
+            <li>
+              <a
+                href="/telefonia-movil"
+                class="text-panda-red hover:underline font-semibold"
+                >Telefonía móvil</a
+              > — planes desde $99/mes con redes ilimitadas.
+            </li>
+            <li>
+              <a
+                href="/internet-en-casa"
+                class="text-panda-red hover:underline font-semibold"
+                >Internet en casa HBB</a
+              > — Wi-Fi para tu hogar o negocio sin cables.
+            </li>
+            <li>
+              <a
+                href="/internet-portatil"
+                class="text-panda-red hover:underline font-semibold"
+                >Internet portátil MiFi</a
+              > — Wi-Fi de bolsillo para llevar contigo.
+            </li>
+          </ul>
+        </div>
+      </section>
+    </ServiceShell>
+  </main>
+
+  <MobileStickyCta
+    priceFrom="$99/mes"
+    ctaLabel="Ver planes"
+    ctaHref="/telefonia-movil"
+  />
+  <Footer transition:persist transition:name="panda-footer" />
+</BaseLayout>

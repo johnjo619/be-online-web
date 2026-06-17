@@ -1,0 +1,61 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  bgImage?: string;
+}
+
+const {
+  title = "¿Listo para conectarte con Be Online?",
+  subtitle = "Sin contratos, sin letra chica. Tu conexión empieza hoy.",
+  ctaLabel = "Comprar plan",
+  ctaHref = "/contrata",
+  secondaryLabel = "Hablar con soporte",
+  secondaryHref = "https://wa.me/524424401925",
+  bgImage = "/img/banners/services/telefonia-06.webp",
+} = Astro.props;
+---
+
+<section class="relative py-16 px-4 overflow-hidden bg-panda-dark text-white">
+  <!-- BG configurable por service (telefonia-06 / internet-casa-04 / mifi / cobertura-* ) -->
+  <img
+    src={bgImage}
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 w-full h-full object-cover object-center"
+    loading="lazy"
+  />
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-panda-dark/55 via-panda-dark/45 to-panda-dark/70 pointer-events-none"
+  >
+  </div>
+
+  <div class="relative max-w-4xl mx-auto text-center">
+    <h2 class="font-unbounded text-3xl sm:text-4xl font-bold mb-3">
+      {title}
+    </h2>
+    <p class="font-poppins text-lg text-gray-300 mb-8">
+      {subtitle}
+    </p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a
+        href={ctaHref}
+        class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-panda-red hover:bg-panda-red-dark text-white font-semibold transition-colors"
+      >
+        {ctaLabel}
+      </a>
+      <a
+        href={secondaryHref}
+        target={secondaryHref.startsWith("http") ? "_blank" : undefined}
+        rel={secondaryHref.startsWith("http") ? "noopener" : undefined}
+        class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold transition-colors"
+      >
+        {secondaryLabel}
+      </a>
+    </div>
+  </div>
+</section>

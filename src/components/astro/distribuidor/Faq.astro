@@ -1,0 +1,95 @@
+---
+/**
+ * FAQ del programa de distribuidores — reusa estética de FAQ.astro existente.
+ */
+const items = [
+  {
+    q: "¿Necesito invertir mucho dinero para empezar?",
+    a: "No. Empiezas con solo $500 MXN de recarga inicial (precio promocional, regular $3,000). Incluye 10 SIMs gratis y $750 MXN de saldo bonificado en tu primera recarga.",
+  },
+  {
+    q: "¿Cuánto gano por cada venta?",
+    a: "20% por cada activación de línea nueva, 20% adicional si el cliente trae un número portado (port-in), 5% en cada compra de tiempo aire y un 10% mensual residual sobre todas las recargas que hagan tus clientes — para siempre, mientras estén activos.",
+  },
+  {
+    q: "¿Cuándo y cómo cobro mis comisiones?",
+    a: "Las comisiones se acreditan automáticamente en tu Oficina Virtual de Be Online. Puedes consultar tu balance, ventas y ganancias en tiempo real.",
+  },
+  {
+    q: "¿Hay un mínimo de ventas mensuales?",
+    a: "No hay cuotas mínimas. Vendes a tu ritmo. El residual mensual del 10% en recargas se sigue generando incluso si un mes no haces ventas nuevas.",
+  },
+  {
+    q: "¿Necesito un local físico?",
+    a: "No. Puedes empezar desde casa, vender entre conocidos, redes sociales o tu propio comercio. La Oficina Virtual + app móvil cubren toda la operación.",
+  },
+  {
+    q: "¿Qué incluye el soporte y capacitación?",
+    a: "Onboarding inicial 1:1, materiales promocionales (flyers), acceso a la plataforma con capacitación en línea, y soporte continuo del equipo Be Online cuando lo necesites.",
+  },
+  {
+    q: "¿Puedo vender en cualquier estado de México?",
+    a: "Sí. Nuestra red 4G LTE cubre el 90% de zonas urbanas y 85% rural a nivel nacional. Verifica la cobertura exacta en /cobertura.",
+  },
+  {
+    q: "¿Cómo me dan de alta como distribuidor?",
+    a: "Llena la solicitud abajo. Nuestro equipo de ventas te contactará en menos de 24 horas para confirmar tus datos, procesar el pago del pack inicial y enviarte tus SIMs. Cero burocracia.",
+  },
+];
+---
+
+<section id="faq" class="py-16 sm:py-20 bg-white">
+  <div class="max-w-3xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <p
+        class="font-poppins text-[11px] uppercase tracking-[0.2em] text-panda-red font-semibold mb-3"
+      >
+        Resolvemos tus dudas
+      </p>
+      <h2
+        class="font-unbounded text-3xl sm:text-4xl font-bold text-panda-dark mb-4"
+      >
+        Preguntas frecuentes
+      </h2>
+      <p class="font-poppins text-base text-panda-gray">
+        Lo que normalmente nos preguntan antes de empezar.
+      </p>
+    </div>
+
+    <div class="space-y-0">
+      {
+        items.map((item) => (
+          <details class="group border-b border-gray-200 last:border-b-0">
+            <summary class="flex items-center justify-between w-full py-4 sm:py-5 px-3 sm:px-2 min-h-[56px] cursor-pointer list-none font-poppins font-semibold text-panda-dark text-left hover:text-panda-red transition-colors select-none">
+              <span class="pr-4">{item.q}</span>
+              <svg
+                class="w-5 h-5 flex-shrink-0 text-panda-gray transition-transform duration-300 group-open:rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </summary>
+            <div class="pb-5 px-3 sm:px-2">
+              <p class="font-poppins text-panda-gray leading-relaxed">
+                {item.a}
+              </p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

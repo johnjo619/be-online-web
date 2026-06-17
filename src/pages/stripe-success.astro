@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/astro/Header.astro";
+import Footer from "../components/astro/Footer.astro";
+---
+
+<BaseLayout
+  title="Compra exitosa — Be Online"
+  description="Tu pedido ha sido procesado correctamente"
+>
+  <Header />
+  <main class="min-h-[80vh] flex items-center justify-center pt-[72px] px-4">
+    <div class="text-center max-w-md">
+      <div
+        class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6"
+      >
+        <svg
+          class="w-10 h-10 text-panda-green"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+      <h1 class="font-unbounded text-3xl font-bold text-panda-dark mb-4">
+        ¡Compra exitosa!
+      </h1>
+      <p class="text-panda-gray mb-2 font-poppins">
+        Tu pedido ha sido procesado correctamente.
+      </p>
+      <p class="text-panda-gray mb-8 font-poppins">
+        Revisa tu correo electrónico para más detalles sobre tu plan y
+        activación.
+      </p>
+      <a
+        href="/"
+        class="inline-flex items-center px-6 py-3 rounded-full bg-panda-red text-white font-semibold hover:bg-panda-red-dark transition-colors shadow-lg shadow-panda-red/30"
+      >
+        Volver al inicio
+      </a>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

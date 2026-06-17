@@ -1,0 +1,82 @@
+---
+import { filterFaqByCategory, type FAQCategory } from "../../data/faq";
+import { faqPageSchema } from "../../lib/schema";
+
+interface Props {
+  category?: FAQCategory;
+  injectSchema?: boolean;
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  category,
+  injectSchema = true,
+  title = "Preguntas frecuentes",
+  subtitle = "Todo lo que necesitas saber.",
+} = Astro.props;
+
+const items = filterFaqByCategory(category);
+---
+
+<section id="faq" class="font-sans">
+  <!-- ENCABEZADO (Fondo Oscuro) -->
+  <div class="bg-[#1a1e29] py-12 md:py-16 text-center px-4">
+    <h2
+      class="text-3xl md:text-4xl lg:text-[40px] font-extrabold text-white mb-3 tracking-tight"
+    >
+      {title}
+    </h2>
+    <p class="text-[17px] md:text-xl text-white font-bold">
+      {subtitle}
+    </p>
+  </div>
+
+  <!-- LISTA DE PREGUNTAS (Fondo Amarillo) -->
+  <div class="bg-[#fccd4d] py-12 md:py-16 px-4">
+    <div class="max-w-[900px] mx-auto space-y-3 md:space-y-4">
+      {
+        items.map((item) => (
+          <details class="group bg-[#ffe182] rounded-[24px] overflow-hidden shadow-sm transition-all duration-300">
+            <summary class="flex items-center justify-between w-full py-3.5 px-6 md:px-8 cursor-pointer list-none font-bold text-[#1a1e29] text-left select-none text-[12px] md:text-[14px]">
+              <span class="pr-4">{item.question}</span>
+              <svg
+                class="w-5 h-5 flex-shrink-0 text-[#1a1e29] transition-transform duration-300 group-open:rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </summary>
+            <div class="pb-5 px-6 md:px-8 pt-1">
+              <p class="font-medium text-[#1a1e29] leading-relaxed text-[12px] md:text-[14px]">
+                {item.answer}
+              </p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+{
+  injectSchema && (
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(faqPageSchema(items))}
+    />
+  )
+}
+
+<style>
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

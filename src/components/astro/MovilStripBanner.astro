@@ -1,0 +1,71 @@
+---
+// Banner strip full-bleed: imagen ancha (panda+chico bailando) + CTA centrado.
+// Usado entre PlanSelector y MovilIncluye en /telefonia-movil/.
+
+interface Props {
+  image?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
+  heading?: string;
+  subheading?: string;
+}
+
+const {
+  image = "/img/banners/services/telefonia-02.webp",
+  ctaHref = "/tienda/?service=movil",
+  ctaLabel = "Activar mi línea",
+  heading = "Conecta a tu tarifa fija con Be Online",
+  subheading = "Sin permanencia. Sin letra chica. Solo paga lo que usas.",
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden" aria-labelledby="movil-strip-heading">
+  <!-- Banner full-bleed -->
+  <img
+    src={image}
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 w-full h-full object-cover object-center"
+    loading="lazy"
+  />
+  <!-- Overlay rojo SOLO en lados (texto centrado tiene fondo más visible del banner) -->
+  <div
+    class="absolute inset-0 bg-gradient-to-r from-panda-red/95 via-panda-red/30 to-panda-red/95"
+  >
+  </div>
+  <div class="absolute inset-0 bg-panda-red/10"></div>
+
+  <div
+    class="relative max-w-6xl mx-auto px-4 py-14 md:py-16 text-center text-white"
+  >
+    <h2
+      id="movil-strip-heading"
+      class="font-unbounded text-2xl sm:text-3xl md:text-4xl font-bold mb-2 drop-shadow-md"
+    >
+      {heading}
+    </h2>
+    <p
+      class="font-poppins text-sm sm:text-base text-white/95 max-w-xl mx-auto mb-6 drop-shadow"
+    >
+      {subheading}
+    </p>
+    <a
+      href={ctaHref}
+      class="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-panda-red font-bold text-sm sm:text-base hover:bg-gray-100 hover:scale-105 transition-all shadow-xl font-poppins"
+    >
+      {ctaLabel}
+      <svg
+        class="w-4 h-4"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+      </svg>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,64 @@
+/* Google Fonts loaded via <link rel="preload" as="style"> en SEOHead.astro
+   para evitar bloqueo de renderizado del @import en CSS. */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  /* Escala base 16px → 18px (todo lo rem-based crece 12.5%) para mejor
+     presencia visual en desktop y match con la densidad del PDF de diseño. */
+  font-size: 18px;
+}
+
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Unbounded', system-ui, sans-serif;
+}
+
+.section-padding {
+  @apply py-16 px-6 md:py-24 md:px-8;
+}
+
+/* Hide scrollbar pero mantener scroll funcional (usado por carruseles horizontales) */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* View Transitions: contenido sube como si fuera scroll one-page */
+@keyframes panda-slide-out-up {
+  to { transform: translateY(-2rem); opacity: 0; }
+}
+@keyframes panda-slide-in-up {
+  from { transform: translateY(2rem); opacity: 0; }
+}
+@keyframes panda-slide-out-down {
+  to { transform: translateY(2rem); opacity: 0; }
+}
+@keyframes panda-slide-in-down {
+  from { transform: translateY(-2rem); opacity: 0; }
+}
+
+::view-transition-old(panda-main) {
+  animation: panda-slide-out-up 220ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+::view-transition-new(panda-main) {
+  animation: panda-slide-in-up 320ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* En navegacion hacia atras (browser back), invertimos para sensacion de subir */
+[data-astro-transition="back"]::view-transition-old(panda-main) {
+  animation: panda-slide-out-down 220ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+[data-astro-transition="back"]::view-transition-new(panda-main) {
+  animation: panda-slide-in-down 320ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}

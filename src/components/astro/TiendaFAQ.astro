@@ -1,0 +1,32 @@
+---
+const faqs = [
+  { question: '¿Cuánto tarda el envío de la SIM?', answer: 'El envío de la SIM física tarda de 2 a 5 días hábiles. Si eliges eSIM, la recibes al instante por correo electrónico.' },
+  { question: '¿Qué es una eSIM?', answer: 'Una eSIM es una SIM digital integrada en tu dispositivo. No necesitas chip físico — se activa escaneando un código QR que recibirás por correo.' },
+  { question: '¿Puedo cambiar de plan después?', answer: 'Sí, puedes cambiar de plan en cualquier momento. Solo ingresa a la sección de Activar y selecciona Recargar para elegir un nuevo plan.' },
+  { question: '¿Qué métodos de pago aceptan?', answer: 'Aceptamos tarjeta de crédito/débito (Visa, Mastercard, AMEX), pago en OXXO, MercadoPago y PayPal.' },
+  { question: '¿La SIM incluye el plan?', answer: 'Sí, al comprar tu SIM o eSIM ya viene incluido el plan que seleccionaste. Tu línea se activa automáticamente.' },
+];
+---
+
+<section class="py-16 bg-white">
+  <div class="max-w-3xl mx-auto px-4">
+    <h2 class="font-unbounded text-2xl sm:text-3xl font-bold text-panda-dark mb-10 text-center">
+      Preguntas sobre tu compra
+    </h2>
+    <div class="space-y-0">
+      {faqs.map((item) => (
+        <details class="group border-b border-gray-200 last:border-b-0">
+          <summary class="flex items-center justify-between w-full py-5 px-2 cursor-pointer list-none font-poppins font-semibold text-panda-dark text-left hover:text-panda-red transition-colors select-none">
+            <span class="pr-4">{item.question}</span>
+            <svg class="w-5 h-5 flex-shrink-0 text-panda-gray transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pb-5 px-2">
+            <p class="font-poppins text-panda-gray leading-relaxed">{item.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/astro/Header.astro";
+import DynamicBanner from "../../components/react/DynamicBanner";
+import TiendaHero from "../../components/astro/TiendaHero.astro";
+import TiendaFlow from "../../components/react/TiendaFlow";
+import TiendaFAQ from "../../components/astro/TiendaFAQ.astro";
+import Footer from "../../components/astro/Footer.astro";
+import { organizationSchema } from "../../lib/schema";
+
+const jsonLd = [
+  organizationSchema(),
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "SIM / eSIM Be Online",
+    description:
+      "Compra tu SIM o eSIM digital Be Online. Planes sin contrato desde $99 MXN.",
+    brand: { "@type": "Brand", name: "Panda Movil" },
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "MXN",
+      lowPrice: "50",
+      highPrice: "599",
+      offerCount: 20,
+      availability: "https://schema.org/InStock",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Inicio",
+        item: "https://pandamovil.mx/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tienda",
+        item: "https://pandamovil.mx/tienda/",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Contratar Be Online — Móvil, Internet en casa o MiFi sin contratos"
+  description="Contrata telefonía móvil, internet en casa (HBB) o internet portátil (MiFi) Be Online. Sin contratos. Para HBB y MiFi elige si incluyes el equipo o solo activas el plan. Paga con tarjeta, OXXO o MercadoPago."
+  jsonLd={jsonLd}
+>
+  <DynamicBanner client:idle />
+  <Header />
+
+  <main class="pt-[72px]">
+    <TiendaHero />
+
+    <!-- Trust Bar -->
+    <div class="bg-white py-4 border-y border-gray-100">
+      <div
+        class="max-w-6xl mx-auto px-4 flex flex-wrap items-center justify-center gap-6 text-sm font-poppins text-panda-gray"
+      >
+        <span class="flex items-center gap-1">
+          <span class="text-yellow-400">★★★★★</span> 4.8/5
+        </span>
+        <span class="w-px h-4 bg-gray-200"></span>
+        <span>Cobertura Nacional</span>
+        <span class="w-px h-4 bg-gray-200"></span>
+        <span class="flex items-center gap-2">
+          <span>💳 Stripe</span>
+          <span>· MercadoPago</span>
+          <span>· OXXO</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Plans + Checkout Flow — el H2 viejo se eliminó porque cada step
+         (ServiceChooser, plans, checkout) ya tiene su propio SectionHeader
+         numerado con la nueva estética homologada. -->
+    <section
+      class="py-12 sm:py-16"
+      style="background: linear-gradient(160deg, #f8fafc 0%, #ffffff 100%);"
+    >
+      <div class="max-w-6xl mx-auto px-4">
+        <TiendaFlow client:visible />
+      </div>
+    </section>
+
+    <TiendaFAQ />
+  </main>
+
+  <Footer />
+</BaseLayout>

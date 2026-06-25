@@ -156,7 +156,7 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
               Elige el SIM que te convenga mas.
             </p>
 
-            <div className="flex flex-col md:flex-row justify-center items-start gap-8 md:gap-16 max-w-2xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 max-w-2xl mx-auto">
               {/* Opción eSIM */}
               <div
                 className="flex items-center gap-4 cursor-pointer flex-1"
@@ -178,7 +178,7 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
 
               {/* Opción SIM Física */}
               <div
-                className="flex items-end gap-4 cursor-pointer flex-1"
+                className="flex items-center gap-4 cursor-pointer flex-1"
                 onClick={() => setSimType('fisica')}
               >
                 <img src={sim2.src} alt="SIM" className="w-20 mb-4 object-contain" />

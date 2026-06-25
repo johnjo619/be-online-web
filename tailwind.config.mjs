@@ -15,8 +15,8 @@ export default {
         'section-alt': '#f1f5f9',
       },
       fontFamily: {
-        unbounded: ['Unbounded', 'system-ui', 'sans-serif'],
-        poppins: ['Poppins', 'system-ui', 'sans-serif'],
+        unbounded: ['Sora', 'system-ui', 'sans-serif'],
+        poppins: ['Sora', 'system-ui', 'sans-serif'],
       },
     },
   },

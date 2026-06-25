@@ -13,12 +13,12 @@ html {
 }
 
 body {
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: 'Sora', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3 {
-  font-family: 'Unbounded', system-ui, sans-serif;
+  font-family: 'Sora', system-ui, sans-serif;
 }
 
 .section-padding {

@@ -33,9 +33,8 @@ const DEFAULTS = {
   preHeadline: 'El plan que rinde más:\ncontrata hoy y llévate',
   headlineHighlight: 'GRATIS',
   headlineMain: '2 BOLETOS de\nCINE AL MES',
-  subHeadline: 'con cualquier plan.',
+  subHeadline: 'con tu plan de 4Gb o 12Gb.',
   disclaimer: '*Planes de 30 días en adelante.',
-  primaryCta: { label: 'Contrata hoy', href: '/contrata/' } as CtaProp,
 };
 
 export default function HeroBanner({
@@ -89,7 +88,7 @@ export default function HeroBanner({
 
     return (
       <section className={`relative flex items-center ${compact ? 'min-h-[420px] md:min-h-[500px] lg:min-h-[600px] pt-[48px]' : 'min-h-[460px] md:min-h-[540px] lg:min-h-[650px] pt-[72px]'} bg-[#0a1118] overflow-hidden`}>
-        
+
         {/* Imagen de fondo (Asientos de cine) */}
         <img
           src={fallbackImage}
@@ -100,7 +99,7 @@ export default function HeroBanner({
           loading="eager"
           fetchPriority="high"
         />
-        
+
         {/* Gradiente oscuro a la izquierda para legibilidad del texto */}
         <div className="absolute inset-y-0 left-0 w-full md:w-2/3 bg-gradient-to-r from-black/80 via-black/50 md:via-black/40 to-transparent pointer-events-none" />
 
@@ -108,9 +107,9 @@ export default function HeroBanner({
         <div className="relative max-w-6xl mx-auto px-6 sm:px-8 grid md:grid-cols-2 gap-8 items-center w-full">
           {/* Columna de texto (lado izquierdo) */}
           <div className="text-white pt-8 md:pt-0">
-            
+
             {preHeadline && (
-              <p className="text-lg md:text-2xl font-bold font-poppins mb-1 leading-snug whitespace-pre-line drop-shadow-md">
+              <p className="text-lg md:text-2xl font-poppins mb-1 leading-snug whitespace-pre-line drop-shadow-md">
                 {preHeadline}
               </p>
             )}
@@ -122,16 +121,19 @@ export default function HeroBanner({
             </h1>
 
             {subHeadline && (
-              <p className="text-xl md:text-3xl font-bold font-poppins mb-1 drop-shadow-md">
+              <p className="text-xl md:text-2xl font-poppins mb-1 drop-shadow-md">
                 {subHeadline}
               </p>
             )}
 
             {disclaimer && (
-              <p className="text-sm md:text-base text-white/90 font-poppins mb-8 drop-shadow-md">
+              <p className="text-sm  text-white/90 font-poppins drop-shadow-md">
                 {disclaimer}
               </p>
             )}
+            <p className="text-[0.5rem] text-white/90 font-poppins drop-shadow-md">
+              Promoción válida durante los primeros 6 meses.
+            </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
               {primaryCta && (
@@ -177,10 +179,10 @@ export default function HeroBanner({
   const Wrapper = b.link_url ? 'a' : 'div';
   const wrapperProps = b.link_url
     ? {
-        href: b.link_url,
-        target: b.link_target || '_self',
-        ...(b.link_target === '_blank' ? { rel: 'noopener noreferrer' } : {}),
-      }
+      href: b.link_url,
+      target: b.link_target || '_self',
+      ...(b.link_target === '_blank' ? { rel: 'noopener noreferrer' } : {}),
+    }
     : {};
 
   return (
@@ -192,9 +194,8 @@ export default function HeroBanner({
       {banners.map((banner, i) => (
         <picture
           key={banner.slug}
-          className={`absolute inset-0 transition-opacity duration-700 ${
-            i === current ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`absolute inset-0 transition-opacity duration-700 ${i === current ? 'opacity-100' : 'opacity-0'
+            }`}
         >
           {banner.images?.mobile && (
             <source media="(max-width: 639px)" srcSet={banner.images.mobile} />
@@ -240,11 +241,10 @@ export default function HeroBanner({
             <button
               key={i}
               onClick={() => goTo(i)}
-              className={`w-3 h-3 rounded-full transition-all ${
-                i === current
-                  ? 'bg-[#ffce54] scale-125'
-                  : 'bg-white/50 hover:bg-white/80'
-              }`}
+              className={`w-3 h-3 rounded-full transition-all ${i === current
+                ? 'bg-[#ffce54] scale-125'
+                : 'bg-white/50 hover:bg-white/80'
+                }`}
               aria-label={`Banner ${i + 1}`}
             />
           ))}

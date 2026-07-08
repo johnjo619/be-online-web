@@ -1,37 +1,25 @@
----
-// Cómo funciona — match PSD artboard 0 exacto: sección 1920x377 (aspect 5.1:1).
-// La imagen telefonia-02 ES el bg completo (panda izq, joven der, ondas rojas).
-// Contenido (título + subtítulo + 3 steps) overlay en el centro sobre las ondas.
-// En desktop la sección bloquea su aspect ratio igual al PSD. Mobile usa min-height.
----
-
 <section
-  class="relative overflow-hidden bg-[#E72E42] min-h-[360px] md:min-h-0 md:aspect-[1920/377]"
+  class="relative overflow-hidden bg-[#0B1F3A] min-h-[360px] md:min-h-0 md:aspect-[1920/377]"
 >
-  <!-- BG: imagen original sin extensión, aspect matches section -->
-  <img
-    src="/img/banners/services/telefonia-02.webp"
-    alt=""
-    aria-hidden="true"
-    class="absolute inset-0 w-full h-full object-cover object-center"
-    loading="lazy"
-  />
+  <!-- Capa azul obscura sobre la imagen completa -->
+  <div class="absolute inset-0 bg-[#0B1F3A] z-10"></div>
 
   <!-- Contenido overlay -->
   <div
-    class="relative md:absolute md:inset-0 flex flex-col items-center justify-center px-4 py-10 md:py-0 text-center text-white"
+    class="relative z-20 md:absolute md:inset-0 flex flex-col items-center justify-center px-4 py-10 md:py-0 text-center text-white"
   >
     <h2
-      class="font-unbounded text-xl sm:text-2xl md:text-[28px] lg:text-[32px] font-bold mb-2 drop-shadow-md leading-tight max-w-3xl"
+      class="font-unbounded text-xl sm:text-2xl md:text-[28px] lg:text-[32px] font-bold mb-2 leading-tight max-w-3xl text-white"
     >
       Cómo funciona la telefonía móvil Be Online
     </h2>
+
     <p
-      class="font-poppins text-[11px] sm:text-xs md:text-[13px] lg:text-sm text-white/95 max-w-xl mx-auto mb-5 md:mb-4 leading-snug drop-shadow"
+      class="font-poppins text-[11px] sm:text-xs md:text-[13px] lg:text-sm text-white max-w-xl mx-auto mb-5 md:mb-4 leading-snug"
     >
-      Somos un Operador Móvil Virtual (OMV) que opera sobre la <strong
-        >Red Compartida 4G LTE de Altán Redes</strong
-      >, la misma red de los grandes — al precio justo.
+      Somos un Operador Móvil Virtual (OMV) que opera sobre la
+      <strong>Red Compartida 4G LTE de Altán Redes</strong>, la misma red de los
+      grandes — al precio justo.
     </p>
 
     <div
@@ -39,17 +27,17 @@
     >
       <div class="flex flex-col items-center text-center">
         <div
-          class="w-8 h-8 md:w-9 md:h-9 rounded-md bg-white/15 border border-white/40 flex items-center justify-center font-unbounded font-bold text-base md:text-lg text-white mb-1.5 backdrop-blur-sm"
+          class="w-8 h-8 md:w-9 md:h-9 rounded-md bg-[#F4C400] flex items-center justify-center font-unbounded font-bold text-base md:text-lg text-[#0B1F3A] mb-1.5"
         >
           1
         </div>
         <h3
-          class="font-unbounded text-[11px] md:text-xs font-bold text-white mb-0.5 drop-shadow leading-tight"
+          class="font-unbounded text-[11px] md:text-xs font-bold text-white mb-0.5 leading-tight"
         >
           Elige tu plan
         </h3>
         <p
-          class="font-poppins text-[9px] md:text-[10.5px] text-white/90 leading-tight max-w-[150px] drop-shadow"
+          class="font-poppins text-[9px] md:text-[10.5px] text-white leading-tight max-w-[150px]"
         >
           Xpress, Mensual o Anual. Sin contrato, sin permanencia.
         </p>
@@ -57,17 +45,17 @@
 
       <div class="flex flex-col items-center text-center">
         <div
-          class="w-8 h-8 md:w-9 md:h-9 rounded-md bg-white/15 border border-white/40 flex items-center justify-center font-unbounded font-bold text-base md:text-lg text-white mb-1.5 backdrop-blur-sm"
+          class="w-8 h-8 md:w-9 md:h-9 rounded-md bg-[#F4C400] flex items-center justify-center font-unbounded font-bold text-base md:text-lg text-[#0B1F3A] mb-1.5"
         >
           2
         </div>
         <h3
-          class="font-unbounded text-[11px] md:text-xs font-bold text-white mb-0.5 drop-shadow leading-tight"
+          class="font-unbounded text-[11px] md:text-xs font-bold text-white mb-0.5 leading-tight"
         >
           eSIM o SIM física
         </h3>
         <p
-          class="font-poppins text-[9px] md:text-[10.5px] text-white/90 leading-tight max-w-[150px] drop-shadow"
+          class="font-poppins text-[9px] md:text-[10.5px] text-white leading-tight max-w-[150px]"
         >
           Activa con eSIM al instante o recibe tu chip en 24-48 horas.
         </p>
@@ -75,22 +63,26 @@
 
       <div class="flex flex-col items-center text-center">
         <div
-          class="w-8 h-8 md:w-9 md:h-9 rounded-md bg-white/15 border border-white/40 flex items-center justify-center font-unbounded font-bold text-base md:text-lg text-white mb-1.5 backdrop-blur-sm"
+          class="w-8 h-8 md:w-9 md:h-9 rounded-md bg-[#F4C400] flex items-center justify-center font-unbounded font-bold text-base md:text-lg text-[#0B1F3A] mb-1.5"
         >
           3
         </div>
         <h3
-          class="font-unbounded text-[11px] md:text-xs font-bold text-white mb-0.5 drop-shadow leading-tight"
+          class="font-unbounded text-[11px] md:text-xs font-bold text-white mb-0.5 leading-tight"
         >
           Conecta y navega
         </h3>
         <p
-          class="font-poppins text-[9px] md:text-[10.5px] text-white/90 leading-tight max-w-[150px] drop-shadow"
+          class="font-poppins text-[9px] md:text-[10.5px] text-white leading-tight max-w-[150px]"
         >
-          Recarga cuando quieras. <a
+          Recarga cuando quieras.
+          <a
             href="/activar/?flow=portar"
-            class="text-white font-bold underline">Porta tu número</a
-          > en menos de 48h.
+            class="text-white font-bold underline"
+          >
+            Porta tu número
+          </a>
+          en menos de 48h.
         </p>
       </div>
     </div>

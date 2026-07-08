@@ -272,7 +272,7 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
               ¿Te quedaste sin datos?
             </h2>
             <p className="text-base md:text-2xl text-[#1a1e29] font-medium mb-10">
-              No te preocupes, sólo tienes que contratar nuestros ADD ONS
+              No te preocupes, sólo tienes que contratar nuestros planes express
             </p>
 
             <div className="flex flex-wrap justify-center gap-6">

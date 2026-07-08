@@ -668,7 +668,7 @@ export default function TiendaFlow() {
             <div className="max-w-[850px] mx-auto bg-white rounded-[2.5rem] p-8 md:px-16 md:py-12 relative shadow-2xl">
               {/* Astronaut */}
               {!isRecarga && (
-                <div className="absolute -top-28 -right-4 md:-right-10 hidden md:block w-40 z-20">
+                <div className="absolute -top-28 -right-4 md:-right-10 hidden md:block w-[13rem] z-20">
                   <img
                     src={astronautaImagen.src}
                     alt="Bienvenido"

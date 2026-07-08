@@ -2,128 +2,268 @@
 // eSIM vs SIM física — match PSD artboard 0:
 // Comparte bg con MovilPlanTypes (lo aplica el wrapper en telefonia-movil.astro).
 // Cards con imágenes reales extraídas del PSD (esim-card.webp + sim-card.webp).
+import sim1 from "@/assets/images/sim1.png";
+import sim2 from "@/assets/images/sim2.png";
 ---
 
-<section class="relative pt-8 md:pt-12 pb-14 md:pb-20 overflow-hidden bg-transparent">
+<section
+  class="relative pt-8 md:pt-12 pb-14 md:pb-20 overflow-hidden bg-transparent"
+>
   <div class="relative max-w-6xl mx-auto px-4">
     <div class="text-center mb-10">
-      <h2 class="font-unbounded text-3xl sm:text-4xl font-bold text-panda-dark mb-3">
+      <h2 class="font-unbounded text-3xl sm:text-4xl font-bold text-white mb-3">
         eSIM o SIM física: tú eliges
       </h2>
-      <p class="font-poppins text-sm sm:text-base text-panda-gray max-w-2xl mx-auto">
-        Activa al instante con eSIM o recibe tu chip a domicilio. La misma red, el mismo plan, dos formas de empezar.
+      <p class="font-poppins text-sm sm:text-base text-white max-w-2xl mx-auto">
+        Activa al instante con eSIM o recibe tu chip a domicilio. La misma red,
+        el mismo plan, dos formas de empezar.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7 max-w-4xl mx-auto">
-
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7 max-w-4xl mx-auto"
+    >
       <!-- eSIM CARD -->
-      <article class="relative bg-white rounded-3xl shadow-xl shadow-panda-dark/10 overflow-hidden border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+      <article
+        class="relative bg-white rounded-3xl shadow-xl shadow-panda-dark/10 overflow-hidden border border-gray-100 hover:-translate-y-1 transition-transform duration-300"
+      >
         <!-- Badges top -->
         <div class="flex items-center gap-2 px-5 pt-4">
-          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-panda-green text-[10px] font-bold font-poppins">
+          <span
+            class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-panda-green text-[10px] font-bold font-poppins"
+          >
             <span class="w-1.5 h-1.5 rounded-full bg-panda-green"></span>
             RECOMENDADO
           </span>
-          <span class="font-poppins text-[11px] font-semibold text-panda-gray">5 minutos</span>
+          <span class="font-poppins text-[11px] font-semibold text-panda-gray"
+            >5 minutos</span
+          >
         </div>
         <!-- Imagen eSIM 1000x1000 (1:1) en container aspect-[3/2] con object-cover:
              mismo size que SIM card, sin dominar la card -->
         <div class="px-4 pt-2 bg-white">
           <img
-            src="/img/banners/services/esim-card.webp"
+            src={sim1.src}
             alt="eSIM digital"
-            width="1000"
-            height="1000"
-            class="block w-full aspect-[3/2] object-cover object-center rounded-xl"
+            class="block max-w-24 mx-auto rounded-xl"
             loading="lazy"
           />
         </div>
 
         <!-- Bottom: white content -->
         <div class="p-6">
-          <h3 class="font-unbounded text-xl font-bold text-panda-dark mb-2">eSIM digital</h3>
+          <h3 class="font-unbounded text-xl font-bold text-panda-dark mb-2">
+            eSIM digital
+          </h3>
           <p class="font-poppins text-sm text-panda-gray mb-4 leading-relaxed">
             Escaneas un QR y listo. Sin chip físico, sin envíos, sin esperar.
           </p>
           <ul class="space-y-2 mb-5">
-            <li class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark">
-              <svg class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li
+              class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark"
+            >
+              <svg
+                class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 13l4 4L19 7"></path></svg
+              >
               Activación en <strong>5 minutos</strong>
             </li>
-            <li class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark">
-              <svg class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li
+              class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark"
+            >
+              <svg
+                class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 13l4 4L19 7"></path></svg
+              >
               Compatible con iPhone XR+, Pixel 3+, Galaxy S20+
             </li>
-            <li class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark">
-              <svg class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li
+              class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark"
+            >
+              <svg
+                class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 13l4 4L19 7"></path></svg
+              >
               Cambia de número sin perder señal
             </li>
-            <li class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark">
-              <svg class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li
+              class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark"
+            >
+              <svg
+                class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 13l4 4L19 7"></path></svg
+              >
               Sin riesgo de perder el chip
             </li>
           </ul>
-          <a href="/contrata/?type=esim" class="inline-flex items-center gap-2 font-poppins text-sm font-bold text-panda-red-dark hover:gap-3 transition-all">
+          <a
+            href="/contrata/?type=esim"
+            class="inline-flex items-center gap-2 font-poppins text-sm font-bold text-panda-red-dark hover:gap-3 transition-all"
+          >
             Activar mi eSIM
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg
+            >
           </a>
         </div>
       </article>
 
       <!-- SIM FÍSICA CARD -->
-      <article class="relative bg-white rounded-3xl shadow-xl shadow-panda-dark/10 overflow-hidden border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+      <article
+        class="relative bg-white rounded-3xl shadow-xl shadow-panda-dark/10 overflow-hidden border border-gray-100 hover:-translate-y-1 transition-transform duration-300"
+      >
         <!-- Badges top -->
         <div class="flex items-center gap-2 px-5 pt-4">
-          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-panda-green text-[10px] font-bold font-poppins">
+          <span
+            class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-panda-green text-[10px] font-bold font-poppins"
+          >
             <span class="w-1.5 h-1.5 rounded-full bg-panda-green"></span>
             RECOMENDADO
           </span>
-          <span class="font-poppins text-[11px] font-semibold text-panda-gray">24-48h envío</span>
+          <span class="font-poppins text-[11px] font-semibold text-panda-gray"
+            >24-48h envío</span
+          >
         </div>
         <!-- Imagen SIM 1499x1000 (3:2 nativo) en container aspect-[3/2] - mismo size eSIM -->
         <div class="px-4 pt-2 bg-white">
           <img
-            src="/img/banners/services/sim-card.webp"
+            src={sim2.src}
             alt="SIM física"
-            width="1499"
-            height="1000"
-            class="block w-full aspect-[3/2] object-cover object-center rounded-xl"
+            class="block max-w-36 mx-auto rounded-xl"
             loading="lazy"
           />
         </div>
 
         <!-- Bottom: white content -->
         <div class="p-6">
-          <h3 class="font-unbounded text-xl font-bold text-panda-dark mb-2">SIM física</h3>
+          <h3 class="font-unbounded text-xl font-bold text-panda-dark mb-2">
+            SIM física
+          </h3>
           <p class="font-poppins text-sm text-panda-gray mb-4 leading-relaxed">
-            Te enviamos el chip a tu domicilio o recógelo en un punto autorizado.
+            Te enviamos el chip a tu domicilio o recógelo en un punto
+            autorizado.
           </p>
           <ul class="space-y-2 mb-5">
-            <li class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark">
-              <svg class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li
+              class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark"
+            >
+              <svg
+                class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 13l4 4L19 7"></path></svg
+              >
               Compatible con <strong>cualquier celular</strong>
             </li>
-            <li class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark">
-              <svg class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li
+              class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark"
+            >
+              <svg
+                class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 13l4 4L19 7"></path></svg
+              >
               Envío a toda la república
             </li>
-            <li class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark">
-              <svg class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li
+              class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark"
+            >
+              <svg
+                class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 13l4 4L19 7"></path></svg
+              >
               Formato Nano/Micro/Estándar (3-in-1)
             </li>
-            <li class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark">
-              <svg class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li
+              class="flex items-start gap-2 font-poppins text-[13px] text-panda-dark"
+            >
+              <svg
+                class="w-4 h-4 mt-0.5 text-panda-green flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                ><path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 13l4 4L19 7"></path></svg
+              >
               Recogida también en distribuidores
             </li>
           </ul>
-          <a href="/contrata/?type=sim" class="inline-flex items-center gap-2 font-poppins text-sm font-bold text-panda-red-dark hover:gap-3 transition-all">
+          <a
+            href="/contrata/?type=sim"
+            class="inline-flex items-center gap-2 font-poppins text-sm font-bold text-panda-red-dark hover:gap-3 transition-all"
+          >
             Pedir mi SIM física
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg
+            >
           </a>
         </div>
       </article>
-
     </div>
   </div>
 </section>

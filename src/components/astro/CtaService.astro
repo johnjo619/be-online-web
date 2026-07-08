@@ -7,6 +7,7 @@ interface Props {
   secondaryLabel?: string;
   secondaryHref?: string;
   bgImage?: string;
+  service?: string;
 }
 
 const {
@@ -17,42 +18,81 @@ const {
   secondaryLabel = "Hablar con soporte",
   secondaryHref = "https://wa.me/524424401925",
   bgImage = "/img/banners/services/telefonia-06.webp",
+  service = "",
 } = Astro.props;
+
+const isMifi = service === "mifi";
 ---
 
-<section class="relative py-16 px-4 overflow-hidden bg-panda-dark text-white">
-  <!-- BG configurable por service (telefonia-06 / internet-casa-04 / mifi / cobertura-* ) -->
-  <img
-    src={bgImage}
-    alt=""
-    aria-hidden="true"
-    class="absolute inset-0 w-full h-full object-cover object-center"
-    loading="lazy"
-  />
+<section
+  class:list={[
+    "relative py-16 px-4 overflow-hidden",
+    isMifi ? "bg-[#F4C430] text-black" : "bg-panda-dark text-white",
+  ]}
+>
+  {
+    !isMifi && (
+      <img
+        src={bgImage}
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-0 w-full h-full object-cover object-center"
+        loading="lazy"
+      />
+    )
+  }
   <div
-    class="absolute inset-0 bg-gradient-to-b from-panda-dark/55 via-panda-dark/45 to-panda-dark/70 pointer-events-none"
+    class:list={[
+      "absolute inset-0 pointer-events-none",
+      isMifi
+        ? "bg-[#F4C430]/88"
+        : "bg-gradient-to-b from-panda-dark/55 via-panda-dark/45 to-panda-dark/70",
+    ]}
   >
   </div>
 
   <div class="relative max-w-4xl mx-auto text-center">
-    <h2 class="font-unbounded text-3xl sm:text-4xl font-bold mb-3">
+    <h2
+      class:list={[
+        "font-unbounded text-3xl sm:text-4xl font-bold mb-3",
+        isMifi ? "text-black" : "text-white",
+      ]}
+    >
       {title}
     </h2>
-    <p class="font-poppins text-lg text-gray-300 mb-8">
+
+    <p
+      class:list={[
+        "font-poppins text-lg mb-8",
+        isMifi ? "text-black/80" : "text-gray-300",
+      ]}
+    >
       {subtitle}
     </p>
+
     <div class="flex flex-col sm:flex-row gap-3 justify-center">
       <a
         href={ctaHref}
-        class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-panda-red hover:bg-panda-red-dark text-white font-semibold transition-colors"
+        class:list={[
+          "inline-flex items-center justify-center px-8 py-3 rounded-full font-semibold transition-colors",
+          isMifi
+            ? "bg-black hover:bg-black/85 text-[#F4C430]"
+            : "bg-panda-red hover:bg-panda-red-dark text-white",
+        ]}
       >
         {ctaLabel}
       </a>
+
       <a
         href={secondaryHref}
         target={secondaryHref.startsWith("http") ? "_blank" : undefined}
         rel={secondaryHref.startsWith("http") ? "noopener" : undefined}
-        class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold transition-colors"
+        class:list={[
+          "inline-flex items-center justify-center px-8 py-3 rounded-full font-semibold transition-colors border",
+          isMifi
+            ? "bg-white/50 hover:bg-white/70 text-black border-black/15"
+            : "bg-white/10 hover:bg-white/20 text-white border-white/10",
+        ]}
       >
         {secondaryLabel}
       </a>

@@ -42,22 +42,6 @@ import {
       ctaTitle="Tu nuevo plan, en minutos"
       ctaSubtitle="Activa tu eSIM o recibe tu SIM física en casa. Sin contratos, sin sorpresas."
     >
-      <!-- HERO: banner conectado al CRM (section=movil). Si no hay banners,
-           cae al fallback estático con copy específico de telefonía móvil. -->
-      <div slot="hero">
-        <HeroBanner
-          client:load
-          section="movil"
-          fallbackImage="/img/banners/services/telefonia-01.webp"
-          proofText="Miles de usuarios conectados"
-          headlineLine1="Telefonía móvil"
-          headlineLine2="sin contratos"
-          description="Llamadas, SMS, datos 4G LTE y redes sociales ilimitadas. Sin permanencia ni letra chica. Activa tu eSIM en minutos."
-          primaryCta={{ label: "Ver planes", href: "#planes" }}
-          secondaryCta={{ label: "Verificar cobertura", href: "/cobertura" }}
-        />
-      </div>
-
       <!-- PRODUCT -->
       <div slot="product">
         <PlanSelector client:visible />
@@ -74,8 +58,12 @@ import {
              pero con bg-fixed para que la imagen no se estire al crecer la sección. -->
         <section
           class="relative overflow-hidden bg-cover bg-center bg-no-repeat md:bg-fixed"
-          style="background-image: url(/img/banners/services/telefonia-03.webp);"
+          style="background-image: url(/img/banner2.jpg);"
         >
+          <div
+            class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/70 pointer-events-none"
+          >
+          </div>
           <MovilPlanTypes />
           <MovilSimVsEsim />
         </section>

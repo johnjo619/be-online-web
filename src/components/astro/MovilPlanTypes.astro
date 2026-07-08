@@ -4,92 +4,226 @@
 // + tags inline + precio destacado abajo. Mensual elevado (POPULAR), Anual con badge.
 ---
 
-<section class="relative pt-14 md:pt-20 pb-8 md:pb-12 overflow-hidden bg-transparent">
+<section
+  class="relative pt-14 md:pt-20 pb-8 md:pb-12 overflow-hidden bg-transparent"
+>
   <div class="relative max-w-6xl mx-auto px-4">
     <div class="text-center mb-10">
-      <h2 class="font-unbounded text-3xl sm:text-4xl font-bold text-panda-dark mb-3">
+      <h2 class="font-unbounded text-3xl sm:text-4xl font-bold text-white mb-3">
         Plan Xpress, Mensual o Anual: ¿cuál te conviene?
       </h2>
-      <p class="font-poppins text-sm sm:text-base text-panda-gray max-w-2xl mx-auto">
-        Tres familias de planes para distintos estilos de uso. Cambia entre ellas cuando quieras.
+      <p class="font-poppins text-sm sm:text-base text-white max-w-2xl mx-auto">
+        Tres familias de planes para distintos estilos de uso. Cambia entre
+        ellas cuando quieras.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto items-start">
-
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto items-start"
+    >
       <!-- XPRESS -->
-      <div class="relative bg-white rounded-2xl border border-gray-100 shadow-md hover:shadow-xl transition-shadow text-center p-6 pt-8">
+      <div
+        class="relative bg-white rounded-2xl border border-gray-100 shadow-md hover:shadow-xl transition-shadow text-center p-6 pt-8"
+      >
         <!-- Duration pill arriba -->
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-panda-red/10 text-panda-red mb-4">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          <span class="font-poppins text-[10px] font-bold uppercase tracking-wider">3 a 30 días</span>
+        <div
+          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-panda-red/10 text-panda-red mb-4"
+        >
+          <svg
+            class="w-3.5 h-3.5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg
+          >
+          <span
+            class="font-poppins text-[10px] font-bold uppercase tracking-wider"
+            >3 a 30 días</span
+          >
         </div>
-        <h3 class="font-unbounded text-2xl font-bold text-panda-dark mb-2">Xpress</h3>
-        <p class="font-poppins text-[13px] text-panda-gray mb-4 leading-relaxed">
+        <h3 class="font-unbounded text-2xl font-bold text-panda-dark mb-2">
+          Xpress
+        </h3>
+        <p
+          class="font-poppins text-[13px] text-panda-gray mb-4 leading-relaxed"
+        >
           Para viajes, uso temporal o probar el servicio antes de comprometerte.
         </p>
         <div class="flex flex-wrap gap-1.5 justify-center mb-5">
-          <span class="px-2 py-0.5 rounded-md bg-panda-surface text-panda-dark text-[10px] font-poppins font-semibold">Viajes</span>
-          <span class="px-2 py-0.5 rounded-md bg-panda-surface text-panda-dark text-[10px] font-poppins font-semibold">Prueba</span>
-          <span class="px-2 py-0.5 rounded-md bg-panda-surface text-panda-dark text-[10px] font-poppins font-semibold">Eventos</span>
+          <span
+            class="px-2 py-0.5 rounded-md bg-panda-surface text-panda-dark text-[10px] font-poppins font-semibold"
+            >Viajes</span
+          >
+          <span
+            class="px-2 py-0.5 rounded-md bg-panda-surface text-panda-dark text-[10px] font-poppins font-semibold"
+            >Prueba</span
+          >
+          <span
+            class="px-2 py-0.5 rounded-md bg-panda-surface text-panda-dark text-[10px] font-poppins font-semibold"
+            >Eventos</span
+          >
         </div>
         <div class="pt-4 border-t border-gray-100">
-          <p class="font-poppins text-[10px] text-panda-gray uppercase tracking-wider font-semibold mb-1">Desde</p>
-          <p class="font-unbounded text-2xl font-bold text-panda-red leading-none">$50<span class="text-sm text-panda-gray font-normal ml-1">/3 días</span></p>
+          <p
+            class="font-poppins text-[10px] text-panda-gray uppercase tracking-wider font-semibold mb-1"
+          >
+            Desde
+          </p>
+          <p
+            class="font-unbounded text-2xl font-bold text-panda-red leading-none"
+          >
+            $50<span class="text-sm text-panda-gray font-normal ml-1"
+              >/3 días</span
+            >
+          </p>
         </div>
       </div>
 
       <!-- MENSUAL — POPULAR (elevated) -->
-      <div class="relative bg-white rounded-2xl border-2 border-panda-red shadow-2xl shadow-panda-red/15 text-center p-6 pt-9 md:-translate-y-3">
-        <span class="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-panda-red text-white text-[10px] font-bold font-poppins uppercase tracking-wider shadow-lg">
-          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <div
+        class="relative bg-white rounded-2xl border-2 border-panda-red shadow-2xl shadow-panda-red/15 text-center p-6 pt-9 md:-translate-y-3"
+      >
+        <span
+          class="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-panda-red text-white text-[10px] font-bold font-poppins uppercase tracking-wider shadow-lg"
+        >
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"
+            ><path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+            ></path></svg
+          >
           Popular
         </span>
         <!-- Duration pill -->
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-panda-red text-white mb-4 shadow-md shadow-panda-red/30">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          <span class="font-poppins text-[10px] font-bold uppercase tracking-wider">30 días</span>
+        <div
+          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-panda-red text-white mb-4 shadow-md shadow-panda-red/30"
+        >
+          <svg
+            class="w-3.5 h-3.5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            ></path></svg
+          >
+          <span
+            class="font-poppins text-[10px] font-bold uppercase tracking-wider"
+            >30 días</span
+          >
         </div>
-        <h3 class="font-unbounded text-2xl font-bold text-panda-dark mb-2">Mensual</h3>
-        <p class="font-poppins text-[13px] text-panda-gray mb-4 leading-relaxed">
-          El balance ideal entre datos amplios y precio justo. Renovación cada 30 días.
+        <h3 class="font-unbounded text-2xl font-bold text-panda-dark mb-2">
+          Mensual
+        </h3>
+        <p
+          class="font-poppins text-[13px] text-panda-gray mb-4 leading-relaxed"
+        >
+          El balance ideal entre datos amplios y precio justo. Renovación cada
+          30 días.
         </p>
         <div class="flex flex-wrap gap-1.5 justify-center mb-5">
-          <span class="px-2 py-0.5 rounded-md bg-panda-red/8 text-panda-red text-[10px] font-poppins font-semibold">Uso diario</span>
-          <span class="px-2 py-0.5 rounded-md bg-panda-red/8 text-panda-red text-[10px] font-poppins font-semibold">Llamadas USA/CA</span>
-          <span class="px-2 py-0.5 rounded-md bg-panda-red/8 text-panda-red text-[10px] font-poppins font-semibold">Hotspot</span>
+          <span
+            class="px-2 py-0.5 rounded-md bg-panda-red/8 text-panda-red text-[10px] font-poppins font-semibold"
+            >Uso diario</span
+          >
+          <span
+            class="px-2 py-0.5 rounded-md bg-panda-red/8 text-panda-red text-[10px] font-poppins font-semibold"
+            >Llamadas USA/CA</span
+          >
+          <span
+            class="px-2 py-0.5 rounded-md bg-panda-red/8 text-panda-red text-[10px] font-poppins font-semibold"
+            >Hotspot</span
+          >
         </div>
         <div class="pt-4 border-t border-panda-red/15">
-          <p class="font-poppins text-[10px] text-panda-gray uppercase tracking-wider font-semibold mb-1">Desde</p>
-          <p class="font-unbounded text-3xl font-bold text-panda-red leading-none">$199<span class="text-sm text-panda-gray font-normal ml-1">/mes</span></p>
+          <p
+            class="font-poppins text-[10px] text-panda-gray uppercase tracking-wider font-semibold mb-1"
+          >
+            Desde
+          </p>
+          <p
+            class="font-unbounded text-3xl font-bold text-panda-red leading-none"
+          >
+            $199<span class="text-sm text-panda-gray font-normal ml-1"
+              >/mes</span
+            >
+          </p>
         </div>
       </div>
 
       <!-- ANUAL -->
-      <div class="relative bg-white rounded-2xl border border-gray-100 shadow-md hover:shadow-xl transition-shadow text-center p-6 pt-8">
-        <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-panda-green text-white text-[10px] font-bold font-poppins uppercase tracking-wider shadow-md">
+      <div
+        class="relative bg-white rounded-2xl border border-gray-100 shadow-md hover:shadow-xl transition-shadow text-center p-6 pt-8"
+      >
+        <span
+          class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-panda-green text-white text-[10px] font-bold font-poppins uppercase tracking-wider shadow-md"
+        >
           Ahorra 30%
         </span>
         <!-- Duration pill -->
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-panda-red/10 text-panda-red mb-4">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span class="font-poppins text-[10px] font-bold uppercase tracking-wider">12 meses</span>
+        <div
+          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-panda-red/10 text-panda-red mb-4"
+        >
+          <svg
+            class="w-3.5 h-3.5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg
+          >
+          <span
+            class="font-poppins text-[10px] font-bold uppercase tracking-wider"
+            >12 meses</span
+          >
         </div>
-        <h3 class="font-unbounded text-2xl font-bold text-panda-dark mb-2">Anual</h3>
-        <p class="font-poppins text-[13px] text-panda-gray mb-4 leading-relaxed">
-          Un solo pago, olvídate de recargar todo el año. Mejor precio garantizado.
+        <h3 class="font-unbounded text-2xl font-bold text-panda-dark mb-2">
+          Anual
+        </h3>
+        <p
+          class="font-poppins text-[13px] text-panda-gray mb-4 leading-relaxed"
+        >
+          Un solo pago, olvídate de recargar todo el año. Mejor precio
+          garantizado.
         </p>
         <div class="flex flex-wrap gap-1.5 justify-center mb-5">
-          <span class="px-2 py-0.5 rounded-md bg-panda-surface text-panda-dark text-[10px] font-poppins font-semibold">Sin recargas</span>
-          <span class="px-2 py-0.5 rounded-md bg-panda-surface text-panda-dark text-[10px] font-poppins font-semibold">Mejor precio</span>
-          <span class="px-2 py-0.5 rounded-md bg-panda-surface text-panda-dark text-[10px] font-poppins font-semibold">Regalo</span>
+          <span
+            class="px-2 py-0.5 rounded-md bg-panda-surface text-panda-dark text-[10px] font-poppins font-semibold"
+            >Sin recargas</span
+          >
+          <span
+            class="px-2 py-0.5 rounded-md bg-panda-surface text-panda-dark text-[10px] font-poppins font-semibold"
+            >Mejor precio</span
+          >
+          <span
+            class="px-2 py-0.5 rounded-md bg-panda-surface text-panda-dark text-[10px] font-poppins font-semibold"
+            >Regalo</span
+          >
         </div>
         <div class="pt-4 border-t border-gray-100">
-          <p class="font-poppins text-[10px] text-panda-gray uppercase tracking-wider font-semibold mb-1">Desde</p>
-          <p class="font-unbounded text-2xl font-bold text-panda-red leading-none">$1,499<span class="text-sm text-panda-gray font-normal ml-1">/año</span></p>
+          <p
+            class="font-poppins text-[10px] text-panda-gray uppercase tracking-wider font-semibold mb-1"
+          >
+            Desde
+          </p>
+          <p
+            class="font-unbounded text-2xl font-bold text-panda-red leading-none"
+          >
+            $1,499<span class="text-sm text-panda-gray font-normal ml-1"
+              >/año</span
+            >
+          </p>
         </div>
       </div>
-
     </div>
   </div>
 </section>

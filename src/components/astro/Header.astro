@@ -2,16 +2,18 @@
 import logo from "../../assets/images/logo.png";
 
 const { compact = true } = Astro.props;
-const path = Astro.url.pathname.replace(/\/$/, "").replace(/\/index\.html$/, "") || "/";
+const path =
+  Astro.url.pathname.replace(/\/$/, "").replace(/\/index\.html$/, "") || "/";
 const isActive = (href: string) => {
-  const normalized = href.replace(/\/$/, "").replace(/\/index\.html$/, "") || "/";
+  const normalized =
+    href.replace(/\/$/, "").replace(/\/index\.html$/, "") || "/";
   return path === normalized;
 };
 
 /* Tabs replicados 1:1 desde ServiceSubNav.astro */
 const serviceTabs = [
   { label: "Telefonía móvil", href: "/telefonia-movil/", icon: "phone" },
-  { label: "Internet en casa", href: "/internet-en-casa/", icon: "home" },
+  // { label: "Internet en casa", href: "/internet-en-casa/", icon: "home" },
   { label: "Internet portátil", href: "/internet-portatil/", icon: "wifi" },
   { label: "Cobertura", href: "/cobertura/", icon: "map" },
 ];

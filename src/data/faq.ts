@@ -11,7 +11,7 @@ export interface FAQItem {
 export const faqItems: FAQItem[] = [
   {
     question: "¿Qué es Be Online?",
-    answer: "Be Online es un operador móvil virtual (OMV) mexicano que ofrece planes de telefonía celular, internet móvil e internet en casa a precios accesibles. Operamos sobre la Red Compartida nacional, brindando cobertura 4G LTE en todo México sin contratos ni plazos forzosos.",
+    answer: "Be Online es un operador móvil virtual (OMV) mexicano que ofrece planes de telefonía celular, internet móvil a precios accesibles. Operamos sobre la Red Compartida nacional, brindando cobertura 4G LTE en todo México sin contratos ni plazos forzosos.",
     category: ['general']
   },
   {
@@ -46,7 +46,7 @@ export const faqItems: FAQItem[] = [
   },
   {
     question: "¿Qué incluyen las redes sociales ilimitadas?",
-    answer: "Todos nuestros planes incluyen uso ilimitado de WhatsApp, Facebook, Instagram, X (Twitter) y TikTok sin consumir tus datos. Puedes enviar mensajes, hacer videollamadas y navegar en estas redes sin preocuparte por tu saldo de datos.",
+    answer: "Todos nuestros planes incluyen uso ilimitado de WhatsApp, Facebook, Instagram y X (Twitter) sin consumir tus datos. Puedes enviar mensajes, hacer videollamadas y navegar en estas redes sin preocuparte por tu saldo de datos.",
     category: ['telefonia', 'mifi']
   },
   {
@@ -58,11 +58,6 @@ export const faqItems: FAQItem[] = [
     question: "¿Cuál es la diferencia entre plan Mensual y Anual?",
     answer: "Los planes Mensuales se renuevan cada 30 días y ofrecen mayor cantidad de datos que los Xpress. Los planes Anuales cubren 12 meses con una sola compra, dándote un ahorro significativo respecto al pago mensual y la tranquilidad de no preocuparte por recargas durante todo el año.",
     category: ['telefonia']
-  },
-  {
-    question: "¿Cómo funciona el Internet en Casa (HBB)?",
-    answer: "Nuestro servicio de Internet en Casa utiliza tecnología 4G LTE a través de un router fijo que conectas a la corriente eléctrica. Recibe señal de la Red Compartida y genera una red WiFi en tu hogar o negocio, sin necesidad de instalación de cableado ni visitas técnicas.",
-    category: ['internet-hogar']
   },
   {
     question: "¿Qué es el MiFi?",

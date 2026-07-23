@@ -11,9 +11,9 @@ const plansData = [
   {
     id: 'explorer',
     badge: '2 GB',
-    headerColor: '#fecc54',
+    headerColor: '#eebf4e',
     iconColor: 'black',
-    bodyColor: '#1f2937', // Oscuro
+    bodyColor: '#18222a', // Oscuro
     name: 'BO EXPLORER',
     subtitle: '2G de 4.5G LTE',
     features: [

@@ -13,7 +13,7 @@ export const appLinks: AppLink[] = [
   {
     store: 'app-store',
     label: 'App Store',
-    href: 'https://apps.apple.com/us/app/panda-movil/id6467819848',
+    href: 'https://apps.apple.com/mx/app/be-online/id6761391096',
     badgeAlt: 'Descargar Be Online en el App Store',
   },
   {

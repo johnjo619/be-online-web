@@ -165,7 +165,7 @@ export default function HeroBanner({
             <img
               src={fallbackSideImage}
               alt="Astronauta con palomitas y smartphone"
-              className="w-[300px] h-[450px]"
+              className="w-[320px] "
               loading="eager"
               fetchPriority="high"
             />

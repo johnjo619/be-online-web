@@ -7,7 +7,6 @@ import SimEsimPicker from './SimEsimPicker';
 import CustomerForm, { type CustomerData } from './CustomerForm';
 import OrderSummary from './OrderSummary';
 import GatewaySelector from './payment/GatewaySelector';
-import PlanCard from './PlanCard';
 import PlanCardBO from './PlanCardBO';
 import DeviceLineItem from './DeviceLineItem';
 import { getChunkSize, getPlanDuration } from './planHelpers';

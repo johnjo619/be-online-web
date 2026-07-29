@@ -25,7 +25,7 @@ export default function OrderSummary({ plan, simType }: OrderSummaryProps) {
       </div>
       <div className="border-t border-gray-200 pt-2 flex justify-between">
         <span className="font-poppins text-sm font-bold text-[#0f172a]">Total</span>
-        <span className="font-poppins text-lg font-bold text-[#ec3143]">
+        <span className="font-poppins text-lg font-bold text-[#1a1e29]">
           ${(price + simPrice).toFixed(2)} MXN
         </span>
       </div>

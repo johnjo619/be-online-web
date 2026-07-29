@@ -22,7 +22,7 @@ export default function MercadoPagoWallet({
   if (!ready || !preferenceId) {
     return (
       <div className="flex justify-center py-6">
-        <div className="w-6 h-6 border-2 border-[#ec3143] border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-[#1a1e29] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }

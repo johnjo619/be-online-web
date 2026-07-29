@@ -47,7 +47,7 @@ function CheckoutForm({ returnUrl, amount }: { returnUrl: string; amount?: numbe
       <button
         type="submit"
         disabled={!stripe || !elements || loading}
-        className="w-full rounded-full bg-[#ec3143] text-white font-bold py-4 text-lg shadow-lg shadow-[#ec3143]/30 hover:bg-[#a13a42] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full rounded-full bg-[#1a1e29] text-white font-bold py-4 text-lg shadow-lg shadow-[#1a1e29]/30 hover:bg-[#a13a42] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? (
           <span className="flex items-center justify-center gap-2">

@@ -19,7 +19,7 @@ export const appLinks: AppLink[] = [
   {
     store: 'play-store',
     label: 'Google Play',
-    href: 'https://play.google.com/store/search?q=pandamovil&c=apps&hl=es',
+    href: 'https://play.google.com/store/apps/details?id=com.beonline.appbeonlinemx&hl=es_MX',
     badgeAlt: 'Descargar Be Online en Google Play',
   },
 ];

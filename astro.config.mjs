@@ -4,7 +4,9 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: 'https://pandamovil.mx',
+  // Host canónico. Staging hoy (basic auth + noindex). Mantener alineado
+  // con SITE_URL en src/lib/schema.ts y con public/robots.txt.
+  site: 'https://beonline.celink.mx',
   output: 'static',
   integrations: [
     react(),
@@ -27,10 +29,10 @@ export default defineConfig({
     server: {
       proxy: {
         '/api-proxy': {
-          // Apuntando a PRERELEASE para QA con backend feature/ecommerce-devices-shipping.
-          // Volver a api.celink.mx cuando el feature esté en main.
-          target: 'https://apirelease.celink.mx',
-          // target: 'https://api.celink.mx', // PRODUCCIÓN
+          // Mismo backend que nginx en beonline.celink.mx (tenant Be Online,
+          // company_id=1). Antes apuntaba a apirelease.celink.mx, que es el
+          // middleware de Celink: el QA local corria contra otro tenant.
+          target: 'https://api-crm.igou.mx',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api-proxy/, ''),
         },

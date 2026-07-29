@@ -13,7 +13,6 @@ import { getChunkSize, getPlanDuration } from './planHelpers';
 
 /** Categoría CRM del dispositivo asociado a cada servicio. */
 const DEVICE_CATEGORY_BY_SERVICE: Record<Exclude<Service, 'movil'>, string> = {
-  hbb:  'router_hbb',
   mifi: 'mifi',
 };
 
@@ -26,13 +25,6 @@ const SHIPPING_SKU = 'shipping-mx-fixed';
  * y los productos seedeados en CRM, estos mocks se descartan automáticamente.
  */
 const MOCK_DEVICE_BY_CATEGORY: Record<string, EcommerceProduct> = {
-  router_hbb: {
-    id: -1, sku: 'router-hbb-pmf01',
-    name: 'Router HBB 4G LTE PMF01',
-    product_type: 'accessory', category: 'router_hbb',
-    valor_unitario: '1500.00', tasa_iva: '0.16',
-    requires_shipping: true,
-  },
   mifi: {
     id: -2, sku: 'mifi-pmf01',
     name: 'Equipo MiFi PMF01',
@@ -100,14 +92,14 @@ export default function TiendaFlow() {
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
 
-  // ── Catálogo público (router HBB / MiFi / shipping) ──────────
+  // ── Catálogo público (equipo MiFi / shipping) ──────────
   // Se fetchean cuando entra al checkout para mostrarlos en sidebar y
   // construir items[] al crear la orden.
   const [device, setDevice] = useState<EcommerceProduct | null>(null);
   const [shipping, setShipping] = useState<EcommerceProduct | null>(null);
 
   // ── Gateways dinámicas del tenant (mismo patrón que port.pandamovil.mx) ──
-  // GET /api/public/ecommerce/gateways?company_id=1
+  // GET /api/public/ecommerce/gateways?company_id=3
   // SIN fallback hardcodeado: se muestran SOLO las pasarelas realmente
   // configuradas para el tenant. Si el API no responde o el tenant no tiene
   // ninguna, queda vacío y GatewaySelector muestra el estado "sin métodos".
@@ -129,7 +121,7 @@ export default function TiendaFlow() {
     setError('');
     setPlans([]);
     try {
-      const data = await getPlans(SERVICE_TO_CRM_TYPE[srv], 'Panda');
+      const data = await getPlans(SERVICE_TO_CRM_TYPE[srv]);
       setPlans(data);
     } catch (err) {
       // El backend devuelve 200 con status:false cuando "No offers found"
@@ -158,7 +150,7 @@ export default function TiendaFlow() {
   // grid 1fr + 320px (sidebar resumen del pedido siempre visible).
   const checkoutOpen = (step === 'checkout' || step === 'payment') && !!selectedPlan;
 
-  // ── Deep link: ?service=movil|hbb|mifi&plan=ID ───────────────
+  // ── Deep link: ?service=movil|mifi&plan=ID ───────────────
   // Cuando el usuario llega desde el PlanActionModal de otra sección,
   // preseleccionamos servicio y plan, y saltamos al step 'checkout'.
   useEffect(() => {
@@ -166,14 +158,14 @@ export default function TiendaFlow() {
     const params = new URLSearchParams(window.location.search);
     const qSrv = params.get('service') as Service | null;
     const qPlan = params.get('plan');
-    if (!qSrv || !['movil', 'hbb', 'mifi'].includes(qSrv)) return;
+    if (!qSrv || !['movil', 'mifi'].includes(qSrv)) return;
 
     setService(qSrv);
     setIncludeDevice(true);
     (async () => {
       setLoading(true);
       try {
-        const data = await getPlans(SERVICE_TO_CRM_TYPE[qSrv], 'Panda');
+        const data = await getPlans(SERVICE_TO_CRM_TYPE[qSrv]);
         setPlans(data);
         if (qPlan) {
           const found = data.find((p) => String(p.id) === qPlan);
@@ -196,7 +188,7 @@ export default function TiendaFlow() {
 
   // ── Handlers de service step ─────────────────────────────────
   // Auto-avance: para Movilidad (sin toggle de equipo) saltamos directo
-  // a /plans al primer click. Para HBB/MiFi mantenemos el toggle visible
+  // a /plans al primer click. Para MiFi mantenemos el toggle visible
   // y el usuario confirma con "Continuar" que carga los planes filtrados
   // por includeDevice=true|false. Antes el click solo seteaba state y los
   // usuarios mobile no veían el botón Continuar abajo del fold.
@@ -343,10 +335,10 @@ export default function TiendaFlow() {
   };
 
   // ── Necesita envío físico? ───────────────────────────────────
-  // Movil: solo si elige SIM física. HBB/MiFi: si incluye dispositivo.
+  // Movil: solo si elige SIM física. MiFi: si incluye dispositivo.
   const needsShipping = service === 'movil' ? simType === 'sim' : includeDevice;
 
-  // Para CustomerForm necesita un SimType — para HBB/MiFi 'con dispositivo' tratamos
+  // Para CustomerForm necesita un SimType — para MiFi 'con dispositivo' tratamos
   // como 'sim' (envío físico requerido), 'sin dispositivo' como 'esim' (no envío).
   const formSimType: SimType =
     service === 'movil' ? simType : includeDevice ? 'sim' : 'esim';
@@ -387,9 +379,9 @@ export default function TiendaFlow() {
   useEffect(() => {
     if (step !== 'checkout' || !service || !selectedPlan) return;
 
-    // Dispositivo: solo HBB/MiFi con includeDevice=true
+    // Dispositivo: solo MiFi con includeDevice=true
     if (service !== 'movil' && includeDevice) {
-      const cat = DEVICE_CATEGORY_BY_SERVICE[service as 'hbb' | 'mifi'];
+      const cat = DEVICE_CATEGORY_BY_SERVICE['mifi'];
       getPublicProducts({ category: cat })
         .then((items) => {
           setDevice(items[0] || MOCK_DEVICE_BY_CATEGORY[cat]);
@@ -413,7 +405,7 @@ export default function TiendaFlow() {
 
   // ── Numeración dinámica de steps en checkout ───────────────────────────
   // movil: 01 SIM, 02 Datos, 03 Pago
-  // hbb/mifi: 01 Datos, 02 Pago (sin step de SIM)
+  // mifi: 01 Datos, 02 Pago (sin step de SIM)
   const stepNumbers = service === 'movil'
     ? { sim: '01', datos: '02', pago: '03' }
     : { sim: '',   datos: '01', pago: '02' };

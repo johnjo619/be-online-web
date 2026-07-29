@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 // Permite apuntar a un entorno desplegado (smoke read-only) con:
-//   PW_BASE_URL=https://webtest.pandamovil.mx npx playwright test
+//   PW_BASE_URL=https://beonline.celink.mx npx playwright test
 // Por defecto corre contra el dev server local de Astro (puerto 4321).
 const BASE_URL = process.env.PW_BASE_URL || 'http://localhost:4321';
 const IS_LOCAL = BASE_URL.includes('localhost') || BASE_URL.includes('127.0.0.1');

@@ -1,4 +1,4 @@
-export type FAQCategory = 'general' | 'telefonia' | 'internet-hogar' | 'mifi' | 'cobertura' | 'portabilidad';
+export type FAQCategory = 'general' | 'telefonia' | 'mifi' | 'cobertura' | 'portabilidad';
 
 
 export interface FAQItem {
@@ -17,12 +17,12 @@ export const faqItems: FAQItem[] = [
   {
     question: "¿Qué cobertura tiene Be Online?",
     answer: "Utilizamos la Red Compartida (Altán Redes) con cobertura 4G LTE en los 32 estados de la República Mexicana y más de 2,000 ciudades. Puedes consultar la cobertura exacta en tu zona desde nuestra herramienta de cobertura en esta misma página.",
-    category: ['general', 'cobertura', 'telefonia', 'internet-hogar', 'mifi']
+    category: ['general', 'cobertura', 'telefonia', 'mifi']
   },
   {
     question: "¿Necesito un contrato?",
     answer: "No. Todos nuestros planes son de prepago sin contrato, sin plazos forzosos y sin letra chica. Recargas cuando quieras y cancelas cuando quieras, sin penalizaciones de ningún tipo.",
-    category: ['general', 'telefonia', 'internet-hogar', 'mifi']
+    category: ['general', 'telefonia', 'mifi']
   },
   {
     question: "¿Cómo activo mi SIM Be Online?",

@@ -123,7 +123,6 @@ export default function PlanCard({
 
         {/* Features según servicio */}
         {service === 'movil' && <MovilFeatures plan={plan} inverted={isHome} />}
-        {service === 'hbb' && <HBBFeatures />}
         {service === 'mifi' && <MiFiFeatures />}
 
         {plan.card_body && (
@@ -235,28 +234,6 @@ function MovilFeatures({ plan, inverted = false }: { plan: Plan; inverted?: bool
         )}
       </div>
     </>
-  );
-}
-
-function HBBFeatures() {
-  return (
-    <div className="space-y-3 mb-3.5 flex-1">
-      <FeatureRow
-        title="WiFi para el hogar"
-        subtitle="Conecta todos tus dispositivos"
-        iconPath="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0"
-      />
-      <FeatureRow
-        title="Velocidad 5-10 Mbps"
-        subtitle="Streaming y videollamadas"
-        iconPath="M13 10V3L4 14h7v7l9-11h-7z"
-      />
-      <FeatureRow
-        title="Sin contratos"
-        subtitle="Prepago, recarga cuando quieras"
-        iconPath="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-      />
-    </div>
   );
 }
 

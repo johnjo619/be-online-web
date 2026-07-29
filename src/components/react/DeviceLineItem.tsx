@@ -1,7 +1,7 @@
 /**
  * DeviceLineItem — line item visual para el sidebar del checkout.
  *
- * Se usa para mostrar el dispositivo (router HBB / MiFi) y el envío como
+ * Se usa para mostrar el dispositivo (equipo MiFi) y el envío como
  * conceptos separados del PlanCard. Mismo lenguaje visual que el resto
  * del checkout: rounded-2xl + gradient sutil + ícono + precio mono.
  */

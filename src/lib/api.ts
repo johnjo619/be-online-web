@@ -18,6 +18,17 @@ import type {
 
 const API_BASE = '/api-proxy';
 
+/**
+ * Empresa del tenant en el CRM (Odoo) a la que pertenece Be Online.
+ *
+ * Venia heredado del fork en 1, que en api-crm.igou.mx es **DiDi**: la tienda
+ * pedia el catalogo, las pasarelas y los banners de otra marca y creaba las
+ * ordenes bajo ella. Be Online es la 3 (BO EXPLORER / MERCURY / APOLO /
+ * SUPERNOVA / COSMOS / BOMOBILE), que ademas es la que coincide con los
+ * precios publicados en la home.
+ */
+export const COMPANY_ID = 3;
+
 export async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
     ...options,
@@ -25,7 +36,7 @@ export async function apiFetch<T>(path: string, options?: RequestInit): Promise<
       'Content-Type': 'application/json',
       Accept: 'application/json',
       platform: 'web',
-      odoocompanyid: '1',
+      odoocompanyid: String(COMPANY_ID),
       ...options?.headers,
     },
   });
@@ -110,14 +121,14 @@ export async function getPlansByMsisdn(
 
 /**
  * Pasarelas habilitadas para el tenant en flujo ECOMMERCE (compra línea nueva).
- * GET /api/public/ecommerce/gateways?company_id=1
+ * GET /api/public/ecommerce/gateways?company_id=3
  *
  * Misma lógica que portal cautivo (port.pandamovil.mx) pero sin msisdn —
  * la línea aún no existe en checkout. Backend cruza external_configuration
  * (flags globales) + payment_gateways_config (whitelist por empresa) +
  * credenciales en odoo_companies.
  */
-export async function getEcommerceGateways(companyId: number = 1): Promise<Gateway[]> {
+export async function getEcommerceGateways(companyId: number = COMPANY_ID): Promise<Gateway[]> {
   const res = await apiFetch<{ data: { gateways: Gateway[] } }>(
     `/api/public/ecommerce/gateways?company_id=${companyId}`,
   );
@@ -136,7 +147,7 @@ interface PublicProductsParams {
 }
 
 export async function getPublicProducts(params: PublicProductsParams = {}): Promise<EcommerceProduct[]> {
-  const qs = new URLSearchParams({ company_id: '1' });
+  const qs = new URLSearchParams({ company_id: String(COMPANY_ID) });
   if (params.type)     qs.set('type', params.type);
   if (params.category) qs.set('category', params.category);
   if (params.sku)      qs.set('sku', params.sku);
@@ -153,7 +164,7 @@ export async function getBanners(
   limit = 5,
 ): Promise<Banner[]> {
   const res = await apiFetch<{ data: { section: string; items: Banner[] } }>(
-    `/api/page/banners/?company_id=1&section=${section}&limit=${limit}`,
+    `/api/page/banners/?company_id=${COMPANY_ID}&section=${section}&limit=${limit}`,
   );
   return res.data?.items || [];
 }
@@ -164,8 +175,8 @@ export async function createOrder(
   payload: CreateOrderPayload,
 ): Promise<Order> {
   // Backend exige company_id en el payload (no en header). Si el caller no
-  // lo pasó, lo defaulteamos a 1 (Be Online) — tenant único hoy.
-  const body = { company_id: 1, ...payload };
+  // lo pasó, usamos el de Be Online.
+  const body = { company_id: COMPANY_ID, ...payload };
   const res = await apiFetch<{ status?: boolean; message?: string; data?: Order & { order_uuid?: string } }>(
     '/api/public/ecommerce/orders',
     { method: 'POST', body: JSON.stringify(body) },

@@ -99,7 +99,7 @@ export default function TiendaFlow() {
   const [shipping, setShipping] = useState<EcommerceProduct | null>(null);
 
   // ── Gateways dinámicas del tenant (mismo patrón que port.pandamovil.mx) ──
-  // GET /api/public/ecommerce/gateways?company_id=1
+  // GET /api/public/ecommerce/gateways?company_id=3
   // SIN fallback hardcodeado: se muestran SOLO las pasarelas realmente
   // configuradas para el tenant. Si el API no responde o el tenant no tiene
   // ninguna, queda vacío y GatewaySelector muestra el estado "sin métodos".

@@ -61,7 +61,7 @@ export default function StorePaymentCard({
         </p>
         <button
           onClick={copyRef}
-          className="text-xs font-semibold text-[#ec3143] hover:underline"
+          className="text-xs font-semibold text-[#1a1e29] hover:underline"
         >
           {copied ? '✓ Copiada' : 'Copiar referencia'}
         </button>

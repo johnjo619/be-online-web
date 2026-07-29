@@ -333,7 +333,7 @@ function SliderField({
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         className="w-full appearance-none cursor-pointer h-2 rounded-full bg-gray-200 outline-none focus:ring-2 focus:ring-panda-red/30"
-        style={{ background: `linear-gradient(to right, ${accent === 'green' ? '#04AA6D' : '#ec3143'} 0%, ${accent === 'green' ? '#04AA6D' : '#ec3143'} ${pct}%, #e5e7eb ${pct}%, #e5e7eb 100%)` }}
+        style={{ background: `linear-gradient(to right, ${accent === 'green' ? '#04AA6D' : '#1a1e29'} 0%, ${accent === 'green' ? '#04AA6D' : '#1a1e29'} ${pct}%, #e5e7eb ${pct}%, #e5e7eb 100%)` }}
       />
       {hint && <p className="font-poppins text-xs text-panda-gray mt-2.5">{hint}</p>}
     </div>

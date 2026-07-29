@@ -13,20 +13,12 @@ import simImagen from '@/assets/images/sim_bo.png';
 
 
 const DEVICE_CATEGORY_BY_SERVICE: Record<Exclude<Service, 'movil'>, string> = {
-  hbb: 'router_hbb',
   mifi: 'mifi',
 };
 
 const SHIPPING_SKU = 'shipping-mx-fixed';
 
 const MOCK_DEVICE_BY_CATEGORY: Record<string, EcommerceProduct> = {
-  router_hbb: {
-    id: -1, sku: 'router-hbb-pmf01',
-    name: 'Router HBB 4G LTE PMF01',
-    product_type: 'accessory', category: 'router_hbb',
-    valor_unitario: '1500.00', tasa_iva: '0.16',
-    requires_shipping: true,
-  },
   mifi: {
     id: -2, sku: 'mifi-pmf01',
     name: 'Equipo MiFi PMF01',
@@ -339,7 +331,7 @@ export default function TiendaFlow() {
     if (step !== 'checkout' || !service || !selectedPlan) return;
 
     if (service !== 'movil' && includeDevice) {
-      const cat = DEVICE_CATEGORY_BY_SERVICE[service as 'hbb' | 'mifi'];
+      const cat = DEVICE_CATEGORY_BY_SERVICE['mifi'];
       getPublicProducts({ category: cat })
         .then((items) => setDevice(items[0] || MOCK_DEVICE_BY_CATEGORY[cat]))
         .catch(() => setDevice(MOCK_DEVICE_BY_CATEGORY[cat]));

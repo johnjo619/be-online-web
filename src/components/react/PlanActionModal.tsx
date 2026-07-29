@@ -1,7 +1,7 @@
 /**
  * PlanActionModal — selector "Contratar nueva" vs "Recargar mi línea actual"
  * que se abre cuando el usuario hace clic en "¡Lo quiero!" desde una card de
- * plan en cualquier sección (PlanSelector, HBBSelector, MiFi, etc).
+ * plan en cualquier sección (PlanSelector, MiFi, etc).
  *
  * Reglas:
  *  - Contratar nueva línea  →  /tienda/?plan={id}&service={key}  (TiendaFlow lo lee)
@@ -24,7 +24,6 @@ interface Props {
 
 const SERVICE_LABEL: Record<ServiceType, string> = {
   movil: 'Telefonía móvil',
-  hbb: 'Internet en casa',
   mifi: 'Internet portátil',
 };
 

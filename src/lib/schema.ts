@@ -49,7 +49,7 @@ export function productAggregateSchema() {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: 'Planes de Telefonía Móvil Panda Movil',
-    description: 'Planes de telefonía móvil, internet en casa y MiFi con cobertura nacional en México.',
+    description: 'Planes de telefonía móvil e internet portátil MiFi con cobertura nacional en México.',
     brand: { '@type': 'Brand', name: 'Panda Movil' },
     offers: {
       '@type': 'AggregateOffer',
@@ -63,7 +63,7 @@ export function productAggregateSchema() {
   };
 }
 
-export type ServiceKey = 'telefonia' | 'internet-hogar' | 'mifi';
+export type ServiceKey = 'telefonia' | 'mifi';
 
 export function serviceProductSchema(service: ServiceKey) {
   const data: Record<ServiceKey, { name: string; description: string; lowPrice: string; highPrice: string; category: string; offerCount: number }> = {
@@ -74,14 +74,6 @@ export function serviceProductSchema(service: ServiceKey) {
       highPrice: '599',
       category: 'Mobile Phone Plan',
       offerCount: 12,
-    },
-    'internet-hogar': {
-      name: 'Internet en Casa HBB Be Online',
-      description: 'Internet de hogar inalámbrico HBB con tecnología 4G LTE, sin instalación de cables, sin contratos.',
-      lowPrice: '199',
-      highPrice: '699',
-      category: 'Home Internet',
-      offerCount: 4,
     },
     'mifi': {
       name: 'Internet Portátil MiFi Be Online',

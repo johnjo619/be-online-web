@@ -10,7 +10,7 @@
  *  - CTA "Continuar" con gradient + sombra prominente
  */
 
-export type Service = 'movil' | 'hbb' | 'mifi';
+export type Service = 'movil' | 'mifi';
 
 interface Feature { text: string }
 
@@ -44,21 +44,6 @@ const SERVICES: ServiceMeta[] = [
     hasDeviceToggle: false,
     priceFrom: '$50',
     iconPath: 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z',
-  },
-  {
-    key: 'hbb',
-    title: 'Internet en casa',
-    subtitle: 'Wi-Fi 4G LTE sin instalación, sin técnicos. Router a domicilio.',
-    features: [
-      { text: 'Hasta 32 dispositivos' },
-      { text: 'Sin obra ni cables' },
-    ],
-    deviceLabel: 'Router 4G LTE',
-    deviceWithCopy: 'Te enviamos el router en 2-4 días',
-    deviceWithoutCopy: 'Ya tengo router compatible',
-    hasDeviceToggle: true,
-    priceFrom: '$199',
-    iconPath: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
   },
   {
     key: 'mifi',
@@ -102,7 +87,7 @@ export default function ServiceChooser({ selectedService, includeDevice, onSelec
       />
 
       {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
         {SERVICES.map((s) => {
           const isActive = selectedService === s.key;
           return (
@@ -295,13 +280,11 @@ function SectionHeader({
 /** Mapea un Service del UI a `type` válido del CRM (verificado contra api.celink.mx 2026-05-06). */
 export const SERVICE_TO_CRM_TYPE: Record<Service, string> = {
   movil: 'Movilidad',
-  hbb:   'Internet en casa',
   mifi:  'MiFi',
 };
 
 /** Etiqueta legible del servicio. */
 export const SERVICE_LABEL: Record<Service, string> = {
   movil: 'Telefonía móvil',
-  hbb:   'Internet en casa',
   mifi:  'Internet portátil',
 };

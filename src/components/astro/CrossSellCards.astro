@@ -24,14 +24,6 @@ const allCards: {
     cta: "Ver planes",
   },
   {
-    key: "internet-hogar",
-    title: "Internet en Casa",
-    description:
-      "Internet HBB sin cables, sin instalación. Llega a donde la fibra no llega.",
-    href: "/internet-en-casa/",
-    cta: "Conocer planes",
-  },
-  {
     key: "mifi",
     title: "Internet Portátil MiFi",
     description:
@@ -90,7 +82,7 @@ const isTelefonia = exclude === "telefonia";
     </div>
 
     <!-- Cards compactas, alineadas a la derecha de la sección para dejar ver mano+phone en izq -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mx-auto max-w-3xl">
       {
         cards.map((card) => (
           <a

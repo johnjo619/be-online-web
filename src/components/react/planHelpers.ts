@@ -1,6 +1,6 @@
 import type { Plan } from '../../lib/types';
 
-export type ServiceType = 'movil' | 'hbb' | 'mifi';
+export type ServiceType = 'movil' | 'mifi';
 
 export function isTruthy(val: unknown): boolean {
   return val === true || val === 1;

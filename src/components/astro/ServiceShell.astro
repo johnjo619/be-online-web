@@ -10,7 +10,7 @@ import type { FAQCategory } from "../../data/faq";
 interface Props {
   service: ServiceTab;
   serviceLabel: string; // visible en breadcrumb
-  faqCategory?: FAQCategory; // por default usa el service key (telefonia/internet-hogar/mifi/cobertura)
+  faqCategory?: FAQCategory; // por default usa el service key (telefonia/mifi/cobertura)
   ctaTitle?: string;
   ctaSubtitle?: string;
   ctaLabel?: string;
@@ -32,23 +32,19 @@ const {
 // Default bgImage por service si no se pasa explícito
 const resolvedCtaBg =
   ctaBgImage ??
-  (service === "internet-hogar"
-    ? "/img/banners/services/internet-casa-04.webp"
-    : service === "mifi"
-      ? "/img/banners/services/mifi-03.webp"
-      : service === "cobertura"
-        ? "/img/banners/services/cobertura-03.webp"
-        : "/img/banners/services/telefonia-06.webp");
+  (service === "mifi"
+    ? "/img/banners/services/mifi-03.webp"
+    : service === "cobertura"
+      ? "/img/banners/services/cobertura-03.webp"
+      : "/img/banners/services/telefonia-06.webp");
 
 const resolvedFaqCategory: FAQCategory =
   faqCategory ??
-  (service === "internet-hogar"
-    ? "internet-hogar"
-    : service === "mifi"
-      ? "mifi"
-      : service === "cobertura"
-        ? "cobertura"
-        : "telefonia");
+  (service === "mifi"
+    ? "mifi"
+    : service === "cobertura"
+      ? "cobertura"
+      : "telefonia");
 
 const breadcrumbItems = [
   { label: "Inicio", href: "/" },

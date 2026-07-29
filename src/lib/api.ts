@@ -124,12 +124,12 @@ export async function getEcommerceGateways(companyId: number = 1): Promise<Gatew
   return res.data?.gateways || [];
 }
 
-// ── Public products (dispositivos físicos: router HBB, MiFi, envío) ─────────
+// ── Public products (dispositivos físicos: equipo MiFi, envío) ─────────
 
 interface PublicProductsParams {
   /** type del CRM: 'accessory' | 'mifi_device' | 'sim_card' | 'esim' */
   type?: string;
-  /** category libre: 'router_hbb' | 'mifi' | 'shipping' | etc. */
+  /** category libre: 'mifi' | 'shipping' | etc. */
   category?: string;
   /** SKU exacto, ej. 'shipping-mx-fixed' */
   sku?: string;

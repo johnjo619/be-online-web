@@ -15,7 +15,6 @@ function simTypeToService(simType?: string): ServiceType {
   if (!simType) return 'movil';
   const s = simType.toLowerCase();
   if (s.includes('mifi')) return 'mifi';
-  if (s.includes('casa') || s.includes('hbb') || s.includes('internet')) return 'hbb';
   return 'movil';
 }
 

@@ -36,6 +36,17 @@ export default defineConfig({
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api-proxy/, ''),
         },
+        // Mapa de cobertura — mismo-origen para saltar el X-Frame-Options del
+        // origen. Espeja lo que hace nginx en beonline.celink.mx.
+        '/map-proxy': {
+          target: 'https://api-crm.igou.mx',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/map-proxy/, '/map'),
+        },
+        '/map-api': {
+          target: 'https://api-crm.igou.mx',
+          changeOrigin: true,
+        },
         // Proxy a SEPOMEX (sepomex.nitrostudio.com.mx) — la API no tiene CORS,
         // así que el browser no puede hacer fetch directo. En dev proxy via Vite;
         // en prod va via endpoint backend server-side (TODO middleware-api).

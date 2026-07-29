@@ -7,7 +7,10 @@ import ServiceShell from "../components/astro/ServiceShell.astro";
 import MobileStickyCta from "../components/astro/MobileStickyCta.astro";
 import { organizationSchema, localBusinessSchema } from "../lib/schema";
 
-const mapUrl = "https://api-crm.igou.mx/map/beonline";
+// Mismo-origen a proposito: el mapa manda X-Frame-Options: SAMEORIGIN, asi que
+// embeberlo directo desde api-crm.igou.mx lo bloquea el navegador y el iframe
+// sale en blanco. nginx (y el proxy de Vite en dev) reescriben a /map/beonline.
+const mapUrl = "/map-proxy/beonline";
 ---
 
 <BaseLayout

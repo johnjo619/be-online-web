@@ -8,6 +8,7 @@ import CustomerForm, { type CustomerData } from './CustomerForm';
 import OrderSummary from './OrderSummary';
 import GatewaySelector from './payment/GatewaySelector';
 import PlanCard from './PlanCard';
+import PlanCardBO from './PlanCardBO';
 import DeviceLineItem from './DeviceLineItem';
 import { getChunkSize, getPlanDuration } from './planHelpers';
 
@@ -60,7 +61,7 @@ const MOVIL_TABS: { key: MovilTabKey; label: string }[] = [
 function Spinner() {
   return (
     <div className="flex justify-center py-8">
-      <div className="w-8 h-8 border-3 border-[#ec3143] border-t-transparent rounded-full animate-spin" />
+      <div className="w-8 h-8 border-3 border-[#1a1e29] border-t-transparent rounded-full animate-spin" />
     </div>
   );
 }
@@ -439,7 +440,7 @@ export default function TiendaFlow() {
       {step !== 'service' && (
         <div className="flex items-center justify-between bg-white rounded-2xl border border-gray-100 px-5 py-3 shadow-sm">
           <div className="flex items-center gap-3 text-sm font-poppins text-[#7a7a7a]">
-            <button onClick={handleBackToService} className="text-[#ec3143] font-semibold hover:underline">
+            <button onClick={handleBackToService} className="text-[#1a1e29] font-semibold hover:underline">
               ← Cambiar servicio
             </button>
             <span className="text-gray-300">/</span>
@@ -481,7 +482,7 @@ export default function TiendaFlow() {
                     onClick={() => { setActiveMovilTab(t.key); if (step !== 'plans') handleBackToPlans(); }}
                     className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all ${
                       activeMovilTab === t.key
-                        ? 'bg-[#ec3143] text-white shadow-lg shadow-[#ec3143]/30'
+                        ? 'bg-[#1a1e29] text-white shadow-lg shadow-[#1a1e29]/30'
                         : 'text-[#7a7a7a] hover:text-[#0f172a]'
                     }`}
                   >
@@ -500,7 +501,7 @@ export default function TiendaFlow() {
               <p className="font-poppins text-sm text-[#7a7a7a]">{error}</p>
               <button
                 onClick={handleBackToService}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#ec3143] text-[#ec3143] font-semibold text-sm hover:bg-[#ec3143] hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#1a1e29] text-[#1a1e29] font-semibold text-sm hover:bg-[#1a1e29] hover:text-white transition-colors"
               >
                 ← Elegir otro servicio
               </button>
@@ -513,14 +514,15 @@ export default function TiendaFlow() {
                   centran horizontalmente. NO usar grid 1fr porque estira las
                   cards al ancho del contenedor (rectangulares aplanadas). */}
               <div
-                className="flex flex-wrap gap-6 justify-center py-2 transition-opacity duration-300"
+                className="flex flex-wrap gap-x-8 gap-y-14 justify-center pt-8 pb-2 pl-6 transition-opacity duration-300"
                 style={{ opacity: animating ? 0 : 1 }}
               >
-                {(chunks[pageIdx] || []).map((plan) => (
-                  <PlanCard
+                {(chunks[pageIdx] || []).map((plan, i) => (
+                  <PlanCardBO
                     key={plan.id}
                     plan={plan}
-                    service={service!}
+                    index={pageIdx * chunkSize + i}
+                    isSelected={selectedPlan?.id === plan.id}
                     onSelect={() => handleSelectPlan(plan)}
                   />
                 ))}
@@ -545,7 +547,7 @@ export default function TiendaFlow() {
                         key={i}
                         onClick={() => goTo(i)}
                         className={`w-2.5 h-2.5 rounded-full transition-all ${
-                          i === pageIdx ? 'bg-[#ec3143] scale-125' : 'bg-gray-300'
+                          i === pageIdx ? 'bg-[#1a1e29] scale-125' : 'bg-gray-300'
                         }`}
                         aria-label={`Página ${i + 1}`}
                       />

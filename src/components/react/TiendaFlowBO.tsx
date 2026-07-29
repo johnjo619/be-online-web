@@ -151,7 +151,7 @@ export default function TiendaFlow() {
     setError('');
     setPlans([]);
     try {
-      const data = await getPlans(SERVICE_TO_CRM_TYPE[srv], 'Panda');
+      const data = await getPlans(SERVICE_TO_CRM_TYPE[srv]);
       setPlans(data);
     } catch (err) {
       const msg = err instanceof Error ? err.message : '';
@@ -183,7 +183,7 @@ export default function TiendaFlow() {
     (async () => {
       setLoading(true);
       try {
-        const data = await getPlans(SERVICE_TO_CRM_TYPE[qSrv], 'Panda');
+        const data = await getPlans(SERVICE_TO_CRM_TYPE[qSrv]);
         setPlans(data);
         if (qPlan) {
           const found = data.find((p) => String(p.id) === qPlan);

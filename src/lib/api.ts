@@ -66,12 +66,23 @@ function flattenGroups(groups: PlanGroup[]): Plan[] {
   );
 }
 
+/**
+ * Catálogo de planes del tenant.
+ *
+ * `familyType` es el filtro de familia de producto del CRM — NO es branding.
+ * Heredado del fork venía fijo en 'Panda', que en el backend de Be Online
+ * (api-crm.igou.mx) responde 404 "No offers found" y dejaba la tienda vacía.
+ * Sin el parámetro el backend devuelve el catálogo completo del tenant, así
+ * que se omite salvo que se pase explícitamente.
+ */
 export async function getPlans(
   type = 'Movilidad',
-  familyType = 'Panda',
+  familyType?: string,
 ): Promise<Plan[]> {
+  const params = new URLSearchParams({ type });
+  if (familyType) params.set('family_type', familyType);
   const res = await apiFetch<{ data: PlanGroup[] }>(
-    `/api/odoo/product/findbytype?type=${encodeURIComponent(type)}&family_type=${encodeURIComponent(familyType)}`,
+    `/api/odoo/product/findbytype?${params}`,
   );
   return flattenGroups(res.data || []);
 }

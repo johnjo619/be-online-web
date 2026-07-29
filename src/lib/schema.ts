@@ -1,13 +1,22 @@
+/** Host canónico del sitio. Hoy es el de staging (basic auth + noindex);
+ *  cambiar aquí y en astro.config.mjs / robots.txt al pasar a producción. */
+export const SITE_URL = 'https://beonline.celink.mx';
+export const BRAND_NAME = 'Be Online';
+/** Razón social que ya declaran las páginas legales. */
+export const LEGAL_NAME = 'Celink Telecom S.A. de C.V.';
+
 export function organizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Panda Movil',
-    url: 'https://pandamovil.mx',
-    logo: 'https://pandamovil.mx/favicon.png',
+    name: BRAND_NAME,
+    legalName: LEGAL_NAME,
+    url: SITE_URL,
+    logo: `${SITE_URL}/favicon.png`,
+    email: 'info@beonline.mx',
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+52-442-644-1052',
+      email: 'info@beonline.mx',
       contactType: 'customer service',
       areaServed: 'MX',
       availableLanguage: 'Spanish',
@@ -19,15 +28,17 @@ export function localBusinessSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    name: 'Panda Movil',
-    image: 'https://pandamovil.mx/favicon.png',
-    url: 'https://pandamovil.mx',
-    telephone: '+52-442-644-1052',
+    name: BRAND_NAME,
+    image: `${SITE_URL}/favicon.png`,
+    url: SITE_URL,
+    email: 'info@beonline.mx',
     priceRange: '$$',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Querétaro',
-      addressRegion: 'QRO',
+      streetAddress: 'Av. Revolución 1267, piso 19, Col. Los Alpes',
+      addressLocality: 'Álvaro Obregón',
+      addressRegion: 'CDMX',
+      postalCode: '01040',
       addressCountry: 'MX',
     },
     areaServed: { '@type': 'Country', name: 'México' },
@@ -38,8 +49,8 @@ export function webSiteSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Panda Movil',
-    url: 'https://pandamovil.mx',
+    name: BRAND_NAME,
+    url: SITE_URL,
     inLanguage: 'es-MX',
   };
 }
@@ -48,9 +59,9 @@ export function productAggregateSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'Planes de Telefonía Móvil Panda Movil',
+    name: 'Planes de Telefonía Móvil Be Online',
     description: 'Planes de telefonía móvil e internet portátil MiFi con cobertura nacional en México.',
-    brand: { '@type': 'Brand', name: 'Panda Movil' },
+    brand: { '@type': 'Brand', name: BRAND_NAME },
     offers: {
       '@type': 'AggregateOffer',
       priceCurrency: 'MXN',
@@ -90,7 +101,7 @@ export function serviceProductSchema(service: ServiceKey) {
     '@type': 'Product',
     name: d.name,
     description: d.description,
-    brand: { '@type': 'Brand', name: 'Panda Movil' },
+    brand: { '@type': 'Brand', name: BRAND_NAME },
     category: d.category,
     offers: {
       '@type': 'AggregateOffer',

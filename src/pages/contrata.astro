@@ -1,7 +1,7 @@
 ---
 // Redirect a /tienda/ — usamos meta-refresh + JS con URL RELATIVA en vez de
-// Astro.redirect() porque éste genera URL absoluta usando `site` (pandamovil.mx)
-// y rompe la navegación en webtest.pandamovil.mx (saca al usuario del subdominio).
+// Astro.redirect() porque éste genera URL absoluta usando `site` y rompe la
+// navegación cuando el sitio se sirve desde otro host (saca al usuario del subdominio).
 ---
 
 <!doctype html>

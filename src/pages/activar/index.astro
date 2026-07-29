@@ -1,5 +1,5 @@
 ---
-// /activar redirige a port.pandamovil.mx donde está el wizard completo
+// /activar redirige a port.beonline.mx donde está el wizard completo
 // (activación, recarga, portabilidad con timer, cambio de región).
 // Static output: redirect via meta refresh + JS instant.
 // Si viene ?flow=portar (etc.) se preserva como hash en destino.
@@ -11,14 +11,14 @@
     <meta charset="utf-8" />
     <meta name="robots" content="noindex" />
     <title>Activar Be Online — Redirigiendo…</title>
-    <link rel="canonical" href="https://port.pandamovil.mx/" />
-    <meta http-equiv="refresh" content="0; url=https://port.pandamovil.mx/" />
+    <link rel="canonical" href="https://port.beonline.mx/" />
+    <meta http-equiv="refresh" content="0; url=https://port.beonline.mx/" />
     <script>
       (function () {
         var params = new URLSearchParams(window.location.search);
         var flow = params.get("flow");
         var dest =
-          "https://port.pandamovil.mx/" +
+          "https://port.beonline.mx/" +
           (flow ? "#" + encodeURIComponent(flow) : "");
         window.location.replace(dest);
       })();
@@ -57,7 +57,7 @@
     <div class="loader">
       <p>Redirigiendo al portal de Be Online…</p>
       <p style="margin-top: 8px;">
-        <a href="https://port.pandamovil.mx/"
+        <a href="https://port.beonline.mx/"
           >Haz clic aquí si no se redirige automáticamente</a>
       </p>
     </div>

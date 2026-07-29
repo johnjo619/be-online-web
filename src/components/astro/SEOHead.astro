@@ -15,7 +15,7 @@ const {
   jsonLd,
 } = Astro.props;
 
-const site = 'https://pandamovil.mx';
+const site = 'https://beonline.celink.mx';
 const canonical = canonicalUrl ?? Astro.url.href;
 const schemas = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 ---
@@ -36,7 +36,7 @@ const schemas = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={`${site}${ogImage}`} />
 <meta property="og:locale" content="es_MX" />
-<meta property="og:site_name" content="Panda Movil" />
+<meta property="og:site_name" content="Be Online" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />

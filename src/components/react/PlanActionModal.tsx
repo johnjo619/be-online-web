@@ -57,7 +57,7 @@ export default function PlanActionModal({ open, plan, service, onClose }: Props)
   const duration = plan.selectedDuration || getPlanDuration(plan);
 
   const contratarHref = `/tienda/?plan=${encodeURIComponent(String(plan.id))}&service=${service}`;
-  const recargarHref = `/activar/?flow=recargar&plan=${encodeURIComponent(String(plan.id))}`;
+  const recargarHref = `/recarga/`;
 
   return (
     <div

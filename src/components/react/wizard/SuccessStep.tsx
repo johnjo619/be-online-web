@@ -48,7 +48,7 @@ export default function SuccessStep({ flow, planName }: SuccessStepProps) {
       <div>
         <a
           href="/"
-          className="inline-flex items-center px-8 py-4 rounded-full bg-[#ec3143] text-white font-bold shadow-lg shadow-[#ec3143]/30 hover:bg-[#a13a42] transition-colors"
+          className="inline-flex items-center px-8 py-4 rounded-full bg-[#1a1e29] text-white font-bold shadow-lg shadow-[#1a1e29]/30 hover:bg-[#2a3040] transition-colors"
         >
           Volver al inicio →
         </a>

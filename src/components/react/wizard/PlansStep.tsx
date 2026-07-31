@@ -1,21 +1,13 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { getPlansByMsisdn } from '../../../lib/api';
 import type { Plan } from '../../../lib/types';
-import PlanCard from '../PlanCard';
-import { getChunkSize, type ServiceType } from '../planHelpers';
+import PlanCardBO from '../PlanCardBO';
+import { getChunkSize } from '../planHelpers';
 
 interface PlansStepProps {
   msisdn: string;
   simType?: string;
   onSelect: (plan: Plan) => void;
-}
-
-/** Mapea el simType del wizard al ServiceType del PlanCard. */
-function simTypeToService(simType?: string): ServiceType {
-  if (!simType) return 'movil';
-  const s = simType.toLowerCase();
-  if (s.includes('mifi')) return 'mifi';
-  return 'movil';
 }
 
 export default function PlansStep({ msisdn, simType, onSelect }: PlansStepProps) {
@@ -25,8 +17,6 @@ export default function PlansStep({ msisdn, simType, onSelect }: PlansStepProps)
   const [pageIdx, setPageIdx] = useState(0);
   const [chunkSize, setChunkSize] = useState(3);
   const [animating, setAnimating] = useState(false);
-
-  const service = simTypeToService(simType);
 
   useEffect(() => {
     getPlansByMsisdn(msisdn, '', simType || '')
@@ -64,7 +54,7 @@ export default function PlansStep({ msisdn, simType, onSelect }: PlansStepProps)
   if (loading) {
     return (
       <div className="flex justify-center py-8">
-        <div className="w-8 h-8 border-3 border-[#ec3143] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-3 border-[#eebf4e] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -79,14 +69,14 @@ export default function PlansStep({ msisdn, simType, onSelect }: PlansStepProps)
       </h3>
 
       <div
-        className="flex flex-wrap gap-4 justify-center transition-opacity duration-300"
+        className="flex flex-wrap gap-4 gap-y-8 justify-center pt-6 transition-opacity duration-300"
         style={{ opacity: animating ? 0 : 1 }}
       >
-        {(chunks[pageIdx] || []).map((plan) => (
-          <PlanCard
+        {(chunks[pageIdx] || []).map((plan, i) => (
+          <PlanCardBO
             key={plan.id}
             plan={plan}
-            service={service}
+            index={pageIdx * chunkSize + i}
             onSelect={() => onSelect(plan)}
           />
         ))}

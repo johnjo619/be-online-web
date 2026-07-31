@@ -68,6 +68,14 @@ export default function ActivationWizard() {
   const [iccidError, setIccidError] = useState<string | null>(null);
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
 
+  // Prefill del número desde la URL (?msisdn= o ?numero=) — los CTAs
+  // internos pueden mandar al usuario con su número ya capturado.
+  const [initialMsisdn] = useState(() => {
+    if (typeof window === 'undefined') return '';
+    const p = new URLSearchParams(window.location.search);
+    return (p.get('msisdn') || p.get('numero') || '').replace(/\D/g, '').slice(0, 20);
+  });
+
   const handleIccidValidated = async (iccid: string) => {
     setIccidLoading(true);
     setIccidError(null);
@@ -111,6 +119,7 @@ export default function ActivationWizard() {
           onValidated={handleIccidValidated}
           loading={iccidLoading}
           error={iccidError}
+          initialValue={initialMsisdn}
         />
       )}
 
@@ -153,7 +162,7 @@ export default function ActivationWizard() {
         <div className="text-center mt-4">
           <button
             onClick={() => dispatch({ type: 'PREV_STEP' })}
-            className="text-sm text-[#7a7a7a] hover:text-[#ec3143] font-poppins transition-colors"
+            className="text-sm text-[#7a7a7a] hover:text-[#1a1e29] font-poppins transition-colors"
           >
             ← Volver al paso anterior
           </button>

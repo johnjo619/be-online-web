@@ -32,9 +32,9 @@ export default function FlowStep({ actions, onSelect }: FlowStepProps) {
           <button
             key={opt.key}
             onClick={() => onSelect(opt.key)}
-            className="bg-white rounded-2xl border-2 border-gray-100 p-6 text-center cursor-pointer transition-all hover:border-[#ec3143] hover:shadow-md"
+            className="bg-white rounded-2xl border-2 border-gray-100 p-6 text-center cursor-pointer transition-all hover:border-[#1a1e29] hover:shadow-md"
           >
-            <div className="w-12 h-12 rounded-xl bg-[#ec3143]/10 flex items-center justify-center mx-auto mb-3 text-xl">
+            <div className="w-12 h-12 rounded-xl bg-[#1a1e29]/10 flex items-center justify-center mx-auto mb-3 text-xl">
               {opt.icon}
             </div>
             <p className="font-unbounded text-sm font-semibold text-[#0f172a]">{opt.label}</p>

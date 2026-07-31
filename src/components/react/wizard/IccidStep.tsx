@@ -4,10 +4,12 @@ interface IccidStepProps {
   onValidated: (iccid: string) => void;
   loading?: boolean;
   error?: string | null;
+  /** Valor precargado (p.ej. ?msisdn= de la URL). */
+  initialValue?: string;
 }
 
-export default function IccidStep({ onValidated, loading, error }: IccidStepProps) {
-  const [value, setValue] = useState('');
+export default function IccidStep({ onValidated, loading, error, initialValue = '' }: IccidStepProps) {
+  const [value, setValue] = useState(initialValue);
   const [showHelp, setShowHelp] = useState(false);
   const [localError, setLocalError] = useState('');
 
@@ -46,7 +48,7 @@ export default function IccidStep({ onValidated, loading, error }: IccidStepProp
               setLocalError('');
             }}
             placeholder="10 dígitos o ICCID"
-            className="w-full rounded-xl border border-gray-300 px-4 py-4 font-poppins text-lg text-center tracking-wider focus:border-[#ec3143] focus:ring-2 focus:ring-[#ec3143]/20 outline-none transition-colors"
+            className="w-full rounded-xl border border-gray-300 px-4 py-4 font-poppins text-lg text-center tracking-wider focus:border-[#1a1e29] focus:ring-2 focus:ring-[#1a1e29]/20 outline-none transition-colors"
             autoFocus
           />
 
@@ -57,7 +59,7 @@ export default function IccidStep({ onValidated, loading, error }: IccidStepProp
           <button
             type="button"
             onClick={() => setShowHelp(!showHelp)}
-            className="text-sm text-[#ec3143] hover:underline font-poppins block mx-auto"
+            className="text-sm text-[#1a1e29] hover:underline font-poppins block mx-auto"
           >
             ¿Dónde encuentro mi ICCID?
           </button>
@@ -76,7 +78,7 @@ export default function IccidStep({ onValidated, loading, error }: IccidStepProp
           <button
             type="submit"
             disabled={loading || value.length < 10}
-            className="w-full rounded-full bg-[#ec3143] text-white font-bold py-4 text-lg shadow-lg shadow-[#ec3143]/30 hover:bg-[#a13a42] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full rounded-full bg-[#1a1e29] text-white font-bold py-4 text-lg shadow-lg shadow-[#1a1e29]/30 hover:bg-[#2a3040] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">

@@ -25,7 +25,7 @@ export default function WizardStepper({ steps, activeStep }: WizardStepperProps)
                   isCompleted
                     ? 'bg-[#04AA6D] text-white'
                     : isActive
-                    ? 'bg-[#ec3143] text-white shadow-lg shadow-[#ec3143]/30'
+                    ? 'bg-[#1a1e29] text-white shadow-lg shadow-[#1a1e29]/30'
                     : 'bg-gray-200 text-gray-400'
                 }`}
               >

@@ -1,65 +1,63 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Header from "../components/astro/Header.astro";
-import DynamicBanner from "../components/react/DynamicBanner";
-import TiendaFlowBO from "../components/react/TiendaFlowBO";
-import Footer from "../components/astro/Footer.astro";
-import { organizationSchema } from "../lib/schema";
-
-const jsonLd = [
-  organizationSchema(),
-  {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: "SIM / eSIM Be Online",
-    description:
-      "Compra tu SIM o eSIM digital Be Online. Planes sin contrato desde $99 MXN.",
-    brand: { "@type": "Brand", name: "Be Online" },
-    offers: {
-      "@type": "AggregateOffer",
-      priceCurrency: "MXN",
-      lowPrice: "50",
-      highPrice: "599",
-      offerCount: 20,
-      availability: "https://schema.org/InStock",
-    },
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Inicio",
-        item: "https://beonline.celink.mx/",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tienda",
-        item: "https://beonline.celink.mx/tienda/",
-      },
-    ],
-  },
-];
+// /activa y /recarga son el mismo flujo (activar/recargar lo decide la
+// validación del número dentro del wizard). /recarga es la página canónica;
+// aquí solo redirigimos preservando ?msisdn= / ?numero=.
+// Static output: redirect via meta refresh + JS instant.
 ---
 
-<BaseLayout
-  title="Contratar Be Online — Telefonía móvil e internet portátil sin contratos"
-  description="Contrata telefonía móvil o internet portátil (MiFi) Be Online. Sin contratos. Para MiFi elige si incluyes el equipo o solo activas el plan. Paga con tarjeta, OXXO o MercadoPago."
-  jsonLd={jsonLd}
->
-  <DynamicBanner client:idle />
-  <Header />
-
-  <main>
-    <section class="py-12 sm:py-16 bg-[#1a1e29]">
-      <div class="mx-auto px-4">
-        <TiendaFlowBO client:visible />
-      </div>
-    </section>
-  </main>
-
-  <Footer />
-</BaseLayout>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>Activa Be Online — Redirigiendo…</title>
+    <link rel="canonical" href="https://beonline.celink.mx/recarga/" />
+    <meta http-equiv="refresh" content="0; url=/recarga/" />
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var dest = "/recarga/" + (params.toString() ? "?" + params.toString() : "");
+        window.location.replace(dest);
+      })();
+    </script>
+    <style is:inline>
+      .pm-redirect-root {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+        background: #fafafa;
+        color: #0f172a;
+      }
+      .pm-redirect-root .loader {
+        text-align: center;
+      }
+      .pm-redirect-root .loader p {
+        margin: 0;
+        font-size: 14px;
+        color: #7a7a7a;
+      }
+      .pm-redirect-root .loader a {
+        color: #1a1e29;
+        text-decoration: none;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body class="pm-redirect-root">
+    <div class="loader">
+      <p>Redirigiendo a activación y recargas…</p>
+      <p style="margin-top: 8px;">
+        <a href="/recarga/"
+          >Haz clic aquí si no se redirige automáticamente</a
+        >
+      </p>
+    </div>
+  </body>
+</html>

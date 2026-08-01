@@ -146,15 +146,15 @@ test.describe('/recarga — wizard portal cautivo', () => {
     await expect(page.getByPlaceholder('10 dígitos o ICCID')).toHaveValue(MSISDN);
   });
 
-  test('muestra el branding de marca (astronauta y tagline)', async ({ page }) => {
+  test('muestra el branding de marca (astronauta y SIM)', async ({ page }) => {
     installRecargaMocks(page);
     await page.goto('/recarga/');
     await expect(
       page.getByRole('heading', { name: /Activa y recarga tu línea/ }),
     ).toBeVisible();
-    await expect(page.getByText('Hasta el infinito y más acá')).toBeVisible();
-    await expect(
-      page.getByAltText('Astronauta Be Online con celular'),
-    ).toBeVisible();
+    // Astronauta de bienvenida asomando en la tarjeta (como las páginas anteriores)
+    await expect(page.getByAltText('Bienvenido a Be Online')).toBeVisible();
+    // Tarjeta SIM de marca junto al input del número
+    await expect(page.getByAltText('Tarjeta SIM Be Online')).toBeVisible();
   });
 });

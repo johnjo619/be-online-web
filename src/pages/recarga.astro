@@ -5,7 +5,7 @@ import DynamicBanner from "../components/react/DynamicBanner";
 import ActivationWizard from "../components/react/wizard/ActivationWizard";
 import Footer from "../components/astro/Footer.astro";
 import { organizationSchema } from "../lib/schema";
-import astronauta from "@/assets/images/astronauta2.webp";
+import astronautaImagen from "@/assets/images/astronauta6.png";
 
 const jsonLd = [
   organizationSchema(),
@@ -38,43 +38,33 @@ const jsonLd = [
   <DynamicBanner client:idle />
   <Header />
 
-  <main>
-    <section class="bg-[#1a1e29] relative overflow-x-clip">
-      <div class="w-full h-2 bg-[#fccd4d]"></div>
+  <main class="pt-[72px]">
+    {/* Mismo layout que las páginas anteriores de activa/recarga: título
+        uppercase centrado, tarjeta blanca redondeada y el astronauta de
+        bienvenida asomando en la esquina superior derecha. */}
+    <section class="bg-[#1a1e29] pt-12 pb-16 px-4">
+      <h1
+        class="text-3xl md:text-[40px] font-black text-white text-center uppercase tracking-wide mb-16 md:pr-40"
+      >
+        Activa y recarga tu línea
+      </h1>
 
-      <div class="mx-auto px-4 max-w-5xl py-12 sm:py-16">
-        {/* Encabezado con branding de marca — mismo patrón que HowItWorks */}
-        <div class="flex items-center justify-between gap-6 mb-10">
-          <div>
-            <h1
-              class="font-unbounded text-2xl sm:text-4xl font-extrabold text-white tracking-tight"
-            >
-              Activa y recarga tu línea
-            </h1>
-            <p class="font-poppins text-[#fccd4d] font-semibold mt-2 text-sm sm:text-base">
-              Hasta el infinito y más acá
-            </p>
-            <p class="font-poppins text-white/70 text-sm mt-3 max-w-md">
-              El mismo lugar para activar tu SIM por primera vez o recargar
-              saldo: ingresa tu número, elige tu paquete y paga como prefieras.
-            </p>
-          </div>
-          <div
-            class="shrink-0 w-24 sm:w-36 md:w-44 animate-bounce"
-            style="animation-duration: 5s;"
-          >
-            <img
-              src={astronauta.src}
-              alt="Astronauta Be Online con celular"
-              class="w-full h-auto drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]"
-              loading="eager"
-            />
-          </div>
+      <div
+        class="max-w-[850px] mx-auto bg-white rounded-[2.5rem] p-8 md:px-16 md:py-12 relative shadow-2xl"
+      >
+        {/* Astronauta de bienvenida (branding de marca): asoma sobre la
+            esquina de la tarjeta sin tapar el stepper ni los textos. */}
+        <div
+          class="absolute -top-32 -right-2 hidden md:block w-44 z-20"
+        >
+          <img
+            src={astronautaImagen.src}
+            alt="Bienvenido a Be Online"
+            class="w-full drop-shadow-xl"
+          />
         </div>
 
-        <div class="bg-[#f8fafc] rounded-3xl p-6 sm:p-10 shadow-xl">
-          <ActivationWizard client:visible />
-        </div>
+        <ActivationWizard client:visible />
       </div>
     </section>
   </main>

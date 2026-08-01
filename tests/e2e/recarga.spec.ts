@@ -107,7 +107,9 @@ test.describe('/recarga — wizard portal cautivo', () => {
     // Paso 0: número. Con client:visible la isla puede hidratar DESPUÉS de
     // que empezamos a teclear y un re-render borra el valor. Reintentamos
     // hasta que el valor sobreviva a la hidratación.
-    await expect(page.getByText('Ingresa tu número')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Ingresa tu número' }),
+    ).toBeVisible();
     const input = page.getByPlaceholder('10 dígitos o ICCID');
     await input.click();
     await expect(async () => {
@@ -143,13 +145,16 @@ test.describe('/recarga — wizard portal cautivo', () => {
     await page.goto(`/recarga/?msisdn=${MSISDN}`);
     await expect(page.getByPlaceholder('10 dígitos o ICCID')).toHaveValue(MSISDN);
   });
-});
 
-test.describe('/activa — redirect a /recarga', () => {
-  test('redirige preservando query params', async ({ page }) => {
+  test('muestra el branding de marca (astronauta y tagline)', async ({ page }) => {
     installRecargaMocks(page);
-    await page.goto(`/activa/?msisdn=${MSISDN}`);
-    await page.waitForURL(`**/recarga/?msisdn=${MSISDN}`);
-    await expect(page.getByPlaceholder('10 dígitos o ICCID')).toHaveValue(MSISDN);
+    await page.goto('/recarga/');
+    await expect(
+      page.getByRole('heading', { name: /Activa y recarga tu línea/ }),
+    ).toBeVisible();
+    await expect(page.getByText('Hasta el infinito y más acá')).toBeVisible();
+    await expect(
+      page.getByAltText('Astronauta Be Online con celular'),
+    ).toBeVisible();
   });
 });

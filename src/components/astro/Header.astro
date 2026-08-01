@@ -82,21 +82,12 @@ const pageHasSubNav = false; // Always render the services flyout since ServiceS
       >
 
       <a
-        href="/activa/"
-        aria-current={isActive("/activa") ? "page" : undefined}
-        class:list={[
-          "nav-link hover:text-black transition-colors tracking-tight",
-          isActive("/activa") && "text-black is-active",
-        ]}>Activa</a
-      >
-
-      <a
         href="/recarga/"
         aria-current={isActive("/recarga") ? "page" : undefined}
         class:list={[
           "nav-link hover:text-black transition-colors tracking-tight",
           isActive("/recarga") && "text-black is-active",
-        ]}>Recarga</a
+        ]}>Activa y Recarga</a
       >
 
       <a
@@ -301,16 +292,6 @@ const pageHasSubNav = false; // Always render the services flyout since ServiceS
           ]}>Contrata</a
         >
         <a
-          href="/activa/"
-          aria-current={isActive("/activa") ? "page" : undefined}
-          class:list={[
-            "flex items-center py-3.5 px-4 rounded-xl font-poppins font-semibold text-[15px] transition-colors min-h-[48px]",
-            isActive("/activa")
-              ? "text-black bg-black/5"
-              : "text-gray-900 hover:bg-white/20",
-          ]}>Activa</a
-        >
-        <a
           href="/recarga/"
           aria-current={isActive("/recarga") ? "page" : undefined}
           class:list={[
@@ -318,7 +299,7 @@ const pageHasSubNav = false; // Always render the services flyout since ServiceS
             isActive("/recarga")
               ? "text-black bg-black/5"
               : "text-gray-900 hover:bg-white/20",
-          ]}>Recarga</a
+          ]}>Activa y Recarga</a
         >
         <a
           href="/portabilidad/"

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import simBo from '@/assets/images/sim_bo.png';
 
 interface IccidStepProps {
   onValidated: (iccid: string) => void;
@@ -30,15 +31,24 @@ export default function IccidStep({ onValidated, loading, error, initialValue = 
 
   return (
     <div className="max-w-xl mx-auto">
-      <div className="bg-white rounded-2xl shadow-lg p-8">
-        <h3 className="font-unbounded text-lg font-semibold text-[#0f172a] mb-2 text-center">
-          Ingresa tu número
-        </h3>
-        <p className="font-poppins text-sm text-[#7a7a7a] text-center mb-6">
-          Tu número celular de 10 dígitos o el código ICCID de tu SIM
-        </p>
+      {/* Sin tarjeta propia: la página ya envuelve el wizard en la tarjeta
+          blanca (mismo look que las páginas anteriores de activa/recarga). */}
+      <h3 className="font-unbounded text-lg font-semibold text-[#0f172a] mb-2 text-center">
+        Ingresa tu número
+      </h3>
+      <p className="font-poppins text-sm text-[#7a7a7a] text-center mb-6">
+        Tu número celular de 10 dígitos o el código ICCID de tu SIM
+      </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+        {/* Branding: tarjeta SIM Be Online (como en las páginas anteriores) */}
+        <img
+          src={simBo.src}
+          alt="Tarjeta SIM Be Online"
+          className="w-44 md:w-52 shrink-0 rounded-lg shadow-sm"
+        />
+
+        <form onSubmit={handleSubmit} className="space-y-4 w-full flex-1">
           <input
             type="text"
             inputMode="numeric"
@@ -66,9 +76,12 @@ export default function IccidStep({ onValidated, loading, error, initialValue = 
 
           {showHelp && (
             <div className="bg-[#f8fafc] rounded-xl p-4 text-sm font-poppins text-[#7a7a7a] space-y-2">
-              <p>El ICCID es un código de 19-20 dígitos que encontrarás:</p>
+              <p>
+                El ICCID es el código de 19-20 dígitos impreso al reverso de tu
+                tarjeta SIM Be Online, debajo del código de barras. También lo
+                encuentras:
+              </p>
               <ul className="list-disc list-inside space-y-1">
-                <li>Impreso en tu tarjeta SIM</li>
                 <li>En la bandeja de la SIM de tu teléfono</li>
                 <li>En Ajustes → Información del dispositivo → Estado de la SIM</li>
               </ul>

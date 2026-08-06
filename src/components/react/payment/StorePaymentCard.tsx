@@ -48,7 +48,7 @@ export default function StorePaymentCard({
     <div className="bg-white rounded-2xl shadow-lg p-6 space-y-5 max-w-md mx-auto">
       {/* Header */}
       <div className="text-center">
-        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-50 text-yellow-600 text-xs font-semibold">
+        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFCD54]/15 text-[#142035] text-xs font-semibold">
           🏪 {gatewayLabel}
         </span>
       </div>

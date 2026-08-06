@@ -93,8 +93,8 @@ export default function OrderStatusPoller({ maxAttempts = 15 }: Props) {
       {/* Hero según estado */}
       {(status === 'loading' || status === 'pending') && (
         <div>
-          <div className="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-6">
-            <span className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
+          <div className="w-20 h-20 rounded-full bg-[#FFCD54]/25 flex items-center justify-center mx-auto mb-6">
+            <span className="w-10 h-10 border-4 border-[#FFCD54] border-t-transparent rounded-full animate-spin" />
           </div>
           <h1 className="font-unbounded text-3xl font-bold text-panda-dark mb-3">
             Confirmando tu pago...
@@ -217,7 +217,7 @@ export default function OrderStatusPoller({ maxAttempts = 15 }: Props) {
               <span className={`font-semibold capitalize ${
                 ['paid','sim_assigned','preactivated','shipped','delivered'].includes(orderStatus) ? 'text-panda-green' :
                 ['failed','canceled','refund'].includes(orderStatus) ? 'text-panda-red' :
-                'text-amber-600'
+                'text-[#142035]'
               }`}>{orderStatus}</span>
             </div>
           )}

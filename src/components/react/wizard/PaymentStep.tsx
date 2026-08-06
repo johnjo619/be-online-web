@@ -52,15 +52,24 @@ export default function PaymentStep({ msisdn, plan, onPaid }: PaymentStepProps) 
 
   // Fetch available gateways
   useEffect(() => {
+    // NO fabricar una pasarela de respaldo. El objeto hardcodeado que habia
+    // aqui no traia publicKey, y como GatewaySelector auto-selecciona cuando
+    // hay una sola opcion, el flujo entraba solo a Stripe y reventaba con
+    // "No se encontro la llave publica de Stripe" sin que el usuario tocara
+    // nada. Tampoco sirve caer a STRIPE_PUBLISHABLE_KEY: esa llave es de otra
+    // cuenta distinta a la que devuelve el backend, y mezclarla con el
+    // clientSecret produciria un pago roto.
     portalGetGateways(msisdn)
       .then((gws) => {
-        setGateways(gws.length > 0 ? gws : [
-          { key: 'stripe', label: 'Pagar con Tarjeta', icon: '💳', sortOrder: 1, type: 'card' as const },
-        ]);
+        setGateways(gws);
+        if (gws.length === 0) {
+          setError('No hay métodos de pago disponibles para esta línea. Marca *34468.');
+        }
         setGwLoading(false);
       })
       .catch(() => {
-        setGateways([{ key: 'stripe', label: 'Pagar con Tarjeta', icon: '💳', sortOrder: 1, type: 'card' as const }]);
+        setGateways([]);
+        setError('No pudimos cargar los métodos de pago. Vuelve a intentarlo o marca *34468.');
         setGwLoading(false);
       });
   }, [msisdn]);

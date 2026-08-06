@@ -4,11 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        'panda-red': '#f2cc5e',
-        'panda-red-light': '#f2cc5e',
-        'panda-red-dark': '#f2cc5e',
-        'panda-green': '#04AA6D',
-        'panda-dark': '#0f172a',
+        'panda-red': '#FFCD54',
+        'panda-red-light': '#FFCD54',
+        'panda-red-dark': '#FFCD54',
+        'panda-green': '#00A799',
+        'panda-dark': '#142035',
         'panda-gray': '#5a5a5a',
         'panda-surface': '#f8fafc',
         'section-light': '#ffffff',

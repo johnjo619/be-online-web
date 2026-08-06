@@ -23,9 +23,9 @@ export default function WizardStepper({ steps, activeStep }: WizardStepperProps)
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-unbounded font-bold transition-all duration-300 ${
                   isCompleted
-                    ? 'bg-[#04AA6D] text-white'
+                    ? 'bg-[#00A799] text-white'
                     : isActive
-                    ? 'bg-[#1a1e29] text-white shadow-lg shadow-[#1a1e29]/30'
+                    ? 'bg-[#142035] text-white shadow-lg shadow-[#142035]/30'
                     : 'bg-gray-200 text-gray-400'
                 }`}
               >
@@ -39,7 +39,7 @@ export default function WizardStepper({ steps, activeStep }: WizardStepperProps)
               </div>
               <span
                 className={`text-xs font-poppins mt-2 whitespace-nowrap ${
-                  isActive ? 'text-[#0f172a] font-semibold' : 'text-[#7a7a7a]'
+                  isActive ? 'text-[#142035] font-semibold' : 'text-[#7a7a7a]'
                 } ${isPending ? 'hidden sm:block' : ''}`}
               >
                 {step.label}
@@ -50,7 +50,7 @@ export default function WizardStepper({ steps, activeStep }: WizardStepperProps)
             {i < steps.length - 1 && (
               <div
                 className={`h-0.5 w-8 sm:w-16 mx-2 transition-colors duration-300 ${
-                  isCompleted ? 'bg-[#04AA6D]' : 'bg-gray-200'
+                  isCompleted ? 'bg-[#00A799]' : 'bg-gray-200'
                 }`}
               />
             )}

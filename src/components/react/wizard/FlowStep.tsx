@@ -23,7 +23,7 @@ export default function FlowStep({ actions, onSelect }: FlowStepProps) {
 
   return (
     <div className="max-w-sm mx-auto">
-      <h3 className="font-unbounded text-lg font-semibold text-[#0f172a] mb-6 text-center">
+      <h3 className="font-unbounded text-lg font-semibold text-[#142035] mb-6 text-center">
         ¿Qué deseas hacer?
       </h3>
 
@@ -32,12 +32,12 @@ export default function FlowStep({ actions, onSelect }: FlowStepProps) {
           <button
             key={opt.key}
             onClick={() => onSelect(opt.key)}
-            className="bg-white rounded-2xl border-2 border-gray-100 p-6 text-center cursor-pointer transition-all hover:border-[#1a1e29] hover:shadow-md"
+            className="bg-white rounded-2xl border-2 border-gray-100 p-6 text-center cursor-pointer transition-all hover:border-[#142035] hover:shadow-md"
           >
-            <div className="w-12 h-12 rounded-xl bg-[#1a1e29]/10 flex items-center justify-center mx-auto mb-3 text-xl">
+            <div className="w-12 h-12 rounded-xl bg-[#142035]/10 flex items-center justify-center mx-auto mb-3 text-xl">
               {opt.icon}
             </div>
-            <p className="font-unbounded text-sm font-semibold text-[#0f172a]">{opt.label}</p>
+            <p className="font-unbounded text-sm font-semibold text-[#142035]">{opt.label}</p>
             <p className="font-poppins text-[11px] text-[#7a7a7a] mt-1">{opt.desc}</p>
           </button>
         ))}

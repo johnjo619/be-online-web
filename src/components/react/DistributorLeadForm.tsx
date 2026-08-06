@@ -88,7 +88,7 @@ export default function DistributorLeadForm() {
 
   if (success) {
     return (
-      <div className="bg-gradient-to-br from-panda-green/10 to-emerald-50 border-2 border-panda-green/30 rounded-3xl p-8 sm:p-10 text-center">
+      <div className="bg-panda-green/10 border-2 border-panda-green/30 rounded-3xl p-8 sm:p-10 text-center">
         <div className="w-16 h-16 mx-auto rounded-full bg-panda-green flex items-center justify-center mb-5 shadow-lg shadow-panda-green/30">
           <svg className="w-9 h-9 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -232,7 +232,7 @@ export default function DistributorLeadForm() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="w-full py-4 rounded-2xl bg-gradient-to-r from-panda-red to-panda-red-dark text-white font-bold text-lg shadow-lg shadow-panda-red/30 hover:shadow-xl hover:shadow-panda-red/40 hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2"
+        className="w-full py-4 rounded-2xl bg-panda-red text-white font-bold text-lg shadow-lg shadow-panda-red/30 hover:shadow-xl hover:shadow-panda-red/40 hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2"
       >
         {submitting ? (
           <>

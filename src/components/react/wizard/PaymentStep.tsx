@@ -18,7 +18,7 @@ interface PaymentStepProps {
 function Spinner() {
   return (
     <div className="flex justify-center py-6">
-      <div className="w-6 h-6 border-2 border-[#1a1e29] border-t-transparent rounded-full animate-spin" />
+      <div className="w-6 h-6 border-2 border-[#142035] border-t-transparent rounded-full animate-spin" />
     </div>
   );
 }
@@ -204,12 +204,12 @@ export default function PaymentStep({ msisdn, plan, onPaid }: PaymentStepProps) 
       {/* Plan summary */}
       <div className="bg-[#f8fafc] rounded-xl p-4 flex justify-between items-center">
         <div>
-          <p className="font-poppins text-sm font-semibold text-[#0f172a]">
+          <p className="font-poppins text-sm font-semibold text-[#142035]">
             {plan.display_name || plan.name}
           </p>
           <p className="font-poppins text-xs text-[#7a7a7a]">{plan.card_footer || ''}</p>
         </div>
-        <p className="font-unbounded text-xl font-bold text-[#1a1e29]">
+        <p className="font-unbounded text-xl font-bold text-[#142035]">
           ${amount.toFixed(0)} MXN
         </p>
       </div>
@@ -289,7 +289,7 @@ export default function PaymentStep({ msisdn, plan, onPaid }: PaymentStepProps) 
             setOxxoData(null);
             setError('');
           }}
-          className="w-full mt-2 py-3 text-sm font-poppins font-semibold text-[#94a3b8] hover:text-[#1a1e29] transition-colors"
+          className="w-full mt-2 py-3 text-sm font-poppins font-semibold text-[#94a3b8] hover:text-[#142035] transition-colors"
         >
           ← Cambiar método de pago
         </button>

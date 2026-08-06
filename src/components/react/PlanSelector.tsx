@@ -11,9 +11,9 @@ const plansData = [
   {
     id: 'explorer',
     badge: '2 GB',
-    headerColor: '#eebf4e',
+    headerColor: '#FFCD54',
     iconColor: 'black',
-    bodyColor: '#18222a', // Oscuro
+    bodyColor: '#142035', // Oscuro
     name: 'BO EXPLORER',
     subtitle: '2G de 4.5G LTE',
     features: [
@@ -30,9 +30,9 @@ const plansData = [
   {
     id: 'mercury',
     badge: '4 GB',
-    headerColor: '#1a1e29',
+    headerColor: '#142035',
     iconColor: 'white',
-    bodyColor: '#f15623', // Rojo/Naranja
+    bodyColor: '#EF4B23', // Rojo/Naranja
     name: 'BO MERCURY',
     subtitle: '12G de 4.5G LTE',
     features: [
@@ -52,9 +52,9 @@ const plansData = [
   {
     id: 'apolo',
     badge: '12GB',
-    headerColor: '#1a1e29',
+    headerColor: '#142035',
     iconColor: 'white',
-    bodyColor: '#49a59a', // Teal/Verde
+    bodyColor: '#00A799', // Teal/Verde
     name: 'BO APOLO',
     subtitle: '12G de 4.5G LTE DATA',
     features: [
@@ -74,9 +74,10 @@ const plansData = [
   {
     id: 'asteroid',
     badge: '24GB',
-    headerColor: '#1a1e29',
+    headerColor: '#142035',
     iconColor: 'white',
-    bodyColor: '#528bbd', // Azul
+    bodyColor: '#FFCD54', // Amarillo de marca
+    textColor: '#142035',
     name: 'BO ASTEROID',
     subtitle: '24G de 4.5G LTE DATA',
     features: [
@@ -96,9 +97,9 @@ const plansData = [
   {
     id: 'supernova',
     badge: '35GB',
-    headerColor: '#1a1e29',
+    headerColor: '#142035',
     iconColor: 'white',
-    bodyColor: '#7272bc', // Morado
+    bodyColor: '#7473C0', // Morado
     name: 'BO SUPERNOVA',
     subtitle: '35G de 4.5G LTE',
     features: [
@@ -115,9 +116,9 @@ const plansData = [
   {
     id: 'cosmos',
     badge: '50GB',
-    headerColor: '#1a1e29',
+    headerColor: '#142035',
     iconColor: 'white',
-    bodyColor: '#ce6bac', // Rosa
+    bodyColor: '#E96BB0', // Rosa
     name: 'BO COSMOS',
     subtitle: '50G de 4.5G LTE DATA',
     features: [
@@ -148,7 +149,7 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
 
         {/* Header y Selector de SIM */}
         {!hideSimSelector && (
-          <div className="text-center mb-16 text-[#1a1e29]">
+          <div className="text-center mb-16 text-[#142035]">
             <h2 className="text-lg md:text-xl mb-6">
               Todos nuestros planes están disponibles en eSIM o SIM física. Tú decides.
             </h2>
@@ -165,8 +166,8 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
                 <img src={sim1.src} alt="QR" className="w-20 mb-4 object-contain" />
                 <div className="text-left pt-2">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className={`w-5 h-5 rounded-full border-2 border-white shadow-[0_0_0_1px_#1a1e29] flex items-center justify-center ${simType === 'esim' ? 'bg-[#1a1e29]' : 'bg-white'}`}>
-                      {simType === 'esim' && <div className="w-2 h-2 rounded-full bg-[#fccd4d]"></div>}
+                    <div className={`w-5 h-5 rounded-full border-2 border-white shadow-[0_0_0_1px_#142035] flex items-center justify-center ${simType === 'esim' ? 'bg-[#142035]' : 'bg-white'}`}>
+                      {simType === 'esim' && <div className="w-2 h-2 rounded-full bg-[#FFCD54]"></div>}
                     </div>
                     <span className="font-bold text-md">eSIM digital</span>
                   </div>
@@ -184,8 +185,8 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
                 <img src={sim2.src} alt="SIM" className="w-20 mb-4 object-contain" />
                 <div className="text-left pt-2">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className={`w-5 h-5 rounded-full border-2 border-white shadow-[0_0_0_1px_#1a1e29] flex items-center justify-center ${simType === 'fisica' ? 'bg-[#1a1e29]' : 'bg-white'}`}>
-                      {simType === 'fisica' && <div className="w-2 h-2 rounded-full bg-[#fccd4d]"></div>}
+                    <div className={`w-5 h-5 rounded-full border-2 border-white shadow-[0_0_0_1px_#142035] flex items-center justify-center ${simType === 'fisica' ? 'bg-[#142035]' : 'bg-white'}`}>
+                      {simType === 'fisica' && <div className="w-2 h-2 rounded-full bg-[#FFCD54]"></div>}
                     </div>
                     <span className="font-bold text-md">SIM física</span>
                   </div>
@@ -201,15 +202,15 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
         {/* Cuadrícula de Planes */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-16 justify-items-center mb-16 pt-6">
           {plansData.map((plan) => (
-            <div key={plan.id} className="relative w-full max-w-[280px] rounded-2xl shadow-xl flex flex-col" style={{ backgroundColor: plan.bodyColor, color: 'white' }}>
+            <div key={plan.id} className="relative w-full max-w-[280px] rounded-2xl shadow-xl flex flex-col" style={{ backgroundColor: plan.bodyColor, color: plan.textColor || 'white' }}>
 
               {/* Badge Circular (eEj. 2 GB) */}
-              <div className="absolute -top-4 -left-6 w-24 h-24 bg-white rounded-full flex items-center justify-center text-[#1a1e29] font-black text-2xl shadow-md z-10 tracking-tighter">
+              <div className="absolute -top-4 -left-6 w-24 h-24 bg-white rounded-full flex items-center justify-center text-[#142035] font-black text-2xl shadow-md z-10 tracking-tighter">
                 {plan.badge}
               </div>
 
               {/* Nombre del Plan (Header) */}
-              <div className="rounded-t-2xl my-2 mr-4 py-3 pl-12 pr-4 text-right font-semibold text-lg tracking-wide uppercase" style={{ backgroundColor: plan.headerColor }}>
+              <div className="rounded-t-2xl my-2 mr-4 py-3 pl-12 pr-4 text-right font-semibold text-lg tracking-wide uppercase" style={{ backgroundColor: plan.headerColor, color: plan.headerColor === '#FFCD54' ? '#142035' : 'white' }}>
                 {plan.name}
               </div>
 
@@ -268,10 +269,10 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
         {/* Sección ADD ONS */}
         {!hideSimSelector && (
           <div className="text-center mt-24 mb-8">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#1a1e29] mb-3">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#142035] mb-3">
               ¿Te quedaste sin datos?
             </h2>
-            <p className="text-base md:text-2xl text-[#1a1e29] font-medium mb-10">
+            <p className="text-base md:text-2xl text-[#142035] font-medium mb-10">
               No te preocupes, sólo tienes que contratar nuestros planes express
             </p>
 
@@ -283,10 +284,10 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
                 { gb: '10G', days: '15 días', price: '$179' },
               ].map((addon, index) => (
                 <div key={index} className="flex flex-col w-[180px] rounded-[2rem] overflow-hidden shadow-lg border-2 border-transparent transition-transform hover:scale-105 cursor-pointer" onClick={() => setModalPlan({ id: `addon-${addon.gb}`, name: `ADD ON ${addon.gb}`, selectedPrice: addon.price, selectedDuration: addon.days })}>
-                  <div className="bg-[#1a1e29] text-white w-full text-center py-1 text-xl font-black tracking-widest">
+                  <div className="bg-[#142035] text-white w-full text-center py-1 text-xl font-black tracking-widest">
                     {addon.gb}
                   </div>
-                  <div className="bg-white w-full text-center py-2 text-lg text-[#1a1e29] ">
+                  <div className="bg-white w-full text-center py-2 text-lg text-[#142035] ">
                     {addon.days} <span className="mx-1 text-gray-300">|</span> <span className="underline decoration-2 underline-offset-2 font-bold">{addon.price}</span>
                   </div>
                 </div>

@@ -25,12 +25,12 @@ import movies from '@/assets/images/popcorn.png';
 
 /** Misma paleta y orden que PlanSelector en la home. */
 const PALETTE = [
-  { body: '#18222a', header: '#eebf4e', icon: '#1a1e29' },
-  { body: '#f15623', header: '#1a1e29', icon: '#ffffff' },
-  { body: '#49a59a', header: '#1a1e29', icon: '#ffffff' },
-  { body: '#528bbd', header: '#1a1e29', icon: '#ffffff' },
-  { body: '#7272bc', header: '#1a1e29', icon: '#ffffff' },
-  { body: '#ce6bac', header: '#1a1e29', icon: '#ffffff' },
+  { body: '#142035', header: '#FFCD54', icon: '#142035' },
+  { body: '#EF4B23', header: '#142035', icon: '#ffffff' },
+  { body: '#00A799', header: '#142035', icon: '#ffffff' },
+  { body: '#FFCD54', header: '#142035', icon: '#142035', text: '#142035' },
+  { body: '#7473C0', header: '#142035', icon: '#ffffff' },
+  { body: '#E96BB0', header: '#142035', icon: '#ffffff' },
 ];
 
 /**
@@ -72,19 +72,19 @@ export default function PlanCardBO({ plan, index = 0, isSelected = false, onSele
   return (
     <div
       className={`relative w-full max-w-[280px] rounded-2xl shadow-xl flex flex-col transition-transform ${
-        isSelected ? 'ring-4 ring-[#fccd4d] scale-[1.02]' : ''
+        isSelected ? 'ring-4 ring-[#FFCD54] scale-[1.02]' : ''
       }`}
-      style={{ backgroundColor: c.body, color: 'white' }}
+      style={{ backgroundColor: c.body, color: c.text || 'white' }}
     >
       {/* Círculo con los GB */}
-      <div className="absolute -top-4 -left-6 w-24 h-24 bg-white rounded-full flex items-center justify-center text-[#1a1e29] font-black text-2xl shadow-md z-10 tracking-tighter">
+      <div className="absolute -top-4 -left-6 w-24 h-24 bg-white rounded-full flex items-center justify-center text-[#142035] font-black text-2xl shadow-md z-10 tracking-tighter">
         {badge}
       </div>
 
       {/* Nombre del plan */}
       <div
         className="rounded-t-2xl my-2 mr-4 py-3 pl-12 pr-4 text-right font-semibold text-lg tracking-wide uppercase"
-        style={{ backgroundColor: c.header, color: c.header === '#eebf4e' ? '#1a1e29' : 'white' }}
+        style={{ backgroundColor: c.header, color: c.header === '#FFCD54' ? '#142035' : 'white' }}
       >
         {title}
       </div>
@@ -123,7 +123,7 @@ export default function PlanCardBO({ plan, index = 0, isSelected = false, onSele
             type="button"
             onClick={onSelect}
             aria-label={`Contratar ${title} — ${duration} por $${Number(plan.amount || 0).toFixed(0)} pesos`}
-            className="relative z-10 w-full flex justify-center items-center text-md font-bold cursor-pointer hover:scale-105 transition-transform group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#fccd4d] rounded"
+            className="relative z-10 w-full flex justify-center items-center text-md font-bold cursor-pointer hover:scale-105 transition-transform group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFCD54] rounded"
           >
             <span className="flex-1 text-right group-hover:text-white/80 pr-4 whitespace-nowrap">{duration}</span>
             <span className="flex-1 text-left underline decoration-2 underline-offset-4 group-hover:text-white/80 pl-4">

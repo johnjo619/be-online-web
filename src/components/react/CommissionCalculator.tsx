@@ -85,7 +85,7 @@ export default function CommissionCalculator() {
   }, [activaciones, ticket, mes, portIn]);
 
   return (
-    <section id="calculadora" className="py-16 sm:py-24 bg-gradient-to-b from-white to-panda-surface">
+    <section id="calculadora" className="py-16 sm:py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4">
 
         {/* Encabezado */}
@@ -148,7 +148,7 @@ export default function CommissionCalculator() {
           <div className="space-y-6">
 
             {/* HERO RESULT — Total mes seleccionado */}
-            <div className="bg-gradient-to-br from-panda-red to-panda-red-dark text-white rounded-3xl shadow-2xl shadow-panda-red/20 relative overflow-hidden">
+            <div className="bg-panda-red text-white rounded-3xl shadow-2xl shadow-panda-red/20 relative overflow-hidden">
               {/* TOP: ganancia */}
               <div className="px-7 sm:px-10 pt-8 sm:pt-10 pb-8 sm:pb-10 relative">
                 <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-white/5 pointer-events-none"></div>
@@ -238,7 +238,7 @@ export default function CommissionCalculator() {
                       style={{ height: `${heightPct}%` }}
                       className={`flex-1 rounded-t-lg transition-all duration-300 ease-out ${
                         isCurrent
-                          ? 'bg-gradient-to-t from-panda-red to-panda-red-dark shadow-md shadow-panda-red/30'
+                          ? 'bg-panda-red shadow-md shadow-panda-red/30'
                           : 'bg-gray-200 hover:bg-panda-red/50'
                       }`}
                     />
@@ -333,7 +333,7 @@ function SliderField({
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         className="w-full appearance-none cursor-pointer h-2 rounded-full bg-gray-200 outline-none focus:ring-2 focus:ring-panda-red/30"
-        style={{ background: `linear-gradient(to right, ${accent === 'green' ? '#04AA6D' : '#1a1e29'} 0%, ${accent === 'green' ? '#04AA6D' : '#1a1e29'} ${pct}%, #e5e7eb ${pct}%, #e5e7eb 100%)` }}
+        style={{ background: `linear-gradient(to right, ${accent === 'green' ? '#00A799' : '#142035'} 0%, ${accent === 'green' ? '#00A799' : '#142035'} ${pct}%, #e5e7eb ${pct}%, #e5e7eb 100%)` }}
       />
       {hint && <p className="font-poppins text-xs text-panda-gray mt-2.5">{hint}</p>}
     </div>

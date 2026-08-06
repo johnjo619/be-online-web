@@ -28,19 +28,19 @@ export default function SuccessStep({ flow, planName }: SuccessStepProps) {
   return (
     <div className="max-w-md mx-auto text-center">
       {/* Success Icon */}
-      <div className="w-20 h-20 rounded-full bg-[#04AA6D]/10 flex items-center justify-center mx-auto mb-6">
-        <svg className="w-10 h-10 text-[#04AA6D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <div className="w-20 h-20 rounded-full bg-[#00A799]/10 flex items-center justify-center mx-auto mb-6">
+        <svg className="w-10 h-10 text-[#00A799]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
         </svg>
       </div>
 
-      <h3 className="font-unbounded text-2xl font-bold text-[#0f172a] mb-2">
+      <h3 className="font-unbounded text-2xl font-bold text-[#142035] mb-2">
         {msg.title}
       </h3>
       <p className="font-poppins text-[#7a7a7a] mb-4">{msg.desc}</p>
 
       {planName && (
-        <p className="font-poppins text-sm text-[#0f172a] bg-[#f8fafc] rounded-xl py-3 px-4 inline-block mb-6">
+        <p className="font-poppins text-sm text-[#142035] bg-[#f8fafc] rounded-xl py-3 px-4 inline-block mb-6">
           Plan: <span className="font-semibold">{planName}</span>
         </p>
       )}
@@ -48,7 +48,7 @@ export default function SuccessStep({ flow, planName }: SuccessStepProps) {
       <div>
         <a
           href="/"
-          className="inline-flex items-center px-8 py-4 rounded-full bg-[#1a1e29] text-white font-bold shadow-lg shadow-[#1a1e29]/30 hover:bg-[#2a3040] transition-colors"
+          className="inline-flex items-center px-8 py-4 rounded-full bg-[#142035] text-white font-bold shadow-lg shadow-[#142035]/30 hover:bg-[#142035] transition-colors"
         >
           Volver al inicio →
         </a>

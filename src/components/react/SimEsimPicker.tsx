@@ -14,7 +14,7 @@ export default function SimEsimPicker({ selected, onChange }: SimEsimPickerProps
         onClick={() => onChange('esim')}
         className={`relative rounded-2xl border-2 p-5 text-left transition-all overflow-hidden ${
           selected === 'esim'
-            ? 'border-panda-red bg-gradient-to-br from-panda-red/5 to-white shadow-lg shadow-panda-red/15 -translate-y-0.5'
+            ? 'border-panda-red bg-panda-red/5 shadow-lg shadow-panda-red/15 -translate-y-0.5'
             : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
         }`}
       >
@@ -67,7 +67,7 @@ export default function SimEsimPicker({ selected, onChange }: SimEsimPickerProps
         onClick={() => onChange('sim')}
         className={`relative rounded-2xl border-2 p-5 text-left transition-all ${
           selected === 'sim'
-            ? 'border-panda-red bg-gradient-to-br from-panda-red/5 to-white shadow-lg shadow-panda-red/15 -translate-y-0.5'
+            ? 'border-panda-red bg-panda-red/5 shadow-lg shadow-panda-red/15 -translate-y-0.5'
             : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
         }`}
       >

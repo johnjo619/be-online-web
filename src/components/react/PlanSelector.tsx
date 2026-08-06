@@ -246,7 +246,7 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
                 {/* Precios (Clicleables) */}
                 <div className="relative flex-grow flex flex-col justify-center items-center gap-3 ">
                   {/* LÍNEA CONTINUA VERTICAL */}
-                  <div className={`absolute left-1/2 w-0.5 bg-yellow-400 -translate-x-1/2 ${plan.prices.length === 1 ? 'h-5 top-1/2 -translate-y-1/2' : 'top-0 bottom-0'}`}></div>
+                  <div className={`absolute left-1/2 w-0.5 bg-[#FFCD54] -translate-x-1/2 ${plan.prices.length === 1 ? 'h-5 top-1/2 -translate-y-1/2' : 'top-0 bottom-0'}`}></div>
 
                   {plan.prices.map((item, idx) => (
                     <button

@@ -38,7 +38,7 @@ export default function GatewaySelector({
         </svg>
         <div>
           <p className="font-poppins text-sm font-semibold text-amber-900">No hay métodos de pago disponibles</p>
-          <p className="font-poppins text-xs text-amber-700 mt-0.5">Por favor llama al *777 para ayudarte a completar la compra.</p>
+          <p className="font-poppins text-xs text-amber-700 mt-0.5">Por favor llama al *34468 para ayudarte a completar la compra.</p>
         </div>
       </div>
     );

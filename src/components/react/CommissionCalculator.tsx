@@ -351,7 +351,7 @@ function BreakdownCard({
 }) {
   const tintMap = {
     red:   { bg: 'bg-panda-red/5',   border: 'border-panda-red/20',   text: 'text-panda-red',   pill: 'bg-panda-red text-white' },
-    amber: { bg: 'bg-amber-500/5',   border: 'border-amber-500/20',   text: 'text-amber-600',   pill: 'bg-amber-500 text-white' },
+    amber: { bg: 'bg-[#FFCD54]/5',   border: 'border-[#FFCD54]/20',   text: 'text-amber-600',   pill: 'bg-[#FFCD54] text-white' },
     green: { bg: 'bg-panda-green/5', border: 'border-panda-green/20', text: 'text-panda-green', pill: 'bg-panda-green text-white' },
   } as const;
   const c = tintMap[tint];

@@ -127,7 +127,7 @@ export default function TiendaFlow() {
       // El backend devuelve 200 con status:false cuando "No offers found"
       const msg = err instanceof Error ? err.message : '';
       if (/no offers/i.test(msg) || /not found/i.test(msg)) {
-        setError(`Estamos preparando los planes de ${SERVICE_LABEL[srv].toLowerCase()}. Marca *777 para más info.`);
+        setError(`Estamos preparando los planes de ${SERVICE_LABEL[srv].toLowerCase()}. Marca *34468 para más info.`);
       } else {
         setError('No pudimos cargar los planes. Intenta de nuevo.');
       }
@@ -177,7 +177,7 @@ export default function TiendaFlow() {
         }
         setStep('plans');
       } catch {
-        setError(`Estamos preparando los planes de ${SERVICE_LABEL[qSrv].toLowerCase()}. Marca *777 para más info.`);
+        setError(`Estamos preparando los planes de ${SERVICE_LABEL[qSrv].toLowerCase()}. Marca *34468 para más info.`);
         setStep('plans');
       } finally {
         setLoading(false);

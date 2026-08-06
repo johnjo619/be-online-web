@@ -495,7 +495,7 @@ export default function TiendaFlow() {
           {loading && <Spinner />}
 
           {!loading && error && (
-            <div className="max-w-xl mx-auto bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center space-y-3">
+            <div className="max-w-xl mx-auto bg-[#FFCD54]/15 border border-[#FFCD54]/50 rounded-2xl p-6 text-center space-y-3">
               <p className="font-unbounded font-bold text-[#142035]">Aún no hay planes para este servicio</p>
               <p className="font-poppins text-sm text-[#7a7a7a]">{error}</p>
               <button

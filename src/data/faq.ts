@@ -66,7 +66,7 @@ export const faqItems: FAQItem[] = [
   },
   {
     question: "¿Cómo contacto a soporte?",
-    answer: "Puedes llamar al *777 desde tu línea Be Online sin costo alguno, escribirnos por WhatsApp, o contactarnos a través de nuestra app móvil. Nuestro equipo de soporte está disponible de lunes a sábado de 9:00 a 19:00 hrs para ayudarte con cualquier duda.",
+    answer: "Puedes llamar al *34468 desde tu línea Be Online sin costo alguno, escribirnos por WhatsApp, o contactarnos a través de nuestra app móvil. Nuestro equipo de soporte está disponible de lunes a sábado de 9:00 a 19:00 hrs para ayudarte con cualquier duda.",
     category: ['general']
   },
   {

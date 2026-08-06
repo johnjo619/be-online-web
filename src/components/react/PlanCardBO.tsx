@@ -118,7 +118,7 @@ export default function PlanCardBO({ plan, index = 0, isSelected = false, onSele
 
         {/* Duración y precio — mismo tratamiento que la home */}
         <div className="relative flex-grow flex flex-col justify-center items-center gap-3 pt-2">
-          <div className="absolute left-1/2 w-0.5 bg-yellow-400 -translate-x-1/2 h-5 top-1/2 -translate-y-1/2"></div>
+          <div className="absolute left-1/2 w-0.5 bg-[#FFCD54] -translate-x-1/2 h-5 top-1/2 -translate-y-1/2"></div>
           <button
             type="button"
             onClick={onSelect}

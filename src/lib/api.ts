@@ -181,13 +181,13 @@ export async function createOrder(
     '/api/public/ecommerce/orders',
     { method: 'POST', body: JSON.stringify(body) },
   );
-  const data = unwrapData(res, 'No pudimos crear tu orden. Intenta de nuevo o contacta a *777.');
+  const data = unwrapData(res, 'No pudimos crear tu orden. Intenta de nuevo o contacta a *34468.');
   // El backend (publicCreateOrder) responde `order_uuid`, NO `uuid` — verificado
   // contra api.celink.mx 2026-06-10. Sin normalizar, los init de pago mandaban
   // order_uuid undefined → 404 "Orden no encontrada" en TODOS los checkouts.
   const uuid = data.uuid ?? data.order_uuid;
   if (!uuid) {
-    throw new Error('No pudimos crear tu orden. Intenta de nuevo o contacta a *777.');
+    throw new Error('No pudimos crear tu orden. Intenta de nuevo o contacta a *34468.');
   }
   return { ...data, uuid };
 }
@@ -463,7 +463,7 @@ export async function createDistributorLead(
     '/api/public/distribuidor/lead',
     { method: 'POST', body: JSON.stringify(payload) },
   );
-  return unwrapData(res, 'No pudimos registrar tu solicitud. Intenta de nuevo o llámanos a *777.');
+  return unwrapData(res, 'No pudimos registrar tu solicitud. Intenta de nuevo o llámanos a *34468.');
 }
 
 // ── ICCID Validation ─────────────────────────────────────────────────────────

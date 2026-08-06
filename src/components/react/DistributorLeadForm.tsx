@@ -80,7 +80,7 @@ export default function DistributorLeadForm() {
       await createDistributorLead(payload);
       setSuccess(true);
     } catch (err) {
-      setErrorMsg(err instanceof Error ? err.message : 'No pudimos registrar tu solicitud. Intenta de nuevo o llámanos a *777.');
+      setErrorMsg(err instanceof Error ? err.message : 'No pudimos registrar tu solicitud. Intenta de nuevo o llámanos a *34468.');
     } finally {
       setSubmitting(false);
     }
@@ -98,7 +98,7 @@ export default function DistributorLeadForm() {
         <p className="font-poppins text-panda-gray max-w-md mx-auto leading-relaxed mb-6">
           Nuestro equipo de ventas te contactará por <strong className="text-panda-dark">{contact === 'whatsapp' ? 'WhatsApp' : contact === 'call' ? 'llamada' : 'email'}</strong> en menos de 24 horas hábiles.
         </p>
-        <p className="font-poppins text-xs text-panda-gray">¿Tienes prisa? Llámanos directo a <a href="tel:*777" className="text-panda-red font-semibold hover:underline">*777</a></p>
+        <p className="font-poppins text-xs text-panda-gray">¿Tienes prisa? Llámanos directo a <a href="tel:*34468" className="text-panda-red font-semibold hover:underline">*34468</a></p>
       </div>
     );
   }

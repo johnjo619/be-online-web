@@ -119,7 +119,7 @@ export default function OrderStatusPoller({ maxAttempts = 15 }: Props) {
             Te enviamos un correo con los detalles. Si es eSIM, también recibirás el QR.
           </p>
           <p className="font-poppins text-xs text-panda-gray italic">
-            Si no llega en 5 minutos, revisa tu spam o contáctanos a *777.
+            Si no llega en 5 minutos, revisa tu spam o contáctanos a *34468.
           </p>
         </div>
       )}
@@ -138,7 +138,7 @@ export default function OrderStatusPoller({ maxAttempts = 15 }: Props) {
             Tu pago no se pudo procesar (estado: {orderStatus}).
           </p>
           <p className="font-poppins text-sm text-panda-gray">
-            Si crees que es un error, contáctanos a *777 con tu número de orden.
+            Si crees que es un error, contáctanos a *34468 con tu número de orden.
           </p>
         </div>
       )}
@@ -173,7 +173,7 @@ export default function OrderStatusPoller({ maxAttempts = 15 }: Props) {
             No pudimos verificar tu orden
           </h1>
           <p className="font-poppins text-panda-gray">
-            Pero no te preocupes — tu pago está seguro. Si pagaste, recibirás un correo de confirmación. Si no, llámanos a *777.
+            Pero no te preocupes — tu pago está seguro. Si pagaste, recibirás un correo de confirmación. Si no, llámanos a *34468.
           </p>
         </div>
       )}

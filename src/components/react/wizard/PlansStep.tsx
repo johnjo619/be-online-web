@@ -54,7 +54,7 @@ export default function PlansStep({ msisdn, simType, onSelect }: PlansStepProps)
   if (loading) {
     return (
       <div className="flex justify-center py-8">
-        <div className="w-8 h-8 border-3 border-[#eebf4e] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-3 border-[#FFCD54] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -64,7 +64,7 @@ export default function PlansStep({ msisdn, simType, onSelect }: PlansStepProps)
 
   return (
     <div>
-      <h3 className="font-unbounded text-lg font-semibold text-[#0f172a] mb-6 text-center">
+      <h3 className="font-unbounded text-lg font-semibold text-[#142035] mb-6 text-center">
         Elige tu plan
       </h3>
 
@@ -88,7 +88,7 @@ export default function PlansStep({ msisdn, simType, onSelect }: PlansStepProps)
             onClick={() => goTo(pageIdx <= 0 ? totalPages - 1 : pageIdx - 1)}
             className="w-8 h-8 rounded-full bg-white shadow flex items-center justify-center hover:bg-gray-50"
           >
-            <svg className="w-4 h-4 text-[#0f172a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-4 h-4 text-[#142035]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
@@ -97,7 +97,7 @@ export default function PlansStep({ msisdn, simType, onSelect }: PlansStepProps)
             onClick={() => goTo(pageIdx >= totalPages - 1 ? 0 : pageIdx + 1)}
             className="w-8 h-8 rounded-full bg-white shadow flex items-center justify-center hover:bg-gray-50"
           >
-            <svg className="w-4 h-4 text-[#0f172a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-4 h-4 text-[#142035]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>

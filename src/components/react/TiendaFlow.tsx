@@ -60,7 +60,7 @@ const MOVIL_TABS: { key: MovilTabKey; label: string }[] = [
 function Spinner() {
   return (
     <div className="flex justify-center py-8">
-      <div className="w-8 h-8 border-3 border-[#1a1e29] border-t-transparent rounded-full animate-spin" />
+      <div className="w-8 h-8 border-3 border-[#142035] border-t-transparent rounded-full animate-spin" />
     </div>
   );
 }
@@ -439,11 +439,11 @@ export default function TiendaFlow() {
       {step !== 'service' && (
         <div className="flex items-center justify-between bg-white rounded-2xl border border-gray-100 px-5 py-3 shadow-sm">
           <div className="flex items-center gap-3 text-sm font-poppins text-[#7a7a7a]">
-            <button onClick={handleBackToService} className="text-[#1a1e29] font-semibold hover:underline">
+            <button onClick={handleBackToService} className="text-[#142035] font-semibold hover:underline">
               ← Cambiar servicio
             </button>
             <span className="text-gray-300">/</span>
-            <span className="text-[#0f172a] font-semibold">
+            <span className="text-[#142035] font-semibold">
               {service ? SERVICE_LABEL[service] : ''}
             </span>
             {service && service !== 'movil' && (
@@ -481,8 +481,8 @@ export default function TiendaFlow() {
                     onClick={() => { setActiveMovilTab(t.key); if (step !== 'plans') handleBackToPlans(); }}
                     className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all ${
                       activeMovilTab === t.key
-                        ? 'bg-[#1a1e29] text-white shadow-lg shadow-[#1a1e29]/30'
-                        : 'text-[#7a7a7a] hover:text-[#0f172a]'
+                        ? 'bg-[#142035] text-white shadow-lg shadow-[#142035]/30'
+                        : 'text-[#7a7a7a] hover:text-[#142035]'
                     }`}
                   >
                     {t.label}
@@ -496,11 +496,11 @@ export default function TiendaFlow() {
 
           {!loading && error && (
             <div className="max-w-xl mx-auto bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center space-y-3">
-              <p className="font-unbounded font-bold text-[#0f172a]">Aún no hay planes para este servicio</p>
+              <p className="font-unbounded font-bold text-[#142035]">Aún no hay planes para este servicio</p>
               <p className="font-poppins text-sm text-[#7a7a7a]">{error}</p>
               <button
                 onClick={handleBackToService}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#1a1e29] text-[#1a1e29] font-semibold text-sm hover:bg-[#1a1e29] hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#142035] text-[#142035] font-semibold text-sm hover:bg-[#142035] hover:text-white transition-colors"
               >
                 ← Elegir otro servicio
               </button>
@@ -535,7 +535,7 @@ export default function TiendaFlow() {
                     className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors"
                     aria-label="Anterior"
                   >
-                    <svg className="w-5 h-5 text-[#0f172a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="w-5 h-5 text-[#142035]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                     </svg>
                   </button>
@@ -546,7 +546,7 @@ export default function TiendaFlow() {
                         key={i}
                         onClick={() => goTo(i)}
                         className={`w-2.5 h-2.5 rounded-full transition-all ${
-                          i === pageIdx ? 'bg-[#1a1e29] scale-125' : 'bg-gray-300'
+                          i === pageIdx ? 'bg-[#142035] scale-125' : 'bg-gray-300'
                         }`}
                         aria-label={`Página ${i + 1}`}
                       />
@@ -558,7 +558,7 @@ export default function TiendaFlow() {
                     className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors"
                     aria-label="Siguiente"
                   >
-                    <svg className="w-5 h-5 text-[#0f172a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="w-5 h-5 text-[#142035]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
@@ -618,7 +618,7 @@ export default function TiendaFlow() {
 
             {/* Hero header */}
             <div className="flex items-start gap-4 pb-5 border-b border-gray-100">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-panda-red to-panda-red-dark text-white shadow-lg shadow-panda-red/30">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 bg-panda-red text-white shadow-lg shadow-panda-red/30">
                 {step === 'checkout' ? (
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -716,7 +716,7 @@ export default function TiendaFlow() {
                   <button
                     onClick={handleProceedToPayment}
                     disabled={checkoutLoading}
-                    className="group w-full rounded-2xl bg-gradient-to-r from-panda-red to-panda-red-dark text-white font-bold py-4 text-lg shadow-lg shadow-panda-red/40 hover:shadow-xl hover:shadow-panda-red/50 hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-3"
+                    className="group w-full rounded-2xl bg-panda-red text-white font-bold py-4 text-lg shadow-lg shadow-panda-red/40 hover:shadow-xl hover:shadow-panda-red/50 hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-3"
                   >
                     {checkoutLoading ? (
                       <>
@@ -760,7 +760,7 @@ export default function TiendaFlow() {
                       const btn = document.getElementById('customer-form-submit') as HTMLButtonElement;
                       btn?.click();
                     }}
-                    className="group w-full rounded-2xl bg-gradient-to-r from-panda-red to-panda-red-dark text-white font-bold py-4 text-lg shadow-lg shadow-panda-red/40 hover:shadow-xl hover:shadow-panda-red/50 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
+                    className="group w-full rounded-2xl bg-panda-red text-white font-bold py-4 text-lg shadow-lg shadow-panda-red/40 hover:shadow-xl hover:shadow-panda-red/50 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
                   >
                     Continuar al pago
                     <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
@@ -832,7 +832,7 @@ export default function TiendaFlow() {
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
 
               {/* HEADER: plan destacado con gradient rojo (compacto, no PlanCard 300x460) */}
-              <div className="bg-gradient-to-br from-panda-red to-panda-red-dark px-5 pt-5 pb-4 text-white">
+              <div className="bg-panda-red px-5 pt-5 pb-4 text-white">
                 <p className="font-poppins text-[10px] uppercase tracking-wider opacity-80 mb-1">
                   Tu plan {service ? SERVICE_LABEL[service].toLowerCase() : ''}
                 </p>

@@ -21,7 +21,7 @@ export default function DeviceLineItem({ name, price, icon, hint, badge }: Props
   return (
     <div className="bg-white rounded-2xl border-2 border-gray-200 p-4 flex items-center gap-3 shadow-sm">
       {/* Ícono */}
-      <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-panda-red/10 to-panda-red/5 flex items-center justify-center flex-shrink-0">
+      <div className="w-11 h-11 rounded-xl bg-panda-red/10 flex items-center justify-center flex-shrink-0">
         <span className="text-panda-red">
           <Icon name={icon} />
         </span>

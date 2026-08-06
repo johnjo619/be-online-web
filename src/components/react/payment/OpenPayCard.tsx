@@ -144,18 +144,18 @@ export default function OpenPayCard({
   if (!sdkReady && !error) {
     return (
       <div className="flex justify-center py-6">
-        <div className="w-6 h-6 border-2 border-[#ec3143] border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-[#EF4B23] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   const inputClass =
-    'w-full rounded-xl border border-gray-300 px-4 py-3 font-poppins text-sm focus:border-[#ec3143] focus:ring-2 focus:ring-[#ec3143]/20 outline-none transition-colors';
+    'w-full rounded-xl border border-gray-300 px-4 py-3 font-poppins text-sm focus:border-[#EF4B23] focus:ring-2 focus:ring-[#EF4B23]/20 outline-none transition-colors';
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-xs font-semibold text-[#0f172a] mb-1">
+        <label className="block text-xs font-semibold text-[#142035] mb-1">
           Número de tarjeta
         </label>
         <input
@@ -171,7 +171,7 @@ export default function OpenPayCard({
       </div>
 
       <div>
-        <label className="block text-xs font-semibold text-[#0f172a] mb-1">
+        <label className="block text-xs font-semibold text-[#142035] mb-1">
           Nombre del titular
         </label>
         <input
@@ -186,7 +186,7 @@ export default function OpenPayCard({
 
       <div className="grid grid-cols-3 gap-3">
         <div>
-          <label className="block text-xs font-semibold text-[#0f172a] mb-1">MM</label>
+          <label className="block text-xs font-semibold text-[#142035] mb-1">MM</label>
           <input
             type="text"
             inputMode="numeric"
@@ -199,7 +199,7 @@ export default function OpenPayCard({
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold text-[#0f172a] mb-1">AA</label>
+          <label className="block text-xs font-semibold text-[#142035] mb-1">AA</label>
           <input
             type="text"
             inputMode="numeric"
@@ -212,7 +212,7 @@ export default function OpenPayCard({
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold text-[#0f172a] mb-1">CVV</label>
+          <label className="block text-xs font-semibold text-[#142035] mb-1">CVV</label>
           <input
             type="text"
             inputMode="numeric"
@@ -231,7 +231,7 @@ export default function OpenPayCard({
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-full bg-[#ec3143] text-white font-bold py-4 text-lg shadow-lg shadow-[#ec3143]/30 hover:bg-[#a13a42] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full rounded-full bg-[#EF4B23] text-white font-bold py-4 text-lg shadow-lg shadow-[#EF4B23]/30 hover:bg-[#EF4B23] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? (
           <span className="flex items-center justify-center gap-2">

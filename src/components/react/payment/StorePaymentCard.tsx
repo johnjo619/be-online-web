@@ -56,12 +56,12 @@ export default function StorePaymentCard({
       {/* Reference */}
       <div className="text-center space-y-2">
         <p className="text-xs text-[#7a7a7a] font-poppins">Referencia de pago</p>
-        <p className="font-mono text-2xl font-bold text-[#0f172a] tracking-wider">
+        <p className="font-mono text-2xl font-bold text-[#142035] tracking-wider">
           {reference}
         </p>
         <button
           onClick={copyRef}
-          className="text-xs font-semibold text-[#1a1e29] hover:underline"
+          className="text-xs font-semibold text-[#142035] hover:underline"
         >
           {copied ? '✓ Copiada' : 'Copiar referencia'}
         </button>
@@ -79,18 +79,18 @@ export default function StorePaymentCard({
         {amount != null && (
           <div className="flex justify-between">
             <span className="text-[#7a7a7a]">Monto</span>
-            <span className="font-bold text-[#0f172a]">${Number(amount).toFixed(2)} MXN</span>
+            <span className="font-bold text-[#142035]">${Number(amount).toFixed(2)} MXN</span>
           </div>
         )}
         {formattedDate && (
           <div className="flex justify-between">
             <span className="text-[#7a7a7a]">Vence</span>
-            <span className="font-semibold text-[#0f172a]">{formattedDate}</span>
+            <span className="font-semibold text-[#142035]">{formattedDate}</span>
           </div>
         )}
         {!formattedDate && (
           <div className="flex justify-center">
-            <span className="text-[10px] font-bold text-[#04AA6D] bg-[#04AA6D]/10 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] font-bold text-[#00A799] bg-[#00A799]/10 px-2 py-0.5 rounded-full">
               Referencia permanente
             </span>
           </div>
@@ -98,12 +98,12 @@ export default function StorePaymentCard({
         {description && (
           <div className="flex justify-between">
             <span className="text-[#7a7a7a]">Descripción</span>
-            <span className="text-[#0f172a]">{description}</span>
+            <span className="text-[#142035]">{description}</span>
           </div>
         )}
         <div className="flex justify-between">
           <span className="text-[#7a7a7a]">Paga en</span>
-          <span className="text-[#0f172a] font-semibold">{places.join(', ')}</span>
+          <span className="text-[#142035] font-semibold">{places.join(', ')}</span>
         </div>
       </div>
 

@@ -22,7 +22,7 @@ const pageHasSubNav = false; // Always render the services flyout since ServiceS
 ---
 
 <header
-  class="fixed left-0 right-0 z-50 bg-[#ffce54] shadow-sm"
+  class="fixed left-0 right-0 z-50 bg-[#FFCD54] shadow-sm"
   style="top: var(--banner-h, 0px);"
 >
   <div
@@ -112,7 +112,7 @@ const pageHasSubNav = false; // Always render the services flyout since ServiceS
         target="_blank"
         rel="noopener"
         class:list={[
-          "hidden sm:inline-flex items-center gap-2 rounded-full bg-[#1b252f] text-white font-poppins font-semibold hover:bg-black transition-colors",
+          "hidden sm:inline-flex items-center gap-2 rounded-full bg-[#142035] text-white font-poppins font-semibold hover:bg-black transition-colors",
           compact ? "px-5 py-2 text-sm" : "px-7 py-3 text-base",
         ]}
       >
@@ -160,11 +160,11 @@ const pageHasSubNav = false; // Always render the services flyout since ServiceS
       role="dialog"
       aria-modal="true"
       aria-label="Menú principal"
-      class="fixed right-0 top-0 bottom-0 w-[88%] max-w-[360px] h-screen bg-[#ffce54] shadow-2xl flex flex-col translate-x-full transition-transform duration-300 ease-out"
+      class="fixed right-0 top-0 bottom-0 w-[88%] max-w-[360px] h-screen bg-[#FFCD54] shadow-2xl flex flex-col translate-x-full transition-transform duration-300 ease-out"
       style="height: 100dvh;"
     >
       <div
-        class="flex items-center justify-between px-5 py-4 border-b border-gray-800/10 bg-[#ffce54]"
+        class="flex items-center justify-between px-5 py-4 border-b border-gray-800/10 bg-[#FFCD54]"
       >
         <img
           src="/logo-be-online.png"
@@ -196,7 +196,7 @@ const pageHasSubNav = false; // Always render the services flyout since ServiceS
       </div>
 
       <nav
-        class="flex-1 min-h-0 overflow-y-auto px-3 py-4 space-y-0.5 bg-[#ffce54]"
+        class="flex-1 min-h-0 overflow-y-auto px-3 py-4 space-y-0.5 bg-[#FFCD54]"
       >
         <details class="group" open={servicesActive}>
           <summary
@@ -318,12 +318,12 @@ const pageHasSubNav = false; // Always render the services flyout since ServiceS
         >
       </nav>
 
-      <div class="p-4 border-t border-gray-800/10 bg-[#ffce54]">
+      <div class="p-4 border-t border-gray-800/10 bg-[#FFCD54]">
         <a
           href="https://app.beonline.mx"
           target="_blank"
           rel="noopener"
-          class="flex items-center justify-center gap-2 w-full py-3 rounded-full bg-[#1b252f] text-white font-poppins font-bold text-[15px] hover:bg-black transition-colors"
+          class="flex items-center justify-center gap-2 w-full py-3 rounded-full bg-[#142035] text-white font-poppins font-bold text-[15px] hover:bg-black transition-colors"
         >
           Be Online Móvil
         </a>
@@ -440,7 +440,7 @@ const pageHasSubNav = false; // Always render the services flyout since ServiceS
     top: -2px;
     height: 3px;
     border-radius: 9999px;
-    background-color: #1b252f;
+    background-color: #142035;
     transform: scaleX(0);
     transform-origin: left center;
     transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);

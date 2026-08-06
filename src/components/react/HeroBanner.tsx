@@ -101,7 +101,7 @@ export default function HeroBanner({
         />
 
         {/* Gradiente oscuro a la izquierda para legibilidad del texto */}
-        <div className="absolute inset-y-0 left-0 w-full md:w-2/3 bg-gradient-to-r from-black/80 via-black/50 md:via-black/40 to-transparent pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-full md:w-2/3 bg-black/65 md:via-black/40 to-transparent pointer-events-none" />
 
         {/* Cuadrícula de dos columnas: Texto a la izquierda, Astronauta a la derecha */}
         <div className="relative max-w-6xl mx-auto px-6 sm:px-8 grid md:grid-cols-2 gap-8 items-center w-full">
@@ -116,7 +116,7 @@ export default function HeroBanner({
 
             <h1 className={`${compact ? 'text-4xl md:text-5xl' : 'text-5xl sm:text-5xl md:text-6xl'} font-unbounded font-black leading-[1.05] drop-shadow-xl mb-3 tracking-tight`}>
               {/* "GRATIS" en amarillo dorado */}
-              {headlineHighlight && <span className="text-[#ffce54] block">{headlineHighlight}</span>}
+              {headlineHighlight && <span className="text-[#FFCD54] block">{headlineHighlight}</span>}
               <span className="text-white whitespace-pre-line block">{headlineMain}</span>
             </h1>
 
@@ -140,7 +140,7 @@ export default function HeroBanner({
                 <a
                   href={primaryCta.href}
                   {...(primaryCta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  className={`${compact ? 'px-6 py-3 text-sm' : 'px-8 py-4 text-base'} inline-flex items-center justify-center rounded-full bg-[#1b252f] text-white font-bold hover:bg-black transition-colors shadow-xl`}
+                  className={`${compact ? 'px-6 py-3 text-sm' : 'px-8 py-4 text-base'} inline-flex items-center justify-center rounded-full bg-[#142035] text-white font-bold hover:bg-black transition-colors shadow-xl`}
                 >
                   {primaryCta.label}
                   <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -187,7 +187,7 @@ export default function HeroBanner({
 
   return (
     <section
-      className={`relative ${compact ? 'min-h-[420px] md:min-h-[500px] lg:min-h-[565px] pt-[48px]' : 'min-h-[460px] md:min-h-[540px] lg:min-h-[650px] pt-[72px]'} flex items-center overflow-hidden bg-[#0f172a]`}
+      className={`relative ${compact ? 'min-h-[420px] md:min-h-[500px] lg:min-h-[565px] pt-[48px]' : 'min-h-[460px] md:min-h-[540px] lg:min-h-[650px] pt-[72px]'} flex items-center overflow-hidden bg-[#142035]`}
       onMouseEnter={() => (paused.current = true)}
       onMouseLeave={() => (paused.current = false)}
     >
@@ -212,7 +212,7 @@ export default function HeroBanner({
         </picture>
       ))}
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+      <div className="absolute inset-0 bg-black/50" />
 
       <div className="relative max-w-6xl mx-auto px-6 w-full">
         <Wrapper
@@ -225,7 +225,7 @@ export default function HeroBanner({
             </h2>
           )}
           {b.link_url && (
-            <span className="inline-flex items-center px-8 py-4 rounded-full bg-[#ffce54] text-gray-900 font-bold text-lg hover:bg-[#eebb40] transition-colors shadow-lg font-poppins">
+            <span className="inline-flex items-center px-8 py-4 rounded-full bg-[#FFCD54] text-gray-900 font-bold text-lg hover:bg-[#FFCD54] transition-colors shadow-lg font-poppins">
               {b.link_text || 'Ver más'}
               <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -242,7 +242,7 @@ export default function HeroBanner({
               key={i}
               onClick={() => goTo(i)}
               className={`w-3 h-3 rounded-full transition-all ${i === current
-                ? 'bg-[#ffce54] scale-125'
+                ? 'bg-[#FFCD54] scale-125'
                 : 'bg-white/50 hover:bg-white/80'
                 }`}
               aria-label={`Banner ${i + 1}`}

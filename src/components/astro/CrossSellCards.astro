@@ -46,7 +46,7 @@ const isTelefonia = exclude === "telefonia";
 ---
 
 <section
-  class={`relative py-10 md:py-14 overflow-hidden ${isTelefonia ? "bg-[#F4C430]" : "bg-[#1a1e29]"}`}
+  class={`relative py-10 md:py-14 overflow-hidden ${isTelefonia ? "bg-[#FFCD54]" : "bg-[#142035]"}`}
 >
   <!-- BG telefonia-05 con object-position-left para mantener mano+phone visible a la izquierda -->
   <!--
@@ -58,7 +58,7 @@ const isTelefonia = exclude === "telefonia";
       class="w-full h-full object-cover object-center md:object-left opacity-20"
       loading="lazy"
     />
-    <div class={`absolute inset-0 ${isTelefonia ? "bg-[#F4C430]/88" : "bg-[#1a1e29]/60"}`}></div>
+    <div class={`absolute inset-0 ${isTelefonia ? "bg-[#FFCD54]/88" : "bg-[#142035]/60"}`}></div>
   </div>
   -->
 
@@ -87,7 +87,7 @@ const isTelefonia = exclude === "telefonia";
         cards.map((card) => (
           <a
             href={card.href}
-            class="group block bg-[#1f2431] border border-slate-800/80 rounded-xl shadow-md hover:shadow-xl hover:border-slate-700 hover:-translate-y-0.5 transition-all duration-300 px-4 py-3.5"
+            class="group block bg-[#142035] border border-slate-800/80 rounded-xl shadow-md hover:shadow-xl hover:border-slate-700 hover:-translate-y-0.5 transition-all duration-300 px-4 py-3.5"
           >
             <h3 class="font-unbounded text-[13px] font-bold text-white mb-1 group-hover:text-panda-red transition-colors leading-tight">
               {card.title}

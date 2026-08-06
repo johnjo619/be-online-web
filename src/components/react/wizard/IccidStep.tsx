@@ -33,7 +33,7 @@ export default function IccidStep({ onValidated, loading, error, initialValue = 
     <div className="max-w-xl mx-auto">
       {/* Sin tarjeta propia: la página ya envuelve el wizard en la tarjeta
           blanca (mismo look que las páginas anteriores de activa/recarga). */}
-      <h3 className="font-unbounded text-lg font-semibold text-[#0f172a] mb-2 text-center">
+      <h3 className="font-unbounded text-lg font-semibold text-[#142035] mb-2 text-center">
         Ingresa tu número
       </h3>
       <p className="font-poppins text-sm text-[#7a7a7a] text-center mb-6">
@@ -58,7 +58,7 @@ export default function IccidStep({ onValidated, loading, error, initialValue = 
               setLocalError('');
             }}
             placeholder="10 dígitos o ICCID"
-            className="w-full rounded-xl border border-gray-300 px-4 py-4 font-poppins text-lg text-center tracking-wider focus:border-[#1a1e29] focus:ring-2 focus:ring-[#1a1e29]/20 outline-none transition-colors"
+            className="w-full rounded-xl border border-gray-300 px-4 py-4 font-poppins text-lg text-center tracking-wider focus:border-[#142035] focus:ring-2 focus:ring-[#142035]/20 outline-none transition-colors"
             autoFocus
           />
 
@@ -69,7 +69,7 @@ export default function IccidStep({ onValidated, loading, error, initialValue = 
           <button
             type="button"
             onClick={() => setShowHelp(!showHelp)}
-            className="text-sm text-[#1a1e29] hover:underline font-poppins block mx-auto"
+            className="text-sm text-[#142035] hover:underline font-poppins block mx-auto"
           >
             ¿Dónde encuentro mi ICCID?
           </button>
@@ -91,7 +91,7 @@ export default function IccidStep({ onValidated, loading, error, initialValue = 
           <button
             type="submit"
             disabled={loading || value.length < 10}
-            className="w-full rounded-full bg-[#1a1e29] text-white font-bold py-4 text-lg shadow-lg shadow-[#1a1e29]/30 hover:bg-[#2a3040] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full rounded-full bg-[#142035] text-white font-bold py-4 text-lg shadow-lg shadow-[#142035]/30 hover:bg-[#142035] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">

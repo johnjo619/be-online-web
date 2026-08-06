@@ -97,7 +97,7 @@ export default function ServiceChooser({ selectedService, includeDevice, onSelec
               onClick={() => onSelect(s.key, s.hasDeviceToggle ? includeDevice : true)}
               className={`relative text-left rounded-2xl border-2 p-5 pb-14 transition-all overflow-hidden ${
                 isActive
-                  ? 'border-panda-red bg-gradient-to-br from-panda-red/5 to-white shadow-lg shadow-panda-red/15 -translate-y-0.5'
+                  ? 'border-panda-red bg-panda-red/5 shadow-lg shadow-panda-red/15 -translate-y-0.5'
                   : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
               }`}
             >
@@ -170,7 +170,7 @@ export default function ServiceChooser({ selectedService, includeDevice, onSelec
               onClick={() => onSelect(selected.key, true)}
               className={`relative text-left rounded-2xl border-2 p-5 transition-all ${
                 includeDevice
-                  ? 'border-panda-red bg-gradient-to-br from-panda-red/5 to-white shadow-lg shadow-panda-red/15 -translate-y-0.5'
+                  ? 'border-panda-red bg-panda-red/5 shadow-lg shadow-panda-red/15 -translate-y-0.5'
                   : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
               }`}
             >
@@ -204,7 +204,7 @@ export default function ServiceChooser({ selectedService, includeDevice, onSelec
               onClick={() => onSelect(selected.key, false)}
               className={`relative text-left rounded-2xl border-2 p-5 transition-all ${
                 !includeDevice
-                  ? 'border-panda-red bg-gradient-to-br from-panda-red/5 to-white shadow-lg shadow-panda-red/15 -translate-y-0.5'
+                  ? 'border-panda-red bg-panda-red/5 shadow-lg shadow-panda-red/15 -translate-y-0.5'
                   : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
               }`}
             >
@@ -241,7 +241,7 @@ export default function ServiceChooser({ selectedService, includeDevice, onSelec
           <button
             type="button"
             onClick={onContinue}
-            className="group w-full sm:w-auto sm:inline-flex sm:mx-auto rounded-2xl bg-gradient-to-r from-panda-red to-panda-red-dark text-white font-bold py-4 px-8 text-base shadow-lg shadow-panda-red/40 hover:shadow-xl hover:shadow-panda-red/50 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2"
+            className="group w-full sm:w-auto sm:inline-flex sm:mx-auto rounded-2xl bg-panda-red text-white font-bold py-4 px-8 text-base shadow-lg shadow-panda-red/40 hover:shadow-xl hover:shadow-panda-red/50 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2"
           >
             Ver planes disponibles
             <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>

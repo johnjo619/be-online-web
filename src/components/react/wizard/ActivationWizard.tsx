@@ -162,7 +162,7 @@ export default function ActivationWizard() {
         <div className="text-center mt-4">
           <button
             onClick={() => dispatch({ type: 'PREV_STEP' })}
-            className="text-sm text-[#7a7a7a] hover:text-[#1a1e29] font-poppins transition-colors"
+            className="text-sm text-[#7a7a7a] hover:text-[#142035] font-poppins transition-colors"
           >
             ← Volver al paso anterior
           </button>

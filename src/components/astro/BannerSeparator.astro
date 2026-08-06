@@ -4,22 +4,25 @@
 ---
 
 <section
-  class="bg-[#0f1115] text-white p-6 md:p-10 flex flex-col md:flex-row items-center justify-center md:justify-between gap-6"
+  class="bg-[#142035] text-white p-6 md:p-10 flex flex-col md:flex-row items-center justify-center md:justify-between gap-6"
 >
   {/* Un contenedor interno flex para alinear el texto y el icono */}
   <div
     class="flex-1 w-full max-w-4xl mx-auto flex items-center justify-between gap-8"
   >
-    {/* Bloque de texto centralizado */}
-    <div class="text-center flex-1">
+    {/* Bloque de texto — lleva a la sección de planes de la home */}
+    <a
+      href="/#planes"
+      class="text-center flex-1 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFCD54] rounded-lg"
+    >
       <span class="block text-3xl text-white tracking-wide">checa</span>
       <h2
-        class="text-3xl md:text-5xl font-extrabold uppercase tracking-tight my-2 text-white"
+        class="text-3xl md:text-5xl font-extrabold uppercase tracking-tight my-2 text-white group-hover:text-[#FFCD54] transition-colors"
       >
         NUESTROS PLANES
       </h2>
       <p class="text-3xl text-white">y empieza a ahorrar.</p>
-    </div>
+    </a>
 
     {/* Icono de WhatsApp a la derecha, enlazado para abrir un chat */}
     {/* TODO: cuando Be Online tenga numero de WhatsApp, cambiar a https://wa.me/52XXXXXXXXXX */}

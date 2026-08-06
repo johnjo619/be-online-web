@@ -73,7 +73,7 @@ export default function PlanCard({
         width: '100%',
         maxWidth: `${cardWidth}px`,
         minHeight: `${cardMinHeight}px`,
-        outline: isSelected ? (isHome ? '2px solid #04AA6D' : '3px solid #04AA6D') : 'none',
+        outline: isSelected ? (isHome ? '2px solid #00A799' : '3px solid #00A799') : 'none',
         outlineOffset: isHome ? '-2px' : '-3px',
         flexShrink: 0,
       }}
@@ -82,7 +82,7 @@ export default function PlanCard({
       <div
         className="relative text-center"
         style={{
-          background: isHome ? 'linear-gradient(180deg, #ff344a 0%, #ec3143 100%)' : 'linear-gradient(135deg, #ec3143, #a13a42)',
+          background: isHome ? '#EF4B23' : '#EF4B23',
           padding: isHome ? '18px 14px 12px' : '20px 16px',
         }}
       >
@@ -137,7 +137,7 @@ export default function PlanCard({
             rel={ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
             className={`${isHome ? 'py-3 min-h-[44px] rounded-lg text-white text-[13px]' : 'py-3.5 min-h-[48px] rounded-2xl text-white text-[15px]'} w-full border-none font-bold flex items-center justify-center gap-2 transition-all mt-auto no-underline`}
             style={{
-              background: isSelected ? '#04AA6D' : 'linear-gradient(90deg, #ec3143, #f2384c)',
+              background: isSelected ? '#00A799' : '#EF4B23',
               opacity: isHovered && !isSelected ? 0.9 : 1,
               transform: isHovered && !isSelected ? 'scale(0.98)' : 'scale(1)',
             }}
@@ -158,7 +158,7 @@ export default function PlanCard({
             }}
             className={`${isHome ? 'py-3 min-h-[44px] rounded-lg text-white text-[13px]' : 'py-3.5 min-h-[48px] rounded-2xl text-white text-[15px]'} w-full border-none font-bold flex items-center justify-center gap-2 transition-all mt-auto`}
             style={{
-              background: isSelected ? '#04AA6D' : 'linear-gradient(90deg, #ec3143, #f2384c)',
+              background: isSelected ? '#00A799' : '#EF4B23',
               opacity: isHovered && !isSelected ? 0.9 : 1,
               transform: isHovered && !isSelected ? 'scale(0.98)' : 'scale(1)',
             }}

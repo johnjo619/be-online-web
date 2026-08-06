@@ -27,7 +27,7 @@ const isMifi = service === "mifi";
 <section
   class:list={[
     "relative py-16 px-4 overflow-hidden",
-    isMifi ? "bg-[#F4C430] text-black" : "bg-panda-dark text-white",
+    isMifi ? "bg-[#FFCD54] text-black" : "bg-panda-dark text-white",
   ]}
 >
   {
@@ -45,8 +45,8 @@ const isMifi = service === "mifi";
     class:list={[
       "absolute inset-0 pointer-events-none",
       isMifi
-        ? "bg-[#F4C430]/88"
-        : "bg-gradient-to-b from-panda-dark/55 via-panda-dark/45 to-panda-dark/70",
+        ? "bg-[#FFCD54]/88"
+        : "bg-panda-dark/58",
     ]}
   >
   </div>
@@ -76,7 +76,7 @@ const isMifi = service === "mifi";
         class:list={[
           "inline-flex items-center justify-center px-8 py-3 rounded-full font-semibold transition-colors",
           isMifi
-            ? "bg-black hover:bg-black/85 text-[#F4C430]"
+            ? "bg-black hover:bg-black/85 text-[#FFCD54]"
             : "bg-panda-red hover:bg-panda-red-dark text-white",
         ]}
       >

@@ -55,7 +55,7 @@ export default function GatewaySelector({
             onClick={() => onSelect(gw.key)}
             className={`relative text-left rounded-2xl border-2 p-4 transition-all overflow-hidden ${
               isSelected
-                ? 'border-panda-red bg-gradient-to-br from-panda-red/5 to-white shadow-lg shadow-panda-red/15 -translate-y-0.5'
+                ? 'border-panda-red bg-panda-red/5 shadow-lg shadow-panda-red/15 -translate-y-0.5'
                 : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
             }`}
           >

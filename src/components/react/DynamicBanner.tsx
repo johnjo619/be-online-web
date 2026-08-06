@@ -71,7 +71,7 @@ export default function DynamicBanner() {
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 z-[60] h-9 sm:h-11 bg-gradient-to-r from-[#1a1e29] to-[#2b3546] flex items-center justify-center px-10 sm:px-12 transition-opacity duration-300"
+      className="fixed top-0 left-0 right-0 z-[60] h-9 sm:h-11 bg-[#142035] flex items-center justify-center px-10 sm:px-12 transition-opacity duration-300"
       onMouseEnter={() => (paused.current = true)}
       onMouseLeave={() => (paused.current = false)}
     >

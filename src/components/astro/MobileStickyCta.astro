@@ -1,12 +1,18 @@
 ---
+import PrecioDesde from "../react/PrecioDesde";
+
 interface Props {
-  priceFrom?: string;
+  /** Tipo del CRM del que sacar el precio minimo. */
+  tipo?: string;
+  /** Sufijo tras el precio, p.ej. "/mes". */
+  sufijo?: string;
   ctaLabel?: string;
   ctaHref?: string;
 }
 
 const {
-  priceFrom = '$99/mes',
+  tipo = 'Movilidad',
+  sufijo = '/mes',
   ctaLabel = 'Comprar',
   ctaHref = '/contrata',
 } = Astro.props;
@@ -19,7 +25,13 @@ const {
   <div class="flex items-center justify-between gap-3 px-4 py-3">
     <div class="flex flex-col">
       <span class="font-poppins text-[11px] uppercase tracking-wider text-panda-gray">Desde</span>
-      <span class="font-unbounded text-base font-bold text-panda-dark leading-tight">{priceFrom}</span>
+      <PrecioDesde
+        client:visible
+        tipo={tipo}
+        sufijo={sufijo}
+        className="font-unbounded text-base font-bold text-panda-dark leading-tight"
+        sufijoClassName="text-xs font-normal text-panda-gray ml-0.5"
+      />
     </div>
     <a
       href={ctaHref}

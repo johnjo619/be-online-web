@@ -1,138 +1,109 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import PlanActionModal from './PlanActionModal';
 import NetworkIcon from './NetworkIcon';
+import { getPlans } from '../../lib/api';
+import { getActiveSocialNetworks } from './planHelpers';
+import type { Plan } from '../../lib/types';
 import sim1 from "@/assets/images/sim1.png";
 import sim2 from "@/assets/images/sim2.png";
 import movies from "@/assets/images/popcorn.png";
 
 
 // ── Datos Estáticos Basados en la Imagen ─────────────────
-const plansData = [
-  {
-    id: 'explorer',
-    badge: '2 GB',
-    headerColor: '#FFCD54',
-    iconColor: 'black',
-    bodyColor: '#142035', // Oscuro
-    name: 'BO EXPLORER',
-    subtitle: '2G de 4.5G LTE',
-    features: [
-      '• Minutos y SMS ilimitados',
-      '• Cobertura MEX, EUA, Canadá',
-      '• Internet para compartir',
-      '• Redes sociales ilimitadas'
-    ],
-    socialNetworks: ['whatsapp', 'facebook', 'instagram', 'x', 'snapchat'],
-    prices: [
-      { label: '30 días', price: '$149' },
-    ]
-  },
-  {
-    id: 'mercury',
-    badge: '4 GB',
-    headerColor: '#142035',
-    iconColor: 'white',
-    bodyColor: '#EF4B23', // Rojo/Naranja
-    name: 'BO MERCURY',
-    subtitle: '12G de 4.5G LTE',
-    features: [
-      '• Minutos y SMS ilimitados',
-      '• Cobertura MEX, EUA, Canadá',
-      '• Internet para compartir',
-      '• Redes sociales ilimitadas'
-    ],
-    socialNetworks: ['whatsapp', 'facebook', 'instagram', 'x', 'snapchat', 'movies'],
-    prices: [
-      { label: '30 días', price: '$209' },
-      { label: '3 meses', price: '$599' },
-      { label: '6 meses', price: '$1,169' },
-      { label: '12 meses', price: '$2,199' }
-    ]
-  },
-  {
-    id: 'apolo',
-    badge: '12GB',
-    headerColor: '#142035',
-    iconColor: 'white',
-    bodyColor: '#00A799', // Teal/Verde
-    name: 'BO APOLO',
-    subtitle: '12G de 4.5G LTE DATA',
-    features: [
-      '• Minutos y SMS ilimitados',
-      '• Cobertura MEX, EUA, Canadá',
-      '• Internet para compartir',
-      '• Redes sociales ilimitadas'
-    ],
-    socialNetworks: ['whatsapp', 'facebook', 'instagram', 'x', 'snapchat', 'movies'],
-    prices: [
-      { label: '30 días', price: '$259' },
-      { label: '3 meses', price: '$749' },
-      { label: '6 meses', price: '$1,499' },
-      { label: '12 meses', price: '$2,759' }
-    ]
-  },
-  {
-    id: 'asteroid',
-    badge: '24GB',
-    headerColor: '#142035',
-    iconColor: 'white',
-    bodyColor: '#FFCD54', // Amarillo de marca
-    textColor: '#142035',
-    name: 'BO ASTEROID',
-    subtitle: '24G de 4.5G LTE DATA',
-    features: [
-      '• Minutos y SMS ilimitados',
-      '• Cobertura MEX, EUA, Canadá',
-      '• Internet para compartir',
-      '• Redes sociales ilimitadas'
-    ],
-    socialNetworks: ['whatsapp', 'facebook', 'instagram', 'x', 'snapchat'],
-    prices: [
-      { label: '30 días', price: '$329' },
-      { label: '3 meses', price: '$969' },
-      { label: '6 meses', price: '$1,939' },
-      { label: '12 meses', price: '$3,599' }
-    ]
-  },
-  {
-    id: 'supernova',
-    badge: '35GB',
-    headerColor: '#142035',
-    iconColor: 'white',
-    bodyColor: '#7473C0', // Morado
-    name: 'BO SUPERNOVA',
-    subtitle: '35G de 4.5G LTE',
-    features: [
-      '• Minutos y SMS ilimitados',
-      '• Cobertura MEX, EUA, Canadá',
-      '• Internet para compartir',
-      '• Redes sociales ilimitadas'
-    ],
-    socialNetworks: ['whatsapp', 'facebook', 'instagram', 'x', 'snapchat'],
-    prices: [
-      { label: '30 días', price: '$419' }
-    ]
-  },
-  {
-    id: 'cosmos',
-    badge: '50GB',
-    headerColor: '#142035',
-    iconColor: 'white',
-    bodyColor: '#E96BB0', // Rosa
-    name: 'BO COSMOS',
-    subtitle: '50G de 4.5G LTE DATA',
-    features: [
-      '• Minutos y SMS ilimitados',
-      '• Cobertura MEX, EUA, Canadá',
-      '• Internet para compartir',
-      '• Redes sociales ilimitadas'
-    ],
-    socialNetworks: ['whatsapp', 'facebook', 'instagram', 'x', 'snapchat'],
-    prices: [
-      { label: '30 días', price: '$669' }
-    ]
-  }
+/**
+ * Paleta de las tarjetas: misma que PlanCardBO, por posicion.
+ * La cuarta usa el amarillo de marca, asi que su texto va en navy.
+ */
+const PALETA = [
+  { body: '#142035', header: '#FFCD54', icon: 'black' },
+  { body: '#EF4B23', header: '#142035', icon: 'white' },
+  { body: '#00A799', header: '#142035', icon: 'white' },
+  { body: '#FFCD54', header: '#142035', icon: 'black', text: '#142035' },
+  { body: '#7473C0', header: '#142035', icon: 'white' },
+  { body: '#E96BB0', header: '#142035', icon: 'white' },
 ];
+
+const FEATURES = [
+  '• Minutos y SMS ilimitados',
+  '• Cobertura MEX, EUA, Canadá',
+  '• Internet para compartir',
+  '• Redes sociales ilimitadas',
+];
+
+const money = (n: number) => '$' + Number(n).toLocaleString('es-MX');
+
+/** "4GB BO EXPLORER" -> "BO EXPLORER". Si no queda nada, deja el original. */
+function soloNombre(nombre: string, gb: number): string {
+  return nombre.replace(new RegExp(`\\b${gb}\\s*GB\\b`, 'i'), '').trim() || nombre;
+}
+
+/** Etiqueta de duracion a partir de interval/interval_count del CRM. */
+function duracion(p: Plan): string {
+  const n = Number(p.interval_count) || 1;
+  if (p.interval === 'month') return n === 1 ? '1 mes' : `${n} meses`;
+  if (p.interval === 'year') return n === 1 ? '1 año' : `${n} años`;
+  return `${n} días`;
+}
+
+/**
+ * Arma las tarjetas desde el catalogo real del CRM.
+ *
+ * Se agrupa por `data_national_limit` (los GB) y NO por el nombre: en el CRM
+ * hay ofertas como "BO ASTEROID" que no llevan los GB en el texto, y parsear
+ * el nombre las dejaba fuera. El nombre de la tarjeta sale de la oferta
+ * mensual de ese mismo tier.
+ */
+function construirTarjetas(ofertas: Plan[]) {
+  const porGb = new Map<number, Plan[]>();
+  for (const o of ofertas) {
+    const gb = Number(o.data_national_limit);
+    if (!gb) continue;
+    const esMensual = o.interval === 'day' && Number(o.interval_count) === 30;
+    const esLargo = o.interval === 'month' || o.interval === 'year';
+    if (!esMensual && !esLargo) continue; // los Exprés van en la seccion de add-ons
+    if (!porGb.has(gb)) porGb.set(gb, []);
+    porGb.get(gb)!.push(o);
+  }
+
+  return [...porGb.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([gb, lista], i) => {
+      const mensual = lista.find((o) => o.interval === 'day');
+      const base = mensual || lista[0];
+      const largos = lista
+        .filter((o) => o !== mensual)
+        .sort((a, b) => (Number(a.amount) || 0) - (Number(b.amount) || 0));
+      const c = PALETA[i % PALETA.length];
+      return {
+        id: String(base.id),
+        badge: `${gb}GB`,
+        headerColor: c.header,
+        iconColor: c.icon,
+        bodyColor: c.body,
+        textColor: (c as { text?: string }).text,
+        name: soloNombre(base.display_name || base.name || '', gb),
+        subtitle: `${gb}GB de 4.5G LTE`,
+        features: FEATURES,
+        socialNetworks: getActiveSocialNetworks(base),
+        prices: [
+          ...(mensual ? [{ label: duracion(mensual), price: money(Number(mensual.amount) || 0) }] : []),
+          ...largos.map((o) => ({ label: duracion(o), price: money(Number(o.amount) || 0) })),
+        ],
+      };
+    });
+}
+
+/** Add-ons: las ofertas Exprés (vigencia menor a 30 dias). */
+function construirAddons(ofertas: Plan[]) {
+  return ofertas
+    .filter((o) => o.interval === 'day' && Number(o.interval_count) < 30 && Number(o.data_national_limit))
+    .sort((a, b) => (Number(a.data_national_limit) || 0) - (Number(b.data_national_limit) || 0))
+    .map((o) => ({
+      gb: `${Number(o.data_national_limit)}G`,
+      days: `${Number(o.interval_count)} días`,
+      price: money(Number(o.amount) || 0),
+    }));
+}
 
 interface PlanSelectorProps {
   hideSimSelector?: boolean;
@@ -142,6 +113,22 @@ interface PlanSelectorProps {
 export default function PlanSelector({ hideSimSelector = false }: PlanSelectorProps) {
   const [simType, setSimType] = useState<'esim' | 'fisica'>('esim');
   const [modalPlan, setModalPlan] = useState<any | null>(null);
+  const [ofertas, setOfertas] = useState<Plan[] | null>(null);
+  const [errorCatalogo, setErrorCatalogo] = useState(false);
+
+  // Catalogo real del CRM. Antes estaba hardcodeado y quedo desfasado: los
+  // precios eran correctos pero los nombres estaban corridos un tier, y habia
+  // un "2 GB $149" que no existe en el CRM.
+  useEffect(() => {
+    let cancelado = false;
+    getPlans('Movilidad')
+      .then((r) => { if (!cancelado) setOfertas(r); })
+      .catch(() => { if (!cancelado) setErrorCatalogo(true); });
+    return () => { cancelado = true; };
+  }, []);
+
+  const plansData = useMemo(() => construirTarjetas(ofertas || []), [ofertas]);
+  const addons = useMemo(() => construirAddons(ofertas || []), [ofertas]);
 
   return (
     <section id="planes" className="py-12 md:py-16 px-4 bg-[#ffcd54] min-h-screen font-sans">
@@ -200,6 +187,18 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
         )}
 
         {/* Cuadrícula de Planes */}
+        {ofertas === null && !errorCatalogo && (
+          <div className="flex justify-center py-16">
+            <span className="w-10 h-10 border-4 border-[#142035] border-t-transparent rounded-full animate-spin" />
+          </div>
+        )}
+
+        {(errorCatalogo || (ofertas !== null && plansData.length === 0)) && (
+          <p className="text-center text-[#142035] font-poppins py-16">
+            No pudimos cargar los planes en este momento. Marca <strong>*34468</strong> desde tu línea Be Online.
+          </p>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-16 justify-items-center mb-16 pt-6">
           {plansData.map((plan) => (
             <div key={plan.id} className="relative w-full max-w-[280px] rounded-2xl shadow-xl flex flex-col" style={{ backgroundColor: plan.bodyColor, color: plan.textColor || 'white' }}>
@@ -277,12 +276,7 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
             </p>
 
             <div className="flex flex-wrap justify-center gap-6">
-              {[
-                { gb: '2G', days: '3 días', price: '$59' },
-                { gb: '6G', days: '7 días', price: '$99' },
-                { gb: '8G', days: '20 días', price: '$199' },
-                { gb: '10G', days: '15 días', price: '$179' },
-              ].map((addon, index) => (
+              {addons.map((addon, index) => (
                 <div key={index} className="flex flex-col w-[180px] rounded-[2rem] overflow-hidden shadow-lg border-2 border-transparent transition-transform hover:scale-105 cursor-pointer" onClick={() => setModalPlan({ id: `addon-${addon.gb}`, name: `ADD ON ${addon.gb}`, selectedPrice: addon.price, selectedDuration: addon.days })}>
                   <div className="bg-[#142035] text-white w-full text-center py-1 text-xl font-black tracking-widest">
                     {addon.gb}

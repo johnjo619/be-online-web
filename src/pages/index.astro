@@ -17,11 +17,14 @@ import {
   productAggregateSchema,
 } from "../lib/schema";
 import BannerSeparator from "@/components/astro/BannerSeparator.astro";
+import { resumenCatalogo } from "../lib/catalogo-build";
+
+const catalogo = await resumenCatalogo("Movilidad");
 
 const schemas = [
   organizationSchema(),
   webSiteSchema(),
-  productAggregateSchema(),
+  productAggregateSchema(catalogo),
 ];
 ---
 

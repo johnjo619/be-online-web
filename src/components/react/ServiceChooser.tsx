@@ -10,6 +10,8 @@
  *  - CTA "Continuar" con gradient + sombra prominente
  */
 
+import PrecioDesde from './PrecioDesde';
+
 export type Service = 'movil' | 'mifi';
 
 interface Feature { text: string }
@@ -25,7 +27,8 @@ interface ServiceMeta {
   deviceWithoutCopy: string;
   /** Si false, no muestra toggle (móvil siempre incluye chip). */
   hasDeviceToggle: boolean;
-  priceFrom: string;
+  /** Tipo del CRM del que sacar el precio minimo. */
+  crmType: string;
   iconPath: string;
 }
 
@@ -42,7 +45,7 @@ const SERVICES: ServiceMeta[] = [
     deviceWithCopy: '',
     deviceWithoutCopy: '',
     hasDeviceToggle: false,
-    priceFrom: '$50',
+    crmType: 'Movilidad',
     iconPath: 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z',
   },
   {
@@ -57,7 +60,7 @@ const SERVICES: ServiceMeta[] = [
     deviceWithCopy: 'Te enviamos el MiFi en 2-4 días',
     deviceWithoutCopy: 'Ya tengo MiFi compatible',
     hasDeviceToggle: true,
-    priceFrom: '$149',
+    crmType: 'MiFi',
     iconPath: 'M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0',
   },
 ];
@@ -131,7 +134,7 @@ export default function ServiceChooser({ selectedService, includeDevice, onSelec
                 <div>
                   <span className="font-poppins text-[10px] uppercase tracking-wider text-panda-gray">desde</span>
                   <div className="font-mono text-lg font-bold text-panda-red leading-none mt-0.5">
-                    {s.priceFrom} <span className="text-[10px] font-normal text-panda-gray">MXN</span>
+                    <PrecioDesde tipo={s.crmType} className="" /> <span className="text-[10px] font-normal text-panda-gray">MXN</span>
                   </div>
                 </div>
                 <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${

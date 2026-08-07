@@ -55,44 +55,54 @@ export function webSiteSchema() {
   };
 }
 
-export function productAggregateSchema() {
+export interface RangoPrecios {
+  min: number;
+  max: number;
+  total: number;
+}
+
+/**
+ * Los rangos de precio del JSON-LD se pasan desde la pagina, que los lee del
+ * CRM en build (lib/catalogo-build). Antes estaban escritos a mano y quedaron
+ * desfasados del catalogo. Si no llega el dato se omite `offers`: un rango
+ * inventado en datos estructurados es peor que no declararlos.
+ */
+export function productAggregateSchema(rango?: RangoPrecios | null) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: 'Planes de Telefonía Móvil Be Online',
     description: 'Planes de telefonía móvil e internet portátil MiFi con cobertura nacional en México.',
     brand: { '@type': 'Brand', name: BRAND_NAME },
-    offers: {
-      '@type': 'AggregateOffer',
-      priceCurrency: 'MXN',
-      lowPrice: '50',
-      highPrice: '599',
-      offerCount: 20,
-      availability: 'https://schema.org/InStock',
-    },
+    ...(rango
+      ? {
+          offers: {
+            '@type': 'AggregateOffer',
+            priceCurrency: 'MXN',
+            lowPrice: String(rango.min),
+            highPrice: String(rango.max),
+            offerCount: rango.total,
+            availability: 'https://schema.org/InStock',
+          },
+        }
+      : {}),
     category: 'Telefonía Móvil',
   };
 }
 
 export type ServiceKey = 'telefonia' | 'mifi';
 
-export function serviceProductSchema(service: ServiceKey) {
-  const data: Record<ServiceKey, { name: string; description: string; lowPrice: string; highPrice: string; category: string; offerCount: number }> = {
+export function serviceProductSchema(service: ServiceKey, rango?: RangoPrecios | null) {
+  const data: Record<ServiceKey, { name: string; description: string; category: string }> = {
     'telefonia': {
       name: 'Planes de Telefonía Móvil Be Online',
       description: 'Planes prepago de telefonía móvil con redes sociales ilimitadas, cobertura 4G LTE nacional y sin contratos.',
-      lowPrice: '50',
-      highPrice: '599',
       category: 'Mobile Phone Plan',
-      offerCount: 12,
     },
     'mifi': {
       name: 'Internet Portátil MiFi Be Online',
       description: 'Dispositivo MiFi con plan de datos para llevar Wi-Fi a donde vayas. Hasta 10 dispositivos conectados.',
-      lowPrice: '149',
-      highPrice: '499',
       category: 'Portable Wi-Fi',
-      offerCount: 4,
     },
   };
   const d = data[service];
@@ -103,14 +113,18 @@ export function serviceProductSchema(service: ServiceKey) {
     description: d.description,
     brand: { '@type': 'Brand', name: BRAND_NAME },
     category: d.category,
-    offers: {
-      '@type': 'AggregateOffer',
-      priceCurrency: 'MXN',
-      lowPrice: d.lowPrice,
-      highPrice: d.highPrice,
-      offerCount: d.offerCount,
-      availability: 'https://schema.org/InStock',
-    },
+    ...(rango
+      ? {
+          offers: {
+            '@type': 'AggregateOffer',
+            priceCurrency: 'MXN',
+            lowPrice: String(rango.min),
+            highPrice: String(rango.max),
+            offerCount: rango.total,
+            availability: 'https://schema.org/InStock',
+          },
+        }
+      : {}),
   };
 }
 

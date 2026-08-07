@@ -11,6 +11,9 @@ import {
   serviceProductSchema,
 } from "../lib/schema";
 import ServiceShell from "@/components/astro/ServiceShell.astro";
+import { resumenCatalogo } from "../lib/catalogo-build";
+
+const catalogoMifi = await resumenCatalogo("MiFi");
 ---
 
 <BaseLayout
@@ -19,7 +22,7 @@ import ServiceShell from "@/components/astro/ServiceShell.astro";
   jsonLd={[
     organizationSchema(),
     localBusinessSchema(),
-    serviceProductSchema("mifi"),
+    serviceProductSchema("mifi", catalogoMifi),
   ]}
 >
   <DynamicBanner
@@ -751,6 +754,6 @@ import ServiceShell from "@/components/astro/ServiceShell.astro";
     </section> -->
   </main>
 
-  <MobileStickyCta priceFrom="$149/mes" ctaLabel="Ver MiFi" ctaHref="#mifi" />
+  <MobileStickyCta tipo="MiFi" ctaLabel="Ver MiFi" ctaHref="#mifi" />
   <Footer transition:persist transition:name="panda-footer" />
 </BaseLayout>

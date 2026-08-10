@@ -114,7 +114,13 @@ function construirTarjetas(ofertas: Plan[]) {
     });
 }
 
-/** Add-ons: las ofertas Exprés (vigencia menor a 30 dias). */
+/**
+ * Add-ons: las ofertas Exprés (vigencia menor a 30 dias).
+ *
+ * Las redes incluidas salen del mismo `rs_included_*` del CRM que usan las
+ * tarjetas grandes: los Exprés las traen igual que los planes de 30 dias, pero
+ * esta tira no las dibujaba y parecian planes sin redes.
+ */
 function construirAddons(ofertas: Plan[]) {
   return ofertas
     .filter((o) => o.interval === 'day' && Number(o.interval_count) < 30 && Number(o.data_national_limit))
@@ -123,6 +129,7 @@ function construirAddons(ofertas: Plan[]) {
       gb: `${Number(o.data_national_limit)}G`,
       days: `${Number(o.interval_count)} días`,
       price: money(Number(o.amount) || 0),
+      socialNetworks: getActiveSocialNetworks(o),
     }));
 }
 
@@ -251,14 +258,14 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
                 </ul>
 
                 {/* Íconos de Redes Sociales */}
-                <div className="flex justify-center items-center gap-1.5 mb-2 flex-wrap">
+                <div className="flex justify-center items-center gap-1 mb-2 flex-wrap">
                   {plan.socialNetworks?.map((network) =>
                     network === 'movies' ? (
                       <img key={network} src={movies.src} alt="Movies" className="w-12 relative -top-2 flex" />
                     ) : (
                       <div
                         key={network}
-                        className="w-6 h-6 rounded-full border border-white/20 flex items-center justify-cente flex items-center justify-center"
+                        className="w-[22px] h-[22px] shrink-0 rounded-full border border-white/20 flex items-center justify-center"
                         style={{ backgroundColor: plan.headerColor, color: plan.iconColor }}
                       >
                         <NetworkIcon network={network} className="w-3.5 h-3.5" />
@@ -309,6 +316,24 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
                   <div className="bg-white w-full text-center py-2 text-lg text-[#142035] ">
                     {addon.days} <span className="mx-1 text-gray-300">|</span> <span className="underline decoration-2 underline-offset-2 font-bold">{addon.price}</span>
                   </div>
+
+                  {/* Redes incluidas — del CRM, igual que en las tarjetas grandes */}
+                  {addon.socialNetworks.length > 0 && (
+                    <div className="bg-white w-full flex justify-center items-center gap-[3px] flex-wrap px-2 pb-3">
+                      {addon.socialNetworks.map((network) =>
+                        network === 'movies' ? (
+                          <img key={network} src={movies.src} alt="Movies" className="w-8" />
+                        ) : (
+                          <div
+                            key={network}
+                            className="w-[18px] h-[18px] rounded-full flex items-center justify-center bg-[#142035] text-white shrink-0"
+                          >
+                            <NetworkIcon network={network} className="w-2.5 h-2.5" />
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

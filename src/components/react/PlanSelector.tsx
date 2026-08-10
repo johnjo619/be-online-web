@@ -11,24 +11,45 @@ import movies from "@/assets/images/popcorn.png";
 
 // ── Datos Estáticos Basados en la Imagen ─────────────────
 /**
- * Paleta de las tarjetas: misma que PlanCardBO, por posicion.
- * La cuarta usa el amarillo de marca, asi que su texto va en navy.
+ * Color por NOMBRE de plan, no por posicion.
+ *
+ * Antes se asignaba por indice y bastaba que el CRM agregara o quitara un tier
+ * para que cada plan cambiara de color. La referencia de marca fija el color de
+ * cada plan, asi que se mapea por nombre y el indice queda solo de respaldo
+ * para planes que no esten en la lista.
  */
-const PALETA = [
-  { body: '#142035', header: '#FFCD54', icon: 'black' },
-  { body: '#EF4B23', header: '#142035', icon: 'white' },
-  { body: '#00A799', header: '#142035', icon: 'white' },
-  { body: '#FFCD54', header: '#142035', icon: 'black', text: '#142035' },
-  { body: '#7473C0', header: '#142035', icon: 'white' },
-  { body: '#E96BB0', header: '#142035', icon: 'white' },
-];
+const COLOR_POR_PLAN: Record<string, string> = {
+  'BO EXPLORER': '#142035',
+  'BO MERCURY': '#EF4B23',
+  'BO APOLO': '#00A799',
+  'BO ASTEROID': '#468BBC',
+  'BO SUPERNOVA': '#468BBC',
+  'BO COSMOS': '#E96BB0',
+};
 
-const FEATURES = [
-  '• Minutos y SMS ilimitados',
-  '• Cobertura MEX, EUA, Canadá',
-  '• Internet para compartir',
-  '• Redes sociales ilimitadas',
-];
+/** Respaldo cuando el plan no esta en el mapa de marca. */
+const RESPALDO = ['#142035', '#EF4B23', '#00A799', '#468BBC', '#7473C0', '#E96BB0'];
+
+function colorDePlan(nombre: string, i: number): string {
+  const clave = Object.keys(COLOR_POR_PLAN).find((k) =>
+    nombre.toUpperCase().includes(k),
+  );
+  return clave ? COLOR_POR_PLAN[clave] : RESPALDO[i % RESPALDO.length];
+}
+
+/**
+ * Los bullets salen del plan, no de una constante: el CRM marca por oferta si
+ * incluye redes sociales (los MiFi, por ejemplo, no las traen) y la tarjeta
+ * decia "Redes sociales ilimitadas" en todas.
+ */
+function featuresDe(redes: string[]): string[] {
+  return [
+    '• Minutos y SMS ilimitados',
+    '• Cobertura MEX, EUA, Canadá',
+    '• Internet para compartir',
+    redes.length > 0 ? '• Redes sociales ilimitadas' : '• Plan sin redes sociales',
+  ];
+}
 
 const money = (n: number) => '$' + Number(n).toLocaleString('es-MX');
 
@@ -73,17 +94,17 @@ function construirTarjetas(ofertas: Plan[]) {
       const largos = lista
         .filter((o) => o !== mensual)
         .sort((a, b) => (Number(a.amount) || 0) - (Number(b.amount) || 0));
-      const c = PALETA[i % PALETA.length];
+      const nombre = soloNombre(base.display_name || base.name || '', gb);
+      const cuerpo = colorDePlan(nombre, i);
       return {
         id: String(base.id),
         badge: `${gb}GB`,
-        headerColor: c.header,
-        iconColor: c.icon,
-        bodyColor: c.body,
-        textColor: (c as { text?: string }).text,
-        name: soloNombre(base.display_name || base.name || '', gb),
+        headerColor: cuerpo === '#142035' ? '#FFCD54' : '#142035',
+        iconColor: cuerpo === '#142035' ? '#142035' : 'white',
+        bodyColor: cuerpo,
+        name: nombre,
         subtitle: `${gb}GB de 4.5G LTE`,
-        features: FEATURES,
+        features: featuresDe(getActiveSocialNetworks(base)),
         socialNetworks: getActiveSocialNetworks(base),
         prices: [
           ...(mensual ? [{ label: duracion(mensual), price: money(Number(mensual.amount) || 0) }] : []),
@@ -107,10 +128,14 @@ function construirAddons(ofertas: Plan[]) {
 
 interface PlanSelectorProps {
   hideSimSelector?: boolean;
+  /** Tipo del CRM a pintar: 'Movilidad' (default) o 'MiFi'. */
+  tipo?: string;
+  /** Oculta la seccion de add-ons Expres (solo aplica a Movilidad). */
+  hideAddons?: boolean;
 }
 
 // ── Main Component ─────────────────────────────────────
-export default function PlanSelector({ hideSimSelector = false }: PlanSelectorProps) {
+export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilidad', hideAddons = false }: PlanSelectorProps) {
   const [simType, setSimType] = useState<'esim' | 'fisica'>('esim');
   const [modalPlan, setModalPlan] = useState<any | null>(null);
   const [ofertas, setOfertas] = useState<Plan[] | null>(null);
@@ -121,17 +146,17 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
   // un "2 GB $149" que no existe en el CRM.
   useEffect(() => {
     let cancelado = false;
-    getPlans('Movilidad')
+    getPlans(tipo)
       .then((r) => { if (!cancelado) setOfertas(r); })
       .catch(() => { if (!cancelado) setErrorCatalogo(true); });
     return () => { cancelado = true; };
-  }, []);
+  }, [tipo]);
 
   const plansData = useMemo(() => construirTarjetas(ofertas || []), [ofertas]);
   const addons = useMemo(() => construirAddons(ofertas || []), [ofertas]);
 
   return (
-    <section id="planes" className="py-12 md:py-16 px-4 bg-[#ffcd54] min-h-screen font-sans">
+    <section id="planes" className={`py-12 md:py-16 px-4 bg-[#FFCD54] font-sans ${hideSimSelector ? "" : "min-h-screen"}`}>
       <div className="max-w-[1000px] mx-auto">
 
         {/* Header y Selector de SIM */}
@@ -201,7 +226,7 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-16 justify-items-center mb-16 pt-6">
           {plansData.map((plan) => (
-            <div key={plan.id} className="relative w-full max-w-[280px] rounded-2xl shadow-xl flex flex-col" style={{ backgroundColor: plan.bodyColor, color: plan.textColor || 'white' }}>
+            <div key={plan.id} className="relative w-full max-w-[280px] rounded-2xl shadow-xl flex flex-col" style={{ backgroundColor: plan.bodyColor, color: 'white' }}>
 
               {/* Badge Circular (eEj. 2 GB) */}
               <div className="absolute -top-4 -left-6 w-24 h-24 bg-white rounded-full flex items-center justify-center text-[#142035] font-black text-2xl shadow-md z-10 tracking-tighter">
@@ -266,7 +291,7 @@ export default function PlanSelector({ hideSimSelector = false }: PlanSelectorPr
         </div>
 
         {/* Sección ADD ONS */}
-        {!hideSimSelector && (
+        {!hideSimSelector && !hideAddons && (
           <div className="text-center mt-24 mb-8">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#142035] mb-3">
               ¿Te quedaste sin datos?

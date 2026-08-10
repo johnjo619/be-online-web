@@ -5,6 +5,7 @@ import Footer from "../components/astro/Footer.astro";
 import DynamicBanner from "../components/react/DynamicBanner";
 import MobileStickyCta from "../components/astro/MobileStickyCta.astro";
 import MiFi from "../components/astro/MiFi.astro";
+import PlanSelector from "../components/react/PlanSelector";
 import {
   organizationSchema,
   localBusinessSchema,
@@ -44,6 +45,8 @@ const catalogoMifi = await resumenCatalogo("MiFi");
       <!-- PRODUCT: MiFi card -->
       <div slot="product">
         <MiFi />
+        {/* Planes MiFi reales del CRM, mismas tarjetas que telefonia. */}
+        <PlanSelector client:visible tipo="MiFi" hideSimSelector />
       </div>
 
       <!-- CONTENT: bloques visuales (no muro de texto) manteniendo SEO H2s -->

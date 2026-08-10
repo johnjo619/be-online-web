@@ -19,27 +19,6 @@ const DEVICE_CATEGORY_BY_SERVICE: Record<Exclude<Service, 'movil'>, string> = {
 /** SKU fijo del producto "Gastos de envío" en CRM. */
 const SHIPPING_SKU = 'shipping-mx-fixed';
 
-/* ── MOCK products para preview local ──────────────────────────────
- * Solo se usan si PUBLIC_USE_MOCK_PRODUCTS=true en .env (no en build prod).
- * Cuando el backend (feature/ecommerce-devices-shipping) esté deployado
- * y los productos seedeados en CRM, estos mocks se descartan automáticamente.
- */
-const MOCK_DEVICE_BY_CATEGORY: Record<string, EcommerceProduct> = {
-  mifi: {
-    id: -2, sku: 'mifi-pmf01',
-    name: 'Equipo MiFi PMF01',
-    product_type: 'mifi_device', category: 'mifi',
-    valor_unitario: '1200.00', tasa_iva: '0.16',
-    requires_shipping: true,
-  },
-};
-const MOCK_SHIPPING: EcommerceProduct = {
-  id: -3, sku: 'shipping-mx-fixed',
-  name: 'Gastos de envío MX',
-  product_type: 'accessory', category: 'shipping',
-  valor_unitario: '99.00', tasa_iva: '0.00',
-  requires_shipping: false,
-};
 
 const StripeInline = lazy(() => import('./payment/StripeInline'));
 const MercadoPagoWallet = lazy(() => import('./payment/MercadoPagoWallet'));
@@ -384,9 +363,12 @@ export default function TiendaFlow() {
       const cat = DEVICE_CATEGORY_BY_SERVICE['mifi'];
       getPublicProducts({ category: cat })
         .then((items) => {
-          setDevice(items[0] || MOCK_DEVICE_BY_CATEGORY[cat]);
+          // Sin fallback inventado: si el CRM no tiene el producto, no se
+          // ofrece equipo. Antes caia a un mock de $1,200 y el cliente veia
+          // (y podia pagar) un precio que no existe en el catalogo.
+          setDevice(items[0] || null);
         })
-        .catch(() => setDevice(MOCK_DEVICE_BY_CATEGORY[cat]));
+        .catch(() => setDevice(null));
     } else {
       setDevice(null);
     }
@@ -395,9 +377,9 @@ export default function TiendaFlow() {
     if (needsShipping) {
       getPublicProducts({ sku: SHIPPING_SKU })
         .then((items) => {
-          setShipping(items[0] || MOCK_SHIPPING);
+          setShipping(items[0] || null);
         })
-        .catch(() => setShipping(MOCK_SHIPPING));
+        .catch(() => setShipping(null));
     } else {
       setShipping(null);
     }

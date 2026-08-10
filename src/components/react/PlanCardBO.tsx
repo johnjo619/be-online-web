@@ -23,15 +23,25 @@ import {
 import NetworkIcon from './NetworkIcon';
 import movies from '@/assets/images/popcorn.png';
 
-/** Misma paleta y orden que PlanSelector en la home. */
-const PALETTE = [
-  { body: '#142035', header: '#FFCD54', icon: '#142035' },
-  { body: '#EF4B23', header: '#142035', icon: '#ffffff' },
-  { body: '#00A799', header: '#142035', icon: '#ffffff' },
-  { body: '#FFCD54', header: '#142035', icon: '#142035', text: '#142035' },
-  { body: '#7473C0', header: '#142035', icon: '#ffffff' },
-  { body: '#E96BB0', header: '#142035', icon: '#ffffff' },
-];
+/**
+ * Color por NOMBRE de plan, igual que la home: la referencia de marca fija el
+ * color de cada plan, asi que no puede depender de la posicion en la lista.
+ */
+const COLOR_POR_PLAN: Record<string, string> = {
+  'BO EXPLORER': '#142035',
+  'BO MERCURY': '#EF4B23',
+  'BO APOLO': '#00A799',
+  'BO ASTEROID': '#468BBC',
+  'BO SUPERNOVA': '#468BBC',
+  'BO COSMOS': '#E96BB0',
+};
+
+const RESPALDO = ['#142035', '#EF4B23', '#00A799', '#468BBC', '#7473C0', '#E96BB0'];
+
+function colorDePlan(nombre: string, i: number): string {
+  const clave = Object.keys(COLOR_POR_PLAN).find((k) => nombre.toUpperCase().includes(k));
+  return clave ? COLOR_POR_PLAN[clave] : RESPALDO[i % RESPALDO.length];
+}
 
 /**
  * El CRM nombra las ofertas como "4GB BO EXPLORER" o "BOMOBILE 12GB anual".
@@ -55,8 +65,13 @@ interface Props {
 }
 
 export default function PlanCardBO({ plan, index = 0, isSelected = false, onSelect }: Props) {
-  const c = PALETTE[index % PALETTE.length];
   const { badge, title } = splitName(plan);
+  const cuerpo = colorDePlan(title, index);
+  const c = {
+    body: cuerpo,
+    header: cuerpo === '#142035' ? '#FFCD54' : '#142035',
+    icon: cuerpo === '#142035' ? '#142035' : '#ffffff',
+  };
   const networks = getActiveSocialNetworks(plan);
   // El CRM manda card_footer como "por 30 dias"; la card de la home dice solo "30 dias".
   const duration = getPlanDuration(plan).replace(/^por\s+/i, '');
@@ -74,7 +89,7 @@ export default function PlanCardBO({ plan, index = 0, isSelected = false, onSele
       className={`relative w-full max-w-[280px] rounded-2xl shadow-xl flex flex-col transition-transform ${
         isSelected ? 'ring-4 ring-[#FFCD54] scale-[1.02]' : ''
       }`}
-      style={{ backgroundColor: c.body, color: c.text || 'white' }}
+      style={{ backgroundColor: c.body, color: 'white' }}
     >
       {/* Círculo con los GB */}
       <div className="absolute -top-4 -left-6 w-24 h-24 bg-white rounded-full flex items-center justify-center text-[#142035] font-black text-2xl shadow-md z-10 tracking-tighter">

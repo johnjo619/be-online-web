@@ -23,7 +23,7 @@ const COLOR_POR_PLAN: Record<string, string> = {
   'BO MERCURY': '#EF4B23',
   'BO APOLO': '#00A799',
   'BO ASTEROID': '#468BBC',
-  'BO SUPERNOVA': '#468BBC',
+  'BO SUPERNOVA': '#7473C0',
   'BO COSMOS': '#E96BB0',
 };
 

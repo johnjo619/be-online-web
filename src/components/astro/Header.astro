@@ -90,13 +90,13 @@ const pageHasSubNav = false; // Always render the services flyout since ServiceS
         ]}>Activa y Recarga</a
       >
 
+      <!-- La portabilidad se hace en el portal cautivo. Antes esto apuntaba a
+           /portabilidad/, una pagina que nunca se creo: nginx caia al index y el
+           usuario terminaba de vuelta en el inicio. -->
       <a
-        href="/portabilidad/"
-        aria-current={isActive("/portabilidad") ? "page" : undefined}
-        class:list={[
-          "nav-link hover:text-black transition-colors tracking-tight",
-          isActive("/portabilidad") && "text-black is-active",
-        ]}>Portabilidad</a
+        href="https://port.beonline.mx/#portar"
+        class="nav-link hover:text-black transition-colors tracking-tight"
+        >Portabilidad</a
       >
 
       <a
@@ -302,14 +302,9 @@ const pageHasSubNav = false; // Always render the services flyout since ServiceS
           ]}>Activa y Recarga</a
         >
         <a
-          href="/portabilidad/"
-          aria-current={isActive("/portabilidad") ? "page" : undefined}
-          class:list={[
-            "flex items-center py-3.5 px-4 rounded-xl font-poppins font-semibold text-[15px] transition-colors min-h-[48px]",
-            isActive("/portabilidad")
-              ? "text-black bg-black/5"
-              : "text-gray-900 hover:bg-white/20",
-          ]}>Portabilidad</a
+          href="https://port.beonline.mx/#portar"
+          class="flex items-center py-3.5 px-4 rounded-xl font-poppins font-semibold text-[15px] text-gray-900 hover:bg-white/20 transition-colors min-h-[48px]"
+          >Portabilidad</a
         >
         <a
           href="/#faq"

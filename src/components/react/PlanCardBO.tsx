@@ -18,10 +18,9 @@ import {
   getPlanDuration,
   getActiveSocialNetworks,
   cleanPlanName,
-  isTruthy,
 } from './planHelpers';
 import NetworkIcon from './NetworkIcon';
-import movies from '@/assets/images/popcorn.png';
+import CineGratis from './CineGratis';
 
 /**
  * Color por NOMBRE de plan, igual que la home: la referencia de marca fija el
@@ -75,7 +74,6 @@ export default function PlanCardBO({ plan, index = 0, isSelected = false, onSele
   const networks = getActiveSocialNetworks(plan);
   // El CRM manda card_footer como "por 30 dias"; la card de la home dice solo "30 dias".
   const duration = getPlanDuration(plan).replace(/^por\s+/i, '');
-  const hasMovies = isTruthy((plan as unknown as Record<string, unknown>).rs_included_movies);
 
   const features = [
     `Minutos y SMS ${getMinutesText(plan).toLowerCase() === 'ilimitados' && getSMSText(plan).toLowerCase() === 'ilimitados' ? 'ilimitados' : `${getMinutesText(plan)} / ${getSMSText(plan)}`}`,
@@ -127,7 +125,7 @@ export default function PlanCardBO({ plan, index = 0, isSelected = false, onSele
                 <NetworkIcon network={network} className="w-3.5 h-3.5" />
               </div>
             ))}
-            {hasMovies && <img src={movies.src} alt="" className="w-12 relative -top-2" />}
+            <CineGratis compacto />
           </div>
         )}
 

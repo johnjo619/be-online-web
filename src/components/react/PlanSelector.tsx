@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import PlanActionModal from './PlanActionModal';
 import NetworkIcon from './NetworkIcon';
+import CineGratis from './CineGratis';
 import { getPlans } from '../../lib/api';
 import { getActiveSocialNetworks } from './planHelpers';
 import type { Plan } from '../../lib/types';
@@ -281,6 +282,8 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
                       </div>
                     )
                   )}
+                  {/* Solo en planes de Movilidad: los MiFi no traen redes ni cine. */}
+                  {(plan.socialNetworks?.length ?? 0) > 0 && <CineGratis />}
                 </div>
 
                 {/* Precios (Clicleables) */}

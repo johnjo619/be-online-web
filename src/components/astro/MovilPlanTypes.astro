@@ -225,9 +225,13 @@ import PrecioDesde from "../react/PrecioDesde";
           <p
             class="font-unbounded text-2xl font-bold text-panda-red leading-none"
           >
-            $1,499<span class="text-sm text-panda-gray font-normal ml-1"
-              >/año</span
-            >
+            <PrecioDesde
+              client:visible
+              grupo="Anual"
+              meses={12}
+              sufijo="/año"
+              sufijoClassName="text-sm text-panda-gray font-normal ml-1"
+            />
           </p>
         </div>
       </div>

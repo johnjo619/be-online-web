@@ -16,6 +16,11 @@ interface Props {
   tipo?: string;
   /** Filtra por grupo del catalogo: 'Exprés', 'Mensual', 'Anual'. */
   grupo?: string;
+  /**
+   * Filtra por vigencia en meses. El grupo "Anual" del CRM trae 3, 6 y 12
+   * meses, asi que sin esto un "desde ... /año" mostraria el precio de 3 meses.
+   */
+  meses?: number;
   /** Texto tras el precio, p.ej. "/mes" o "/3 días". */
   sufijo?: string;
   /** Clases del precio. */
@@ -27,6 +32,7 @@ interface Props {
 export default function PrecioDesde({
   tipo = 'Movilidad',
   grupo,
+  meses,
   sufijo,
   className = '',
   sufijoClassName = '',
@@ -39,9 +45,14 @@ export default function PrecioDesde({
     getPlans(tipo)
       .then((ofertas) => {
         if (cancelado) return;
-        const candidatas = grupo
+        let candidatas = grupo
           ? ofertas.filter((o) => (o.group_name || '').toLowerCase() === grupo.toLowerCase())
           : ofertas;
+        if (meses) {
+          candidatas = candidatas.filter(
+            (o) => o.interval === 'month' && Number(o.interval_count) === meses,
+          );
+        }
         const montos = candidatas
           .map((o) => Number(o.amount) || 0)
           .filter((n) => n > 0);
@@ -52,7 +63,7 @@ export default function PrecioDesde({
         if (!cancelado) setListo(true);
       });
     return () => { cancelado = true; };
-  }, [tipo, grupo]);
+  }, [tipo, grupo, meses]);
 
   // Mientras carga deja el hueco reservado para no mover el layout.
   if (!listo) return <span className={className} aria-hidden="true">&nbsp;</span>;

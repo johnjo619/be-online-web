@@ -106,9 +106,18 @@ function construirTarjetas(ofertas: Plan[]) {
         subtitle: `${gb}GB de 4.5G LTE`,
         features: featuresDe(getActiveSocialNetworks(base)),
         socialNetworks: getActiveSocialNetworks(base),
+        // Cada precio arrastra el id de SU oferta. Antes la tarjeta llevaba
+        // siempre el id de la mensual (`base.id`) y al elegir 3, 6 o 12 meses
+        // solo cambiaba la etiqueta: la tienda recibia la oferta de 30 dias.
         prices: [
-          ...(mensual ? [{ label: duracion(mensual), price: money(Number(mensual.amount) || 0) }] : []),
-          ...largos.map((o) => ({ label: duracion(o), price: money(Number(o.amount) || 0) })),
+          ...(mensual
+            ? [{ offerId: String(mensual.id), label: duracion(mensual), price: money(Number(mensual.amount) || 0) }]
+            : []),
+          ...largos.map((o) => ({
+            offerId: String(o.id),
+            label: duracion(o),
+            price: money(Number(o.amount) || 0),
+          })),
         ],
       };
     });
@@ -282,7 +291,7 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
                   {plan.prices.map((item, idx) => (
                     <button
                       key={idx}
-                      onClick={() => setModalPlan({ ...plan, selectedDuration: item.label, selectedPrice: item.price })}
+                      onClick={() => setModalPlan({ ...plan, id: item.offerId || plan.id, selectedDuration: item.label, selectedPrice: item.price })}
                       // w-full asegura que el botón ocupe el ancho y se divida exacto a la mitad
                       className="relative z-10 w-full flex justify-center items-center text-md font-bold cursor-pointer hover:scale-105 transition-transform group"
                     >

@@ -2,6 +2,7 @@
 import BeProtected3Img from "@/assets/images/beprotected.png";
 import BeProtected4Img from "@/assets/images/astronauta4.webp";
 import line from "@/assets/images/line.png";
+import PlanSelector from "@/components/react/PlanSelector";
 ---
 
 <section class="bg-[#181d26] py-16 md:py-24 font-sans">
@@ -174,3 +175,15 @@ import line from "@/assets/images/line.png";
       d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
   </svg>
 </section>
+
+{/* Planes Be Protected: el MISMO selector de la home, filtrado al grupo
+    "Be Protected" del catalogo. Aqui el cine lo llevan TODOS los planes,
+    por eso `todosConCine`; precios, nombres y GB salen del API. */}
+<PlanSelector
+  client:visible
+  grupos={["Be Protected"]}
+  todosConCine
+  hideSimSelector
+  hideAddons
+  anclaId="planes-be-protected"
+/>

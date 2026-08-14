@@ -74,10 +74,16 @@ function duracion(p: Plan): string {
  * hay ofertas como "BO ASTEROID" que no llevan los GB en el texto, y parsear
  * el nombre las dejaba fuera. El nombre de la tarjeta sale de la oferta
  * mensual de ese mismo tier.
+ *
+ * `grupos` filtra por `group_name` del catalogo: el API de Movilidad trae
+ * Expres, Mensual, Anual y Be Protected, y sin el filtro los tiers de Be
+ * Protected caian en el MISMO grupo de GB que los planes normales (la tarjeta
+ * de 4GB terminaba con precios de los dos programas mezclados).
  */
-function construirTarjetas(ofertas: Plan[]) {
+function construirTarjetas(ofertas: Plan[], grupos: string[]) {
   const porGb = new Map<number, Plan[]>();
   for (const o of ofertas) {
+    if (!grupos.includes(o.group_name || '')) continue;
     const gb = Number(o.data_national_limit);
     if (!gb) continue;
     const esMensual = o.interval === 'day' && Number(o.interval_count) === 30;
@@ -149,10 +155,26 @@ interface PlanSelectorProps {
   tipo?: string;
   /** Oculta la seccion de add-ons Expres (solo aplica a Movilidad). */
   hideAddons?: boolean;
+  /** Grupos del catalogo (group_name) a pintar. Default: los planes normales. */
+  grupos?: string[];
+  /** true = TODAS las tarjetas llevan el sello de cine (en Be Protected lo llevan todos). */
+  todosConCine?: boolean;
+  /** id del <section>. Solo UNA seccion por pagina debe llevar "planes" (ancla #planes). */
+  anclaId?: string;
 }
 
+/** Grupos que se pintan por default: los planes normales, NO Be Protected. */
+const GRUPOS_DEFAULT = ['Mensual', 'Anual'];
+
 // ── Main Component ─────────────────────────────────────
-export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilidad', hideAddons = false }: PlanSelectorProps) {
+export default function PlanSelector({
+  hideSimSelector = false,
+  tipo = 'Movilidad',
+  hideAddons = false,
+  grupos = GRUPOS_DEFAULT,
+  todosConCine = false,
+  anclaId = 'planes',
+}: PlanSelectorProps) {
   const [simType, setSimType] = useState<'esim' | 'fisica'>('esim');
   const [modalPlan, setModalPlan] = useState<any | null>(null);
   const [ofertas, setOfertas] = useState<Plan[] | null>(null);
@@ -169,11 +191,11 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
     return () => { cancelado = true; };
   }, [tipo]);
 
-  const plansData = useMemo(() => construirTarjetas(ofertas || []), [ofertas]);
+  const plansData = useMemo(() => construirTarjetas(ofertas || [], grupos), [ofertas, grupos]);
   const addons = useMemo(() => construirAddons(ofertas || []), [ofertas]);
 
   return (
-    <section id="planes" className={`py-12 md:py-16 px-4 bg-[#FFCD54] font-sans ${hideSimSelector ? "" : "min-h-screen"}`}>
+    <section id={anclaId} className={`py-12 md:py-16 px-4 bg-[#FFCD54] font-sans ${hideSimSelector ? "" : "min-h-screen"}`}>
       <div className="max-w-[1000px] mx-auto">
 
         {/* Header y Selector de SIM */}
@@ -242,7 +264,13 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-16 justify-items-center mb-16 pt-6">
-          {plansData.map((plan) => (
+          {plansData.map((plan) => {
+            // El cine NO va en todos los planes normales: solo en los que
+            // indico la marca ("no aparece el cine en el de 4 y en el de 12").
+            // En Be Protected lo llevan TODOS, por eso `todosConCine` brinca
+            // la lista y no consulta llevaCine().
+            const conCine = todosConCine || llevaCine(plan.name);
+            return (
             <div key={plan.id} className="relative w-full max-w-[280px] rounded-2xl shadow-xl flex flex-col" style={{ backgroundColor: plan.bodyColor, color: 'white' }}>
 
               {/* Badge Circular (eEj. 2 GB) */}
@@ -274,7 +302,7 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
                     quedaban debajo de las palomitas. */}
                 <div
                   className={`relative flex justify-center items-center gap-[3px] mb-2 flex-wrap ${
-                    llevaCine(plan.name) ? 'pr-[72px]' : ''
+                    conCine ? 'pr-[72px]' : ''
                   }`}
                 >
                   {plan.socialNetworks?.map((network) =>
@@ -290,10 +318,9 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
                       </div>
                     )
                   )}
-                  {/* El cine NO va en todos: los planes de esta seccion no son
-                      Be Protected. Karen (10-ago): "no aparece el cine en el de
-                      4 y en el de 12" -> solo esos dos lo llevan. */}
-                  {llevaCine(plan.name) && (
+                  {/* El sello desborda el borde de la tarjeta como en la
+                      referencia de marca; la posicion NO se toca. */}
+                  {conCine && (
                     <CineGratis className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[38%]" />
                   )}
                 </div>
@@ -318,7 +345,8 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Sección ADD ONS */}

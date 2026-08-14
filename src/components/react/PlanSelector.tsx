@@ -31,6 +31,16 @@ const COLOR_POR_PLAN: Record<string, string> = {
 /** Respaldo cuando el plan no esta en el mapa de marca. */
 const RESPALDO = ['#142035', '#EF4B23', '#00A799', '#468BBC', '#7473C0', '#E96BB0'];
 
+/**
+ * Planes de esta seccion que incluyen Cine Gratis.
+ *
+ * ⚠️ PROVISIONAL. El beneficio lo da la aseguradora (Be Protected) y todavia no
+ * hay campo en el CRM para marcarlo por oferta, asi que va listado aqui. En Be
+ * Protected lo llevan TODOS; en estos planes NO — solo los dos que indico la
+ * marca. Cuando exista el campo, esto se borra y se lee del catalogo.
+ */
+const CON_CINE = ['BO MERCURY', 'BO APOLO'];
+
 function colorDePlan(nombre: string, i: number): string {
   const clave = Object.keys(COLOR_POR_PLAN).find((k) =>
     nombre.toUpperCase().includes(k),
@@ -282,8 +292,10 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
                       </div>
                     )
                   )}
-                  {/* Solo en planes de Movilidad: los MiFi no traen redes ni cine. */}
-                  {(plan.socialNetworks?.length ?? 0) > 0 && <CineGratis />}
+                  {/* El cine NO va en todos: los planes de esta seccion no son
+                      Be Protected. Karen (10-ago): "no aparece el cine en el de
+                      4 y en el de 12" -> solo esos dos lo llevan. */}
+                  {CON_CINE.includes(plan.name.toUpperCase()) && <CineGratis />}
                 </div>
 
                 {/* Precios (Clicleables) */}

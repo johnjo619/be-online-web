@@ -20,7 +20,6 @@ import {
   cleanPlanName,
 } from './planHelpers';
 import NetworkIcon from './NetworkIcon';
-import CineGratis from './CineGratis';
 
 /**
  * Color por NOMBRE de plan, igual que la home: la referencia de marca fija el
@@ -125,7 +124,6 @@ export default function PlanCardBO({ plan, index = 0, isSelected = false, onSele
                 <NetworkIcon network={network} className="w-3.5 h-3.5" />
               </div>
             ))}
-            <CineGratis compacto />
           </div>
         )}
 

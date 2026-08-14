@@ -136,7 +136,7 @@ function construirAddons(ofertas: Plan[]) {
     .filter((o) => o.interval === 'day' && Number(o.interval_count) < 30 && Number(o.data_national_limit))
     .sort((a, b) => (Number(a.data_national_limit) || 0) - (Number(b.data_national_limit) || 0))
     .map((o) => ({
-      gb: `${Number(o.data_national_limit)}G`,
+      gb: `${Number(o.data_national_limit)}GB`,
       days: `${Number(o.interval_count)} días`,
       price: money(Number(o.amount) || 0),
       socialNetworks: getActiveSocialNetworks(o),
@@ -322,7 +322,9 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
             <div className="flex flex-wrap justify-center gap-6">
               {addons.map((addon, index) => (
                 <div key={index} className="flex flex-col w-[180px] rounded-[2rem] overflow-hidden shadow-lg border-2 border-transparent transition-transform hover:scale-105 cursor-pointer" onClick={() => setModalPlan({ id: `addon-${addon.gb}`, name: `ADD ON ${addon.gb}`, selectedPrice: addon.price, selectedDuration: addon.days })}>
-                  <div className="bg-[#142035] text-white w-full text-center py-1 text-xl font-black tracking-widest">
+                  {/* Los GB en amarillo de marca sobre el navy: la seccion ya es
+                      amarilla, asi que un fondo amarillo aqui desapareceria. */}
+                  <div className="bg-[#142035] text-[#FFCD54] w-full text-center py-1 text-xl font-black tracking-widest">
                     {addon.gb}
                   </div>
                   <div className="bg-white w-full text-center py-2 text-lg text-[#142035] ">

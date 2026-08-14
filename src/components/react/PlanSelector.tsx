@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import PlanActionModal from './PlanActionModal';
 import NetworkIcon from './NetworkIcon';
-import CineGratis from './CineGratis';
+import CineGratis, { llevaCine } from './CineGratis';
 import { getPlans } from '../../lib/api';
 import { getActiveSocialNetworks } from './planHelpers';
 import type { Plan } from '../../lib/types';
@@ -30,16 +30,6 @@ const COLOR_POR_PLAN: Record<string, string> = {
 
 /** Respaldo cuando el plan no esta en el mapa de marca. */
 const RESPALDO = ['#142035', '#EF4B23', '#00A799', '#468BBC', '#7473C0', '#E96BB0'];
-
-/**
- * Planes de esta seccion que incluyen Cine Gratis.
- *
- * ⚠️ PROVISIONAL. El beneficio lo da la aseguradora (Be Protected) y todavia no
- * hay campo en el CRM para marcarlo por oferta, asi que va listado aqui. En Be
- * Protected lo llevan TODOS; en estos planes NO — solo los dos que indico la
- * marca. Cuando exista el campo, esto se borra y se lee del catalogo.
- */
-const CON_CINE = ['BO MERCURY', 'BO APOLO'];
 
 function colorDePlan(nombre: string, i: number): string {
   const clave = Object.keys(COLOR_POR_PLAN).find((k) =>
@@ -284,7 +274,7 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
                     quedaban debajo de las palomitas. */}
                 <div
                   className={`relative flex justify-center items-center gap-[3px] mb-2 flex-wrap ${
-                    CON_CINE.includes(plan.name.toUpperCase()) ? 'pr-[72px]' : ''
+                    llevaCine(plan.name) ? 'pr-[72px]' : ''
                   }`}
                 >
                   {plan.socialNetworks?.map((network) =>
@@ -303,7 +293,7 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
                   {/* El cine NO va en todos: los planes de esta seccion no son
                       Be Protected. Karen (10-ago): "no aparece el cine en el de
                       4 y en el de 12" -> solo esos dos lo llevan. */}
-                  {CON_CINE.includes(plan.name.toUpperCase()) && (
+                  {llevaCine(plan.name) && (
                     <CineGratis className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[38%]" />
                   )}
                 </div>

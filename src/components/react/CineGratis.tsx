@@ -15,6 +15,21 @@
 import cineGratis from '@/assets/images/cine-gratis.png';
 import movies from '@/assets/images/popcorn.png';
 
+/**
+ * Planes SIN asistencia que incluyen Cine Gratis.
+ *
+ * En Be Protected lo llevan TODOS. En los planes normales NO: solo estos dos,
+ * los que indico la marca ("no aparece el cine en el de 4 y en el de 12").
+ * Vive aqui para que la home y la tienda usen la MISMA lista.
+ */
+export const PLANES_CON_CINE = ['BO MERCURY', 'BO APOLO'];
+
+/** ¿Este plan lleva el sello? Tolera "4GB BO MERCURY" y "BO MERCURY". */
+export function llevaCine(nombre: string | undefined): boolean {
+  const n = (nombre || '').toUpperCase();
+  return PLANES_CON_CINE.some((p) => n.includes(p));
+}
+
 interface Props {
   /** Tamano del sello. Las tarjetas de la tienda son mas chicas que las de la home. */
   compacto?: boolean;

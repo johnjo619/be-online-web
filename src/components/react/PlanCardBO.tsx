@@ -20,6 +20,7 @@ import {
   cleanPlanName,
 } from './planHelpers';
 import NetworkIcon from './NetworkIcon';
+import CineGratis, { llevaCine } from './CineGratis';
 
 /**
  * Color por NOMBRE de plan, igual que la home: la referencia de marca fija el
@@ -114,7 +115,11 @@ export default function PlanCardBO({ plan, index = 0, isSelected = false, onSele
 
         {/* Redes sociales incluidas */}
         {networks.length > 0 && (
-          <div className="flex justify-center items-center gap-1 mb-2 flex-wrap">
+          <div
+            className={`relative flex justify-center items-center gap-[3px] mb-2 flex-wrap ${
+              llevaCine(plan.name) ? 'pr-[64px]' : ''
+            }`}
+          >
             {networks.map((network) => (
               <div
                 key={network}
@@ -124,6 +129,10 @@ export default function PlanCardBO({ plan, index = 0, isSelected = false, onSele
                 <NetworkIcon network={network} className="w-2.5 h-2.5" />
               </div>
             ))}
+            {/* Misma regla que la home: solo estos dos planes llevan cine. */}
+            {llevaCine(plan.name) && (
+              <CineGratis compacto className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[38%]" />
+            )}
           </div>
         )}
 

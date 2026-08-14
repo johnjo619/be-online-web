@@ -110,12 +110,24 @@ export default function DistributorLeadForm() {
         <p className="font-poppins text-sm text-panda-gray mt-1">Te contactamos en menos de 24h hábiles.</p>
       </div>
 
-      {/* Honeypot — invisible para humanos, los bots lo llenan */}
+      {/* Honeypot — invisible para humanos, los bots lo llenan.
+          Iba envuelto en un <label>¿Sitio web?</label>: ese texto es el imán que hace
+          que el gestor de contraseñas del navegador lo autocomplete, y entonces el
+          prospecto REAL sale marcado como bot. Ahora el campo no le anuncia a ningún
+          autocompletador qué es. La clave del payload sigue siendo `website` porque la
+          manda el estado de React, no el name del DOM. */}
       <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', height: 0, overflow: 'hidden' }}>
-        <label>
-          ¿Sitio web?
-          <input type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
-        </label>
+        <input
+          type="text"
+          name="cwr_check"
+          tabIndex={-1}
+          autoComplete="off"
+          data-lpignore="true"
+          data-1p-ignore
+          data-form-type="other"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
       </div>
 
       <Field label="Nombre completo *">

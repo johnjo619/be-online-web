@@ -18,11 +18,16 @@ import movies from '@/assets/images/popcorn.png';
 interface Props {
   /** Tamano del sello. Las tarjetas de la tienda son mas chicas que las de la home. */
   compacto?: boolean;
+  /** Posicionamiento. En la referencia va a la derecha de las redes, en la MISMA fila. */
+  className?: string;
 }
 
-export default function CineGratis({ compacto = false }: Props) {
+export default function CineGratis({ compacto = false, className = '' }: Props) {
   return (
-    <span className="inline-flex items-center gap-1 shrink-0" aria-label="Incluye cine gratis">
+    <span
+      className={`inline-flex items-center gap-1 shrink-0 ${className}`}
+      aria-label="Incluye cine gratis"
+    >
       <img
         src={movies.src}
         alt=""

@@ -118,10 +118,10 @@ export default function PlanCardBO({ plan, index = 0, isSelected = false, onSele
             {networks.map((network) => (
               <div
                 key={network}
-                className="w-[22px] h-[22px] shrink-0 rounded-full border border-white/20 flex items-center justify-center"
+                className="w-[18px] h-[18px] shrink-0 rounded-full border border-white/20 flex items-center justify-center"
                 style={{ backgroundColor: c.header, color: c.icon }}
               >
-                <NetworkIcon network={network} className="w-3.5 h-3.5" />
+                <NetworkIcon network={network} className="w-2.5 h-2.5" />
               </div>
             ))}
           </div>

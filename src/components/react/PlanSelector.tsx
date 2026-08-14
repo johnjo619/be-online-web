@@ -277,25 +277,35 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
                   ))}
                 </ul>
 
-                {/* Íconos de Redes Sociales */}
-                <div className="flex justify-center items-center gap-1 mb-2 flex-wrap">
+                {/* Íconos de Redes Sociales. `relative` porque el sello de cine
+                    va a la derecha en la MISMA fila, desbordando el borde de la
+                    tarjeta como en la referencia de marca. Cuando hay sello se
+                    reserva su ancho a la derecha; si no, los ultimos iconos
+                    quedaban debajo de las palomitas. */}
+                <div
+                  className={`relative flex justify-center items-center gap-[3px] mb-2 flex-wrap ${
+                    CON_CINE.includes(plan.name.toUpperCase()) ? 'pr-[72px]' : ''
+                  }`}
+                >
                   {plan.socialNetworks?.map((network) =>
                     network === 'movies' ? (
                       <img key={network} src={movies.src} alt="Movies" className="w-12 relative -top-2 flex" />
                     ) : (
                       <div
                         key={network}
-                        className="w-[22px] h-[22px] shrink-0 rounded-full border border-white/20 flex items-center justify-center"
+                        className="w-[18px] h-[18px] shrink-0 rounded-full border border-white/20 flex items-center justify-center"
                         style={{ backgroundColor: plan.headerColor, color: plan.iconColor }}
                       >
-                        <NetworkIcon network={network} className="w-3.5 h-3.5" />
+                        <NetworkIcon network={network} className="w-2.5 h-2.5" />
                       </div>
                     )
                   )}
                   {/* El cine NO va en todos: los planes de esta seccion no son
                       Be Protected. Karen (10-ago): "no aparece el cine en el de
                       4 y en el de 12" -> solo esos dos lo llevan. */}
-                  {CON_CINE.includes(plan.name.toUpperCase()) && <CineGratis />}
+                  {CON_CINE.includes(plan.name.toUpperCase()) && (
+                    <CineGratis className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[38%]" />
+                  )}
                 </div>
 
                 {/* Precios (Clicleables) */}

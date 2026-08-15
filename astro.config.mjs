@@ -6,7 +6,7 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   // Host canónico. Staging hoy (basic auth + noindex). Mantener alineado
   // con SITE_URL en src/lib/schema.ts y con public/robots.txt.
-  site: 'https://beonline.celink.mx',
+  site: 'https://beonline.mx',
   output: 'static',
   integrations: [
     react(),

@@ -42,8 +42,13 @@ import PlanSelector from "@/components/react/PlanSelector";
     </div>
 
     <div class="text-center mb-16">
+      <!-- Apuntaba a /be-protected, una pagina que nunca se creo: nginx caia al
+           index y el boton devolvia al inicio (mismo defecto que tenia el menu
+           de Portabilidad). Va a los planes Be Protected de esta misma pagina.
+           PENDIENTE: la marca va a mandar un PDF con el detalle de la
+           asistencia; cuando llegue, este boton lo abre. -->
       <a
-        href="/be-protected"
+        href="#planes-be-protected"
         class="inline-block bg-[#142035] text-white text-xl font-bold px-10 py-3 rounded-full hover:bg-black hover:scale-105 transition-all shadow-md tracking-wide"
       >
         Conoce más

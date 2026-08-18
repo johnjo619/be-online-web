@@ -9,8 +9,11 @@ import { organizationSchema, localBusinessSchema } from "../lib/schema";
 
 // Mismo-origen a proposito: el mapa manda X-Frame-Options: SAMEORIGIN, asi que
 // embeberlo directo desde api-crm.igou.mx lo bloquea el navegador y el iframe
-// sale en blanco. nginx (y el proxy de Vite en dev) reescriben a /map/beonline.
-const mapUrl = "/map-proxy/beonline";
+// sale en blanco. En nuestro servidor nginx reescribe /map-proxy/ a /map/. En un
+// hosting sin ese proxy (Neubox) se apunta directo con
+// PUBLIC_MAP_URL=https://api-crm.igou.mx/map/beonline, y el middleware permite el
+// frame desde beonline.mx (frame-ancestors). Sin la env, se conserva el proxy.
+const mapUrl = import.meta.env.PUBLIC_MAP_URL || "/map-proxy/beonline";
 ---
 
 <BaseLayout

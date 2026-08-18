@@ -16,7 +16,11 @@ import type {
   DistributorLeadResponse,
 } from './types';
 
-const API_BASE = '/api-proxy';
+// En nuestro servidor el catalogo/pagos pasan por el proxy mismo-origen
+// `/api-proxy` (nginx). En un hosting sin ese proxy (p.ej. Neubox) se apunta
+// directo al API con PUBLIC_API_BASE=https://api-crm.igou.mx en build; el API
+// ya devuelve CORS para beonline.mx. Sin la env, se conserva el proxy.
+const API_BASE = import.meta.env.PUBLIC_API_BASE || '/api-proxy';
 
 /**
  * Empresa del tenant en el CRM (Odoo) a la que pertenece Be Online.

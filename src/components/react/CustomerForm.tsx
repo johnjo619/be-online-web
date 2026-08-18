@@ -38,8 +38,11 @@ interface CpInfo {
  */
 async function lookupCp(cp: string): Promise<CpInfo | null> {
   try {
-    // Vía proxy del dev server (Vite) o nginx (prod) — la API no tiene CORS.
-    const r = await fetch(`/sepomex-proxy/api/latest/cp/${cp}.json`);
+    // Vía proxy del dev server (Vite) o nginx — SEPOMEX no tiene CORS. En un
+    // hosting sin proxy (Neubox) se apunta a un base configurable; sin la env,
+    // se usa el proxy mismo-origen.
+    const sepomexBase = import.meta.env.PUBLIC_SEPOMEX_BASE || '/sepomex-proxy';
+    const r = await fetch(`${sepomexBase}/api/latest/cp/${cp}.json`);
     if (!r.ok) return null;
     const json = await r.json();
     const list: Array<{

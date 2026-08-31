@@ -4,11 +4,18 @@
  * nginx para que la web (mismo build que en el servidor propio) funcione sin
  * CORS ni problemas de X-Frame. Upstreams FIJOS: no es un proxy abierto.
  */
+// El catalogo SEPOMEX ya NO es un tercero: lo servimos nosotros desde el disco
+// de `front` (32,292 CPs del archivo oficial de Correos de Mexico), y
+// beonline.celink.mx lo expone en la MISMA ruta. El proveedor gratuito
+// sepomex.nitrostudio.com.mx se cayo el 2026-07-09 y estuvo devolviendo 502
+// sin que nadie se enterara: `lookupCp` es fail-silent, asi que la unica senal
+// era que la captura de direccion dejo de autocompletar estado, ciudad y
+// colonia — en una tienda que cobra con Stripe live.
 $MAP = [
     '/api-proxy/'     => 'https://api-crm.igou.mx/',
     '/map-proxy/'     => 'https://api-crm.igou.mx/map/',
     '/map-api/'       => 'https://api-crm.igou.mx/map-api/',
-    '/sepomex-proxy/' => 'https://sepomex.nitrostudio.com.mx/',
+    '/sepomex-proxy/' => 'https://beonline.celink.mx/sepomex-proxy/',
 ];
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
 $base = null; $rest = '';

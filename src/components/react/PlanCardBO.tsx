@@ -19,6 +19,7 @@ import {
   getActiveSocialNetworks,
   cleanPlanName,
   isTruthy,
+  esSoloDatos,
 } from './planHelpers';
 import NetworkIcon from './NetworkIcon';
 import movies from '@/assets/images/popcorn.png';
@@ -56,15 +57,34 @@ function splitName(plan: Plan): { badge: string; title: string } {
   return { badge, title: title || raw };
 }
 
+/**
+ * Bullet de voz y SMS, o nada. Sin dato real no se inventa un "ilimitados":
+ * `call_national_limit` vale 0 en todas las ofertas del CRM, asi que el
+ * fallback viejo anunciaba infinito en cada tarjeta.
+ */
+function bulletVozYSms(minutos: string | null, sms: string | null): string[] {
+  if (!minutos && !sms) return [];
+  if (minutos === 'Ilimitados' && sms === 'Ilimitados') return ['Minutos y SMS ilimitados'];
+  if (minutos && sms) return [`Minutos ${minutos} / SMS ${sms}`];
+  return [minutos ? `Minutos ${minutos}` : `SMS ${sms}`];
+}
+
 interface Props {
   plan: Plan;
   /** Posición en la lista — solo decide el color. */
   index?: number;
+  /**
+   * Segmento del contexto que monta la tarjeta, por si la oferta no lo trae:
+   * el `service` de la tienda ('movil' | 'mifi') o el `simType` del wizard
+   * ('Movilidad' | 'MiFi' | 'Internet en casa'). Se combina con OR contra lo
+   * que diga el propio plan; ninguna de las dos manda sobre la otra.
+   */
+  segmento?: string | null;
   isSelected?: boolean;
   onSelect?: () => void;
 }
 
-export default function PlanCardBO({ plan, index = 0, isSelected = false, onSelect }: Props) {
+export default function PlanCardBO({ plan, index = 0, segmento, isSelected = false, onSelect }: Props) {
   const { badge, title } = splitName(plan);
   const cuerpo = colorDePlan(title, index);
   const c = {
@@ -77,8 +97,15 @@ export default function PlanCardBO({ plan, index = 0, isSelected = false, onSele
   const duration = getPlanDuration(plan).replace(/^por\s+/i, '');
   const hasMovies = isTruthy((plan as unknown as Record<string, unknown>).rs_included_movies);
 
+  // Un MiFi o un "Internet en casa" es un modem: no tiene marcador ni bandeja
+  // de mensajes, asi que el bullet no se aclara, se omite. Ante segmento
+  // desconocido se pinta (fail-safe de `esSoloDatos`).
+  const soloDatos = esSoloDatos(plan) || esSoloDatos({ type: segmento });
+  const minutos = getMinutesText(plan);
+  const sms = getSMSText(plan);
+
   const features = [
-    `Minutos y SMS ${getMinutesText(plan).toLowerCase() === 'ilimitados' && getSMSText(plan).toLowerCase() === 'ilimitados' ? 'ilimitados' : `${getMinutesText(plan)} / ${getSMSText(plan)}`}`,
+    ...(soloDatos ? [] : bulletVozYSms(minutos, sms)),
     'Cobertura MEX, EUA, Canadá',
     'Internet para compartir',
     networks.length > 0 ? 'Redes sociales ilimitadas' : 'Plan sin redes sociales',

@@ -6,6 +6,11 @@ import { getChunkSize } from '../planHelpers';
 
 interface PlansStepProps {
   msisdn: string;
+  /**
+   * 'Movilidad' | 'MiFi' | 'Internet en casa', tal cual lo devolvio la consulta
+   * de ICCID. Sirve para el fetch Y para pintar: una linea de MiFi es un modem
+   * y su tarjeta no debe anunciar minutos ni SMS.
+   */
   simType?: string;
   onSelect: (plan: Plan) => void;
 }
@@ -77,6 +82,7 @@ export default function PlansStep({ msisdn, simType, onSelect }: PlansStepProps)
             key={plan.id}
             plan={plan}
             index={pageIdx * chunkSize + i}
+            segmento={simType}
             onSelect={() => onSelect(plan)}
           />
         ))}

@@ -13,6 +13,16 @@ export interface Plan {
   description?: string;
   is_popular?: boolean;
 
+  // Segmento del producto. Decide si la oferta lleva voz y SMS o es solo
+  // datos: un MiFi o un "Internet en casa" es un modem, no tiene marcador ni
+  // bandeja de mensajes. El catalogo del middleware emite las dos desde
+  // 2026-09-06; antes filtraba por segmento y luego lo tiraba, por eso ambas
+  // son opcionales y hay que tratar su ausencia como "no se sabe".
+  /** 'Movilidad' | 'MiFi' | 'Internet en casa' (poblada por construccion). */
+  type?: string;
+  /** 'telefonia' | 'mifi' | 'internet_casa'. Nullable en la BD. */
+  service_category?: string | null;
+
   // Data
   data_national_limit?: number | string;
   data_is_unlimit?: number;

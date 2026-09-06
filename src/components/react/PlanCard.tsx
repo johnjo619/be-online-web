@@ -8,6 +8,7 @@ import {
   getSMSText,
   getPlanDuration,
   getActiveSocialNetworks,
+  esSoloDatos,
 } from './planHelpers';
 import NetworkIcon from './NetworkIcon';
 
@@ -195,22 +196,35 @@ export default function PlanCard({
 
 function MovilFeatures({ plan, inverted = false }: { plan: Plan; inverted?: boolean }) {
   const socialNetworks = getActiveSocialNetworks(plan);
+  // Doble candado: el llamador ya monta esto solo con service==='movil', pero
+  // si la oferta se declara MiFi/HBB no se pinta voz ni SMS de ninguna forma.
+  const soloDatos = esSoloDatos(plan);
+  // Sin dato real no hay tile. El fallback viejo decia "Ilimitados" cuando
+  // `call_national_limit` era 0 — que es su valor en todo el catalogo.
+  const minutos = soloDatos ? null : getMinutesText(plan);
+  const sms = soloDatos ? null : getSMSText(plan);
   return (
     <>
-      <div className={`flex justify-evenly gap-2 ${inverted ? 'mb-3' : 'mb-3.5'}`}>
-        <FeatureMini
-          label="Minutos"
-          value={getMinutesText(plan)}
-          iconPath="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-          inverted={inverted}
-        />
-        <FeatureMini
-          label="SMS"
-          value={getSMSText(plan)}
-          iconPath="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-          inverted={inverted}
-        />
-      </div>
+      {(minutos || sms) && (
+        <div className={`flex justify-evenly gap-2 ${inverted ? 'mb-3' : 'mb-3.5'}`}>
+          {minutos && (
+            <FeatureMini
+              label="Minutos"
+              value={minutos}
+              iconPath="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              inverted={inverted}
+            />
+          )}
+          {sms && (
+            <FeatureMini
+              label="SMS"
+              value={sms}
+              iconPath="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+              inverted={inverted}
+            />
+          )}
+        </div>
+      )}
 
       <div className={`${inverted ? 'mb-3 min-h-[50px]' : 'mb-3.5 min-h-[55px]'} flex-1`}>
         {socialNetworks.length > 0 ? (

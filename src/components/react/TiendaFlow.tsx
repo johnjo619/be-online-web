@@ -503,6 +503,9 @@ export default function TiendaFlow() {
                     key={plan.id}
                     plan={plan}
                     index={pageIdx * chunkSize + i}
+                    // El servicio elegido es senal de segmento por si la oferta
+                    // no trae type/service_category: 'mifi' es solo datos.
+                    segmento={service ? SERVICE_TO_CRM_TYPE[service] : null}
                     isSelected={selectedPlan?.id === plan.id}
                     onSelect={() => handleSelectPlan(plan)}
                   />

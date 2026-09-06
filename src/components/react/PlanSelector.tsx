@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import PlanActionModal from './PlanActionModal';
 import NetworkIcon from './NetworkIcon';
 import { getPlans } from '../../lib/api';
-import { getActiveSocialNetworks } from './planHelpers';
+import { getActiveSocialNetworks, esSoloDatos } from './planHelpers';
 import type { Plan } from '../../lib/types';
 import sim1 from "@/assets/images/sim1.png";
 import sim2 from "@/assets/images/sim2.png";
@@ -41,10 +41,14 @@ function colorDePlan(nombre: string, i: number): string {
  * Los bullets salen del plan, no de una constante: el CRM marca por oferta si
  * incluye redes sociales (los MiFi, por ejemplo, no las traen) y la tarjeta
  * decia "Redes sociales ilimitadas" en todas.
+ *
+ * El bullet de minutos y SMS no se aclara, se OMITE: un MiFi es un modem sin
+ * marcador ni bandeja de mensajes, asi que la linea no tiene nada que decir
+ * ahi. Ante segmento desconocido se pinta (fail-safe de `esSoloDatos`).
  */
-function featuresDe(redes: string[]): string[] {
+function featuresDe(redes: string[], soloDatos: boolean): string[] {
   return [
-    '• Minutos y SMS ilimitados',
+    ...(soloDatos ? [] : ['• Minutos y SMS ilimitados']),
     '• Cobertura MEX, EUA, Canadá',
     '• Internet para compartir',
     redes.length > 0 ? '• Redes sociales ilimitadas' : '• Plan sin redes sociales',
@@ -74,7 +78,7 @@ function duracion(p: Plan): string {
  * el nombre las dejaba fuera. El nombre de la tarjeta sale de la oferta
  * mensual de ese mismo tier.
  */
-function construirTarjetas(ofertas: Plan[]) {
+function construirTarjetas(ofertas: Plan[], tipo: string) {
   const porGb = new Map<number, Plan[]>();
   for (const o of ofertas) {
     const gb = Number(o.data_national_limit);
@@ -104,7 +108,13 @@ function construirTarjetas(ofertas: Plan[]) {
         bodyColor: cuerpo,
         name: nombre,
         subtitle: `${gb}GB de 4.5G LTE`,
-        features: featuresDe(getActiveSocialNetworks(base)),
+        // Se pregunta con OR a la oferta y al `tipo` de la pagina: el catalogo
+        // ya emite type/service_category, pero el `tipo` es la llave con la que
+        // se pidio ese catalogo, asi que sirve de segunda senal explicita.
+        features: featuresDe(
+          getActiveSocialNetworks(base),
+          esSoloDatos(base) || esSoloDatos({ type: tipo }),
+        ),
         socialNetworks: getActiveSocialNetworks(base),
         prices: [
           ...(mensual ? [{ label: duracion(mensual), price: money(Number(mensual.amount) || 0) }] : []),
@@ -152,7 +162,7 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
     return () => { cancelado = true; };
   }, [tipo]);
 
-  const plansData = useMemo(() => construirTarjetas(ofertas || []), [ofertas]);
+  const plansData = useMemo(() => construirTarjetas(ofertas || [], tipo), [ofertas, tipo]);
   const addons = useMemo(() => construirAddons(ofertas || []), [ofertas]);
 
   return (
@@ -320,7 +330,11 @@ export default function PlanSelector({ hideSimSelector = false, tipo = 'Movilida
         <PlanActionModal
           open={modalPlan !== null}
           plan={modalPlan}
-          service="movil"
+          // El servicio sale del `tipo` de la pagina, no de una constante: este
+          // modal arma el deep link /tienda/?service=... y en
+          // /internet-portatil mandaba 'movil', con lo que la tienda abria el
+          // catalogo de telefonia con el id de una oferta MiFi.
+          service={esSoloDatos({ type: tipo }) ? 'mifi' : 'movil'}
           onClose={() => setModalPlan(null)}
         />
       )}

@@ -9,7 +9,9 @@ export function isTruthy(val: unknown): boolean {
 // ── Segmento: quien lleva voz y SMS y quien no ───────────────────────────────
 /**
  * MiFi e "Internet en casa" son SOLO DATOS: el aparato es un modem, no lleva
- * minutos ni SMS. Se pregunta por las DOS columnas con OR, no una como
+ * minutos ni SMS. Se consultan las DOS columnas en JERARQUIA: `type` MANDA y `service_category`
+ * solo desempata cuando `type` no viene (con OR bastaria una sola fila sucia para esconderle
+ * los minutos a un plan de telefonia). No una como
  * respaldo de la otra:
  *  - `type` es la llave con la que el backend filtra el catalogo, asi que esta
  *    poblada por construccion (si no lo estuviera, el catalogo saldria vacio).

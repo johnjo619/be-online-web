@@ -45,10 +45,13 @@ export interface SenalDeSegmento {
  */
 export function esSoloDatos(src?: SenalDeSegmento | null): boolean {
   if (!src) return false;
-  return (
-    CATEGORIAS_SOLO_DATOS.includes(norm(src.service_category)) ||
-    TIPOS_SOLO_DATOS.includes(norm(src.type))
-  );
+    const t = norm(src.type);
+    // `type` MANDA en los dos sentidos: si viene, `service_category` ni se mira. Con un OR
+    // bastaria una sola senal sucia —una oferta de Movilidad con service_category='mifi'
+    // capturado a mano— para esconderle los minutos a un plan de telefonia, que es el lado
+    // que mas se nota. El backend decide igual: TipoLineaPolicy solo consulta `type`.
+    if (t) return TIPOS_SOLO_DATOS.includes(t);
+    return CATEGORIAS_SOLO_DATOS.includes(norm(src.service_category));
 }
 
 /** El complemento, que es lo que se pregunta al pintar. */

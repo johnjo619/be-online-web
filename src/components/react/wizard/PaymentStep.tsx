@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { portalGetGateways, portalStripeInit, portalMercadoPagoInit, portalPayPalInit, portalPayPalValidate, portalOpenPayInit, portalOpenPayCharge, portalOpenPayValidate, portalOxxoInit, portalDigitalFemsaInit } from '../../../lib/api';
+import { armarCuerpoPortalOpenPayCharge } from '../../../lib/openpayCharge';
 import type { Gateway, Plan, OpenPayChargeResponse } from '../../../lib/types';
+import type { OpenPayCardData } from '../payment/OpenPayCard';
 import GatewaySelector from '../payment/GatewaySelector';
 
 const StripeInline = lazy(() => import('../payment/StripeInline'));
@@ -149,12 +151,19 @@ export default function PaymentStep({ msisdn, plan, onPaid }: PaymentStepProps) 
     return () => { cancelled = true; };
   }, [selected, msisdn, offerId, gateways]);
 
-  // OpenPay charge handler
-  const handleOpenPayCharge = async (cardData: import('../payment/OpenPayCard').OpenPayCardData) => {
-    const res: OpenPayChargeResponse = await portalOpenPayCharge({
-      ...cardData,
-      redirect_url: `${window.location.origin}/pago-exitoso`,
-    });
+  // OpenPay charge handler — `cardData` sólo trae `token_id` + `device_session_id`
+  // (tokenizado en el navegador por OpenPayCard). `payment_reference` viene de
+  // `opData`, NO de la tarjeta: nunca se manda un dato de tarjeta a nuestro backend.
+  const handleOpenPayCharge = async (cardData: OpenPayCardData) => {
+    if (!opData) throw new Error('No se pudo iniciar el cobro con OpenPay.');
+    const res: OpenPayChargeResponse = await portalOpenPayCharge(
+      armarCuerpoPortalOpenPayCharge({
+        paymentReference: opData.paymentReference,
+        tokenId: cardData.token_id,
+        deviceSessionId: cardData.device_session_id,
+        redirectUrl: `${window.location.origin}/pago-exitoso`,
+      }),
+    );
 
     if (res.payment_method?.type === 'redirect' && res.payment_method?.url) {
       window.location.href = res.payment_method.url;
@@ -266,7 +275,6 @@ export default function PaymentStep({ msisdn, plan, onPaid }: PaymentStepProps) 
               merchantId={opData.merchantId}
               publicKey={opData.publicKey}
               isSandbox={opData.isSandbox}
-              paymentReference={opData.paymentReference}
               onCharge={handleOpenPayCharge}
               amount={amount}
             />

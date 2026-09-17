@@ -1,22 +1,37 @@
+/**
+ * Formulario de tarjeta OpenPay — TOKENIZADO EN EL NAVEGADOR (fix PCI, 2026-09-17).
+ * El PAN, CVV, nombre del titular y fecha de vencimiento NUNCA salen de esta
+ * pestaña hacia nuestro backend: `OpenPay.token.create` los cambia por un
+ * `token_id` directo con `js.openpay.mx`, y sólo ese token (+ el
+ * `device_session_id` del antifraude) llega al caller vía `onCharge` — quien
+ * arma el cuerpo final hacia `portalOpenPayCharge`/`ecommerceOpenPayCharge`
+ * (`lib/api.ts`), cuyos tipos ya NO aceptan datos de tarjeta.
+ *
+ * Antes este componente devolvía el PAN crudo en `OpenPayCardData` y los
+ * callers lo reenviaban tal cual a nuestro backend — el PAN de una tarjeta
+ * jamás debe tocar un servidor que no sea el de la pasarela (PCI-DSS SAQ A).
+ *
+ * El SDK son DOS scripts y el ORDEN importa: `openpay.v1` crea el global
+ * `window.OpenPay` (con `token.create`) y `openpay-data.v1` le cuelga el
+ * antifraude (`OpenPay.deviceData`). Se piden EN SERIE, nunca en paralelo:
+ * pedirlos en paralelo puede tumbar la app si el antifraude intenta colgarse
+ * de un `window.OpenPay` que todavía no existe (regresión real en app_web,
+ * 16-sep-2026 — mismo patrón, mismo bug si se repite aquí).
+ */
 import { useState, useEffect, useRef } from 'react';
 
 interface OpenPayCardProps {
   merchantId: string;
   publicKey: string;
   isSandbox: boolean;
-  paymentReference: string;
   onCharge: (cardData: OpenPayCardData) => Promise<void>;
   amount?: number;
 }
 
+/** Lo ÚNICO que sale de este componente. Nunca PAN, CVV, titular ni vencimiento. */
 export interface OpenPayCardData {
-  card_number: string;
-  holder_name: string;
-  expiration_month: string;
-  expiration_year: string;
-  cvv2: string;
+  token_id: string;
   device_session_id: string;
-  payment_reference: string;
 }
 
 declare global {
@@ -25,7 +40,20 @@ declare global {
       setId: (id: string) => void;
       setApiKey: (key: string) => void;
       setSandboxMode: (sandbox: boolean) => void;
-      deviceData: {
+      token: {
+        create: (
+          data: {
+            card_number: string;
+            holder_name: string;
+            expiration_month: string;
+            expiration_year: string;
+            cvv2: string;
+          },
+          onSuccess: (response: { data: { id: string } }) => void,
+          onError: (error: { data?: { description?: string } }) => void,
+        ) => void;
+      };
+      deviceData?: {
         setup: (formId?: string, hiddenFieldName?: string) => string;
       };
     };
@@ -72,11 +100,19 @@ function loadScript(src: string): Promise<void> {
   });
 }
 
+/** Los DOS scripts se piden EN SERIE — ver docblock del archivo. */
+async function loadOpenPaySdk(): Promise<void> {
+  await loadScript('https://js.openpay.mx/openpay.v1.min.js');
+  await loadScript('https://js.openpay.mx/openpay-data.v1.min.js');
+  if (!window.OpenPay?.deviceData) {
+    throw new Error('OpenPay sin antifraude');
+  }
+}
+
 export default function OpenPayCard({
   merchantId,
   publicKey,
   isSandbox,
-  paymentReference,
   onCharge,
   amount,
 }: OpenPayCardProps) {
@@ -94,20 +130,24 @@ export default function OpenPayCard({
   });
 
   useEffect(() => {
+    let vivo = true;
     const init = async () => {
       try {
-        await loadScript('https://js.openpay.mx/openpay.v1.min.js');
-        await loadScript('https://js.openpay.mx/openpay-data.v1.min.js');
+        await loadOpenPaySdk();
+        if (!vivo) return;
         window.OpenPay!.setId(merchantId);
         window.OpenPay!.setApiKey(publicKey);
         window.OpenPay!.setSandboxMode(isSandbox);
-        sessionRef.current = window.OpenPay!.deviceData.setup() || '';
+        sessionRef.current = window.OpenPay!.deviceData!.setup() || '';
         setSdkReady(true);
       } catch {
-        setError('No se pudo cargar el procesador de pagos.');
+        if (vivo) setError('No se pudo cargar el procesador de pagos.');
       }
     };
     init();
+    return () => {
+      vivo = false;
+    };
   }, [merchantId, publicKey, isSandbox]);
 
   const handleChange = (field: string, value: string) => {
@@ -121,6 +161,30 @@ export default function OpenPayCard({
   const formatCardNumber = (n: string) =>
     n.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
 
+  /**
+   * Cambia los datos de tarjeta por un `token_id` hablando DIRECTO con
+   * `js.openpay.mx` desde el navegador. Nuestro backend nunca ve esta llamada
+   * ni sus datos — sólo el `token_id` que resulta.
+   */
+  const tokenize = (): Promise<string> =>
+    new Promise((resolve, reject) => {
+      if (!window.OpenPay) {
+        reject(new Error('OpenPay no está disponible'));
+        return;
+      }
+      window.OpenPay.token.create(
+        {
+          card_number: form.card_number,
+          holder_name: form.holder_name,
+          expiration_month: form.expiration_month.padStart(2, '0'),
+          expiration_year: form.expiration_year,
+          cvv2: form.cvv2,
+        },
+        (response) => resolve(response.data.id),
+        (err) => reject(new Error(err.data?.description || 'Error al tokenizar la tarjeta.')),
+      );
+    });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!sdkReady) return;
@@ -129,10 +193,10 @@ export default function OpenPayCard({
     setError(null);
 
     try {
+      const tokenId = await tokenize();
       await onCharge({
-        ...form,
+        token_id: tokenId,
         device_session_id: sessionRef.current,
-        payment_reference: paymentReference,
       });
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Error al procesar el pago.');
@@ -165,6 +229,7 @@ export default function OpenPayCard({
           value={formatCardNumber(form.card_number)}
           onChange={(e) => handleChange('card_number', e.target.value)}
           placeholder="1234 5678 9012 3456"
+          autoComplete="cc-number"
           className={inputClass}
           required
         />
@@ -179,6 +244,7 @@ export default function OpenPayCard({
           value={form.holder_name}
           onChange={(e) => handleChange('holder_name', e.target.value)}
           placeholder="Como aparece en la tarjeta"
+          autoComplete="cc-name"
           className={inputClass}
           required
         />
@@ -194,6 +260,7 @@ export default function OpenPayCard({
             value={form.expiration_month}
             onChange={(e) => handleChange('expiration_month', e.target.value)}
             placeholder="MM"
+            autoComplete="cc-exp-month"
             className={inputClass}
             required
           />
@@ -207,6 +274,7 @@ export default function OpenPayCard({
             value={form.expiration_year}
             onChange={(e) => handleChange('expiration_year', e.target.value)}
             placeholder="AA"
+            autoComplete="cc-exp-year"
             className={inputClass}
             required
           />
@@ -214,12 +282,13 @@ export default function OpenPayCard({
         <div>
           <label className="block text-xs font-semibold text-[#142035] mb-1">CVV</label>
           <input
-            type="text"
+            type="password"
             inputMode="numeric"
             maxLength={4}
             value={form.cvv2}
             onChange={(e) => handleChange('cvv2', e.target.value)}
             placeholder="***"
+            autoComplete="cc-csc"
             className={inputClass}
             required
           />

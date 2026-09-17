@@ -15,6 +15,10 @@ export interface MockState {
   createdOrders: any[];
   /** Endpoints `/api-proxy/**` no contemplados (deben quedar vacíos). */
   unexpected: string[];
+  /** Bodies POST capturados de `/api/ecommerce/openpay/createCharge` — PCI. */
+  openPayChargeBodies: any[];
+  /** Orden en que se pidieron los scripts del SDK OpenPay — debe ser SERIE. */
+  openPaySdkRequestOrder: string[];
 }
 
 export interface MockOptions {
@@ -22,6 +26,54 @@ export interface MockOptions {
   failPlans?: boolean;
   /** Forzar fallo en el endpoint de gateways para ejercitar el FALLBACK del FE. */
   failGateways?: boolean;
+  /**
+   * Agrega la pasarela `openpayCard` a la lista mockeada de gateways — SOLO
+   * cuando se pide explícitamente, para no romper las pruebas existentes que
+   * cuentan botones exactos ("solo Tarjeta y Mercado Pago").
+   */
+  includeOpenPayCard?: boolean;
+}
+
+/**
+ * Stub del SDK de OpenPay (`js.openpay.mx`) — expone el mismo `window.OpenPay`
+ * que el real (`setId`/`setApiKey`/`setSandboxMode`/`token.create`/`deviceData.setup`)
+ * sin salir a la red. Se registra en `state.openPaySdkRequestOrder` para poder
+ * blindar en la prueba que los DOS scripts se piden EN SERIE (ver docblock de
+ * `components/react/payment/OpenPayCard.tsx`): pedirlos en paralelo puede
+ * tumbar la app si el antifraude corre antes de que exista `window.OpenPay`.
+ */
+export function installOpenPaySdkStub(page: Page, state: { openPaySdkRequestOrder: string[] }) {
+  page.route('https://js.openpay.mx/openpay.v1.min.js', (route) => {
+    state.openPaySdkRequestOrder.push('openpay.v1');
+    route.fulfill({
+      status: 200,
+      contentType: 'application/javascript',
+      body: `
+        window.OpenPay = window.OpenPay || {};
+        window.OpenPay.setId = function (id) { window.__openpayMerchantId = id; };
+        window.OpenPay.setApiKey = function (key) { window.__openpayPublicKey = key; };
+        window.OpenPay.setSandboxMode = function (v) { window.__openpaySandbox = v; };
+        window.OpenPay.token = {
+          create: function (data, onSuccess) {
+            window.__openpayTokenizeCalls = window.__openpayTokenizeCalls || [];
+            window.__openpayTokenizeCalls.push(data);
+            setTimeout(function () { onSuccess({ data: { id: 'tok_test_mocked_123' } }); }, 5);
+          }
+        };
+      `,
+    });
+  });
+  page.route('https://js.openpay.mx/openpay-data.v1.min.js', (route) => {
+    state.openPaySdkRequestOrder.push('openpay-data.v1');
+    route.fulfill({
+      status: 200,
+      contentType: 'application/javascript',
+      body: `
+        window.OpenPay = window.OpenPay || {};
+        window.OpenPay.deviceData = { setup: function () { return 'device-session-test-abc'; } };
+      `,
+    });
+  });
 }
 
 const PLAN = {
@@ -49,12 +101,13 @@ function json(route: Route, body: unknown, status = 200) {
 }
 
 export function installTiendaMocks(page: Page, opts: MockOptions = {}): MockState {
-  const state: MockState = { createdOrders: [], unexpected: [] };
+  const state: MockState = { createdOrders: [], unexpected: [], openPayChargeBodies: [], openPaySdkRequestOrder: [] };
 
   // SDKs externos de pago — bloqueados (no queremos cargar Stripe/MP reales).
   page.route(/https:\/\/(js\.stripe\.com|.*mercadopago\.com|.*mercadolibre\.com)\/.*/, (r) =>
     r.abort(),
   );
+  installOpenPaySdkStub(page, state);
 
   // SEPOMEX — no se usa en el flujo eSIM, pero blindamos por si acaso.
   page.route('**/sepomex-proxy/**', (r) => json(r, { data: { postcodes: [] } }));
@@ -78,16 +131,18 @@ export function installTiendaMocks(page: Page, opts: MockOptions = {}): MockStat
     // endpoint /api/ecommerce/paypal/init). `failGateways` fuerza el FALLBACK del FE.
     if (path.startsWith('/api/public/ecommerce/gateways')) {
       if (opts.failGateways) return json(route, { status: false }, 500);
-      return json(route, {
-        status: true,
-        data: {
-          gateways: [
-            { key: 'stripe', label: 'Pagar con Tarjeta', icon: '', sortOrder: 1, type: 'card', publicKey: 'pk_test_gateway_mock' },
-            { key: 'paypal', label: 'Pagar con PayPal', icon: '', sortOrder: 2, type: 'redirect', publicKey: 'paypal-client-mock' },
-            { key: 'mercadoPago', label: 'Pagar con Mercado Pago', icon: '', sortOrder: 3, type: 'redirect', publicKey: 'APP_USR-test-mp-public-key' },
-          ],
-        },
-      });
+      const gateways = [
+        { key: 'stripe', label: 'Pagar con Tarjeta', icon: '', sortOrder: 1, type: 'card', publicKey: 'pk_test_gateway_mock' },
+        { key: 'paypal', label: 'Pagar con PayPal', icon: '', sortOrder: 2, type: 'redirect', publicKey: 'paypal-client-mock' },
+        { key: 'mercadoPago', label: 'Pagar con Mercado Pago', icon: '', sortOrder: 3, type: 'redirect', publicKey: 'APP_USR-test-mp-public-key' },
+      ];
+      // Etiqueta DISTINTA de 'Pagar con Tarjeta' (Stripe) a propósito: evita que
+      // `getByRole('button', {name: 'Pagar con Tarjeta'})` de las pruebas
+      // existentes matchee dos botones (Playwright hace substring match).
+      if (opts.includeOpenPayCard) {
+        gateways.push({ key: 'openpayCard', label: 'Pagar con Tarjeta OpenPay', icon: '', sortOrder: 4, type: 'card', publicKey: 'pk_test_openpay_mock' });
+      }
+      return json(route, { status: true, data: { gateways } });
     }
 
     // Productos físicos (no se piden en eSIM móvil; vacío por defecto)
@@ -149,6 +204,23 @@ export function installTiendaMocks(page: Page, opts: MockOptions = {}): MockStat
         status: true,
         data: { init_point: 'https://mp.test/checkout', preference_id: 'pref-test-123', order_uuid: initBodyUuid },
       });
+    }
+    if (path === '/api/ecommerce/openpay/init') {
+      if (initBodyUuid !== 'test-uuid-123') return orderNotFound();
+      return json(route, {
+        status: true,
+        data: { merchant_id: 'mch_test_ecommerce', public_key: 'pk_test_ecommerce', is_sandbox: true, payment_reference: 'ECOM-REF-NUNCA-USADA' },
+      });
+    }
+    // PCI: captura el body EXACTO que llega a createCharge — la prueba
+    // anti-regresión (`openpay-card.spec.ts`) lo lee de `state.openPayChargeBodies`
+    // y falla si aparece `card_number`/`cvv2`/`holder_name`/`expiration_*`.
+    if (path === '/api/ecommerce/openpay/createCharge' && method === 'POST') {
+      let body: any = null;
+      try { body = JSON.parse(req.postData() || '{}'); } catch { /* noop */ }
+      state.openPayChargeBodies.push(body);
+      if (body?.order_uuid !== 'test-uuid-123') return orderNotFound();
+      return json(route, { status: true, data: { charge_id: 'ch_test_ecommerce_1', status: 'completed' } });
     }
 
     // Banners y cualquier otra lectura inocua → vacío

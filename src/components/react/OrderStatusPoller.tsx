@@ -51,7 +51,15 @@ export default function OrderStatusPoller({ maxAttempts = 15 }: Props) {
       if (cancelled) return;
       attemptsRef.current += 1;
       try {
-        const order = await getOrderStatus(orderUuid);
+        // BUG real encontrado 2026-09-17 (ajeno a OpenPay, afectaba TODAS las
+        // pasarelas): iba `getOrderStatus(orderUuid)` leyendo el STATE
+        // `orderUuid`, que en este mismo render todavía es '' — `setOrderUuid`
+        // arriba sólo encola la actualización, no la aplica de inmediato. El
+        // closure de este efecto debe usar la CONSTANTE LOCAL `uuid` (recién
+        // leída del query string), no el state. Sin este fix, /pago-exitoso
+        // siempre pedía `/orders//status` (UUID vacío) y mostraba "No pudimos
+        // verificar tu orden" — para Stripe, Mercado Pago y OpenPay por igual.
+        const order = await getOrderStatus(uuid);
         if (cancelled) return;
         setOrderTotal(order.total);
         setOrderStatus(order.status);

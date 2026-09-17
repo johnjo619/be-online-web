@@ -1,7 +1,9 @@
 import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from 'react';
-import { getPlans, getPublicProducts, getEcommerceGateways, createOrder, ecommerceStripeInit, ecommerceMercadoPagoInit, ecommerceOxxoInit } from '../../lib/api';
+import { getPlans, getPublicProducts, getEcommerceGateways, createOrder, ecommerceStripeInit, ecommerceMercadoPagoInit, ecommerceOxxoInit, ecommerceOpenPayInit, ecommerceOpenPayCharge } from '../../lib/api';
+import { armarCuerpoEcommerceOpenPayCharge } from '../../lib/openpayCharge';
 import { STRIPE_PUBLISHABLE_KEY } from '../../lib/payment-config';
 import type { Plan, SimType, Gateway, EcommerceProduct } from '../../lib/types';
+import type { OpenPayCardData } from './payment/OpenPayCard';
 import ServiceChooser, { SERVICE_TO_CRM_TYPE, SERVICE_LABEL, type Service } from './ServiceChooser';
 import SimEsimPicker from './SimEsimPicker';
 import CustomerForm, { type CustomerData } from './CustomerForm';
@@ -23,6 +25,7 @@ const SHIPPING_SKU = 'shipping-mx-fixed';
 const StripeInline = lazy(() => import('./payment/StripeInline'));
 const MercadoPagoWallet = lazy(() => import('./payment/MercadoPagoWallet'));
 const OxxoReference = lazy(() => import('./payment/OxxoReference'));
+const OpenPayCard = lazy(() => import('./payment/OpenPayCard'));
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -89,6 +92,7 @@ export default function TiendaFlow() {
   const [stripeData, setStripeData] = useState<{ clientSecret: string; publishableKey: string } | null>(null);
   const [mpData, setMpData] = useState<{ preferenceId: string; publicKey: string } | null>(null);
   const [oxxoData, setOxxoData] = useState<import('../../lib/types').OxxoInitResponse | null>(null);
+  const [opData, setOpData] = useState<{ merchantId: string; publicKey: string; isSandbox: boolean } | null>(null);
   const [paymentLoading, setPaymentLoading] = useState(false);
 
   // ── Step tracking ────────────────────────────────────────────
@@ -296,6 +300,9 @@ export default function TiendaFlow() {
       } else if (selectedGateway === 'openpayStore') {
         const oxxo = await ecommerceOxxoInit(order.uuid);
         setOxxoData(oxxo);
+      } else if (selectedGateway === 'openpayCard') {
+        const op = await ecommerceOpenPayInit(order.uuid);
+        setOpData({ merchantId: op.merchant_id, publicKey: op.public_key, isSandbox: op.is_sandbox });
       }
 
       setStep('payment');
@@ -311,6 +318,30 @@ export default function TiendaFlow() {
   const handleBackToPlans = () => {
     setStep('plans');
     setSelectedPlan(null);
+  };
+
+  // OpenPay (tarjeta) — `cardData` trae SÓLO `token_id` + `device_session_id`
+  // (tokenizado en el navegador por OpenPayCard, ver payment/OpenPayCard.tsx).
+  // El cuerpo hacia el backend va por `order_uuid`; nunca un dato de tarjeta.
+  const handleOpenPayChargeEcommerce = async (cardData: OpenPayCardData) => {
+    if (!orderUuid) throw new Error('No se pudo iniciar el cobro con OpenPay.');
+    const res = await ecommerceOpenPayCharge(
+      armarCuerpoEcommerceOpenPayCharge({
+        orderUuid,
+        tokenId: cardData.token_id,
+        deviceSessionId: cardData.device_session_id,
+      }),
+    );
+
+    if (res.payment_method?.type === 'redirect' && res.payment_method.url) {
+      window.location.href = res.payment_method.url;
+      return;
+    }
+
+    // Igual que Stripe/MercadoPago: el estado real de la orden lo confirma
+    // OrderStatusPoller en /pago-exitoso cuando el webhook de OpenPay llegue
+    // al backend — no hacemos polling aquí para no duplicar esa lógica.
+    window.location.href = `${window.location.origin}/pago-exitoso?order=${orderUuid}`;
   };
 
   // ── Necesita envío físico? ───────────────────────────────────
@@ -780,6 +811,16 @@ export default function TiendaFlow() {
                   {selectedGateway === 'openpayStore' && oxxoData && (
                     <OxxoReference data={oxxoData} />
                   )}
+
+                  {selectedGateway === 'openpayCard' && opData && (
+                    <OpenPayCard
+                      merchantId={opData.merchantId}
+                      publicKey={opData.publicKey}
+                      isSandbox={opData.isSandbox}
+                      onCharge={handleOpenPayChargeEcommerce}
+                      amount={visibleTotal}
+                    />
+                  )}
                 </Suspense>
               )}
 
@@ -795,6 +836,7 @@ export default function TiendaFlow() {
                     setStripeData(null);
                     setMpData(null);
                     setOxxoData(null);
+                    setOpData(null);
                     setOrderUuid(null);
                     setCheckoutError('');
                   }}

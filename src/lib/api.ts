@@ -15,6 +15,7 @@ import type {
   DistributorLeadPayload,
   DistributorLeadResponse,
 } from './types';
+import type { CuerpoPortalOpenPayCharge, CuerpoEcommerceOpenPayCharge } from './openpayCharge';
 
 // En nuestro servidor el catalogo/pagos pasan por el proxy mismo-origen
 // `/api-proxy` (nginx). En un hosting sin ese proxy (p.ej. Neubox) se apunta
@@ -244,21 +245,20 @@ export async function ecommerceOpenPayInit(
   return unwrapData(res, 'No se pudo iniciar el pago en OXXO/OpenPay.');
 }
 
-export async function ecommerceOpenPayCharge(payload: {
-  payment_reference: string;
-  card_number: string;
-  holder_name: string;
-  expiration_month: string;
-  expiration_year: string;
-  cvv2: string;
-  device_session_id?: string;
-  redirect_url: string;
-}): Promise<OpenPayChargeResponse> {
-  const res = await apiFetch<{ data: OpenPayChargeResponse }>(
+/**
+ * PCI: `payload` es el cuerpo YA ARMADO por `armarCuerpoEcommerceOpenPayCharge`
+ * (`lib/openpayCharge.ts`) — sólo `order_uuid` + `token_id` + `device_session_id`.
+ * El backend (`OpenpayCreateChargeController`) ignora cualquier otro campo;
+ * esta función NUNCA debe aceptar `card_number`/`cvv2`/`holder_name` de nuevo.
+ */
+export async function ecommerceOpenPayCharge(
+  payload: CuerpoEcommerceOpenPayCharge,
+): Promise<OpenPayChargeResponse> {
+  const res = await apiFetch<{ status?: boolean; message?: string; data?: OpenPayChargeResponse }>(
     '/api/ecommerce/openpay/createCharge',
     { method: 'POST', body: JSON.stringify(payload) },
   );
-  return res.data;
+  return unwrapData(res, 'No se pudo cobrar la tarjeta.');
 }
 
 export async function ecommerceOpenPayValidate(
@@ -395,16 +395,15 @@ export async function portalOpenPayInit(
   throw new Error(res.message || 'No se pudo iniciar el pago con OpenPay.');
 }
 
-export async function portalOpenPayCharge(payload: {
-  payment_reference: string;
-  card_number: string;
-  holder_name: string;
-  expiration_month: string;
-  expiration_year: string;
-  cvv2: string;
-  device_session_id?: string;
-  redirect_url: string;
-}): Promise<OpenPayChargeResponse> {
+/**
+ * PCI: `payload` es el cuerpo YA ARMADO por `armarCuerpoPortalOpenPayCharge`
+ * (`lib/openpayCharge.ts`) — sólo `payment_reference` + `token_id` +
+ * `device_session_id` + `redirect_url` (+ `recurrent` opcional). Esta función
+ * NUNCA debe aceptar `card_number`/`cvv2`/`holder_name` de nuevo.
+ */
+export async function portalOpenPayCharge(
+  payload: CuerpoPortalOpenPayCharge,
+): Promise<OpenPayChargeResponse> {
   const res = await apiFetch<{ status?: boolean; message?: string; data?: OpenPayChargeResponse }>(
     '/api/openpay/createCharge',
     { method: 'POST', body: JSON.stringify(payload) },

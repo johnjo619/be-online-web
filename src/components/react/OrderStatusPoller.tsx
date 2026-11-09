@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { getOrderStatus } from '../../lib/api';
+import ActivaBeneficios from './ActivaBeneficios';
 
 /**
  * Polling de estado de orden en /pago-exitoso.
@@ -204,6 +205,9 @@ export default function OrderStatusPoller({ maxAttempts = 15 }: Props) {
           </p>
         </div>
       )}
+
+      {/* Los beneficios no se activan solos: asistencias y boletos sólo en la app o en app.beonline.mx. */}
+      {(status === 'paid' || status === 'timeout' || status === 'noorder') && <ActivaBeneficios />}
 
       {/* Detalle de orden (solo si tenemos UUID) */}
       {orderUuid && (

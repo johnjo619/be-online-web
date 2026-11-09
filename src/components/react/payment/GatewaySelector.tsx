@@ -115,18 +115,19 @@ function gatewaySubLabel(gw: Gateway): string {
 }
 
 /**
- * Logo oficial por gateway — SVGs descargados de fuentes oficiales:
- *   - Stripe / MercadoPago / PayPal: simple-icons CDN (mantiene logos brand)
- *   - OXXO: Wikipedia Commons (logo oficial)
- *
- * Los archivos viven en /public/img/payment/*.svg y se sirven estáticos.
+ * Logo por pasarela; los archivos viven en /public/img/payment/ y se sirven estáticos.
+ *   - Stripe / MercadoPago / PayPal: simple-icons CDN (logos de marca).
+ *   - OXXO: Wikipedia Commons (logo oficial). Sólo para `digitalFemsa`, que SÍ es OXXO.
+ *   - PayNet y Openpay: el símbolo de cada marca recortado de los logos que ya usa la app web
+ *     (app_web public/images/payments). Antes PayNet salía con el logo de OXXO y la tarjeta de
+ *     Openpay con el de Stripe: el cliente veía la marca de otra empresa (reporte del dueño, 9-nov-2026).
  */
 const LOGO_BY_KEY: Record<string, { src: string; alt: string }> = {
   stripe:       { src: '/img/payment/stripe.svg',      alt: 'Stripe' },
   mercadoPago:  { src: '/img/payment/mercadopago.svg', alt: 'MercadoPago' },
   paypal:       { src: '/img/payment/paypal.svg',      alt: 'PayPal' },
-  openpayCard:  { src: '/img/payment/stripe.svg',      alt: 'Tarjeta' }, // OpenPay no tiene logo oficial libre — se usa genérico
-  openpayStore: { src: '/img/payment/oxxo.svg',        alt: 'OXXO' },
+  openpayCard:  { src: '/img/payment/openpay.png',     alt: 'Openpay' },
+  openpayStore: { src: '/img/payment/paynet.png',      alt: 'PayNet' },
   digitalFemsa: { src: '/img/payment/oxxo.svg',        alt: 'OXXO' },
 };
 

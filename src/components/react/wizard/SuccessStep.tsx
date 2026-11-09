@@ -1,3 +1,5 @@
+import ActivaBeneficios from '../ActivaBeneficios';
+
 interface SuccessStepProps {
   flow: string;
   planName?: string;
@@ -43,6 +45,12 @@ export default function SuccessStep({ flow, planName }: SuccessStepProps) {
         <p className="font-poppins text-sm text-[#142035] bg-[#f8fafc] rounded-xl py-3 px-4 inline-block mb-6">
           Plan: <span className="font-semibold">{planName}</span>
         </p>
+      )}
+
+      {(flow === 'activar' || flow === 'recargar') && (
+        <div className="mb-6">
+          <ActivaBeneficios />
+        </div>
       )}
 
       <div>

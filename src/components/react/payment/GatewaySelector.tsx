@@ -106,7 +106,9 @@ function gatewaySubLabel(gw: Gateway): string {
     case 'paypal':
       return 'Cuenta PayPal · al instante';
     case 'openpayStore':
-      return 'Pago en efectivo · 24-48 h';
+      // PayNet NO es OXXO: su referencia se paga en 7-Eleven, Walmart y otras tiendas de su red, nunca en OXXO.
+      // Guion y espacio que no se cortan (U+2011, U+00A0): a 390 px «24-48 h» se partía en dos renglones.
+      return '7‑Eleven, Walmart y más · 24‑48 h';
     case 'digitalFemsa':
       return 'OXXO en efectivo · 24-48 h';
     default:

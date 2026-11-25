@@ -809,7 +809,7 @@ export default function TiendaFlow() {
                   )}
 
                   {selectedGateway === 'openpayStore' && oxxoData && (
-                    <OxxoReference data={oxxoData} />
+                    <OxxoReference data={oxxoData} tienda="paynet" />
                   )}
 
                   {selectedGateway === 'openpayCard' && opData && (

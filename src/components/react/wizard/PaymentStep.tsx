@@ -11,6 +11,12 @@ const PayPalButtons = lazy(() => import('../payment/PayPalButtons'));
 const OpenPayCard = lazy(() => import('../payment/OpenPayCard'));
 const OxxoReference = lazy(() => import('../payment/OxxoReference'));
 
+/**
+ * Cuánto tiene que asomar la zona de pago para darla por vista: el título y el primer campo del formulario de
+ * tarjeta, o el botón entero de la pasarela. Menos que eso (o nada) y se lleva a la vista al elegir.
+ */
+const ASOMO_MINIMO_PX = 120;
+
 interface PaymentStepProps {
   msisdn: string;
   plan: Plan;
@@ -75,6 +81,25 @@ export default function PaymentStep({ msisdn, plan, onPaid }: PaymentStepProps) 
         setGwLoading(false);
       });
   }, [msisdn]);
+
+  // LO QUE SE ELIGE TIENE QUE VERSE. El formulario de tarjeta, el botón de la pasarela, la ficha de PayNet, el
+  // «cargando» y el aviso de error salen DEBAJO de la lista de pasarelas. En un celular eso queda fuera de la
+  // pantalla: el cliente toca la pasarela, sólo ve la palomita y cree que no pasó nada. Medido en pandamovil.mx
+  // (mismo componente) el 25-nov-2026 en iPhone 14 y Pixel 7: el formulario empezaba 154 px abajo del borde. Al
+  // elegir, si la zona de pago no asoma lo suficiente, se lleva a la vista. Sólo se desplaza: el foco no entra a los
+  // campos de tarjeta.
+  const zonaPagoRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!selected) return;
+    const frame = requestAnimationFrame(() => {
+      const zona = zonaPagoRef.current;
+      if (!zona) return;
+      if (zona.getBoundingClientRect().top <= window.innerHeight - ASOMO_MINIMO_PX) return;
+      const sinMovimiento = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      zona.scrollIntoView({ behavior: sinMovimiento ? 'auto' : 'smooth', block: 'start' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [selected]);
 
   // Clear stale payment data and init when gateway changes
   useEffect(() => {
@@ -240,56 +265,59 @@ export default function PaymentStep({ msisdn, plan, onPaid }: PaymentStepProps) 
         isLoading={gwLoading}
       />
 
-      {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+      {/* Zona de pago: lo que aparece al elegir una pasarela, incluido el aviso de error y el «cargando». Se lleva a
+          la vista al elegir (ver `zonaPagoRef`); `scroll-mt-24` la deja debajo de la barra fija de arriba. */}
+      {(selected || error || payLoading) && (
+        <div ref={zonaPagoRef} data-zona-pago className="scroll-mt-24 space-y-6">
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-      {/* Payment Component */}
-      {selected && !payLoading && (
-        <Suspense fallback={<Spinner />}>
-          {selected === 'stripe' && stripeData && (
-            <StripeInline
-              clientSecret={stripeData.clientSecret}
-              publishableKey={stripeData.publishableKey}
-              returnUrl={`${window.location.origin}/pago-exitoso`}
-              amount={amount}
-            />
+          {/* Payment Component */}
+          {selected && !payLoading && (
+            <Suspense fallback={<Spinner />}>
+              {selected === 'stripe' && stripeData && (
+                <StripeInline
+                  clientSecret={stripeData.clientSecret}
+                  publishableKey={stripeData.publishableKey}
+                  returnUrl={`${window.location.origin}/pago-exitoso`}
+                  amount={amount}
+                />
+              )}
+
+              {selected === 'mercadoPago' && mpData && (
+                <MercadoPagoWallet
+                  publicKey={mpData.publicKey}
+                  preferenceId={mpData.preferenceId}
+                />
+              )}
+
+              {selected === 'paypal' && ppClientId && (
+                <PayPalButtons
+                  clientId={ppClientId}
+                  createOrderFn={ppCreateOrder}
+                  onApproveFn={ppOnApprove}
+                  onError={() => setError('Error con PayPal.')}
+                />
+              )}
+
+              {selected === 'openpayCard' && opData && (
+                <OpenPayCard
+                  merchantId={opData.merchantId}
+                  publicKey={opData.publicKey}
+                  isSandbox={opData.isSandbox}
+                  onCharge={handleOpenPayCharge}
+                  amount={amount}
+                />
+              )}
+
+              {(selected === 'openpayStore' || selected === 'digitalFemsa') && oxxoData && (
+                <OxxoReference data={oxxoData} tienda={selected === 'digitalFemsa' ? 'oxxo' : 'paynet'} />
+              )}
+            </Suspense>
           )}
 
-          {selected === 'mercadoPago' && mpData && (
-            <MercadoPagoWallet
-              publicKey={mpData.publicKey}
-              preferenceId={mpData.preferenceId}
-            />
-          )}
-
-          {selected === 'paypal' && ppClientId && (
-            <PayPalButtons
-              clientId={ppClientId}
-              createOrderFn={ppCreateOrder}
-              onApproveFn={ppOnApprove}
-              onError={() => setError('Error con PayPal.')}
-            />
-          )}
-
-          {selected === 'openpayCard' && opData && (
-            <OpenPayCard
-              merchantId={opData.merchantId}
-              publicKey={opData.publicKey}
-              isSandbox={opData.isSandbox}
-              onCharge={handleOpenPayCharge}
-              amount={amount}
-            />
-          )}
-
-          {(selected === 'openpayStore' || selected === 'digitalFemsa') && oxxoData && (
-            <OxxoReference
-              data={oxxoData}
-              gatewayLabel={selected === 'digitalFemsa' ? 'Pago en OXXO' : 'Pago con PayNet'}
-            />
-          )}
-        </Suspense>
+          {payLoading && <Spinner />}
+        </div>
       )}
-
-      {payLoading && <Spinner />}
 
       {/* Escape hatch: MP SDK no expone evento "cancel" cuando el user cierra
           la modal. Sin este botón, el user queda atrapado sin poder cambiar

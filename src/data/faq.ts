@@ -10,6 +10,16 @@ export interface FAQItem {
 
 export const faqItems: FAQItem[] = [
   {
+    question: "¿Cómo activo mis asistencias Be Protected?",
+    answer: "Después de recargar tu plan Be Protected, entra a la app Be Online o a app.beonline.mx, sección Beneficios, y registra tus datos: CURP, RFC, domicilio y ocupación. Sin ellos no podemos activarlas. Tus asistencias empiezan el día 1 del mes siguiente.",
+    category: ['general', 'telefonia']
+  },
+  {
+    question: "¿Dónde pido mis boletos de cine 2x1?",
+    answer: "En la app Be Online o en app.beonline.mx, sección Beneficios. Te tocan 2 al mes (uno por quincena) y los canjeas en la taquilla de Cinépolis.",
+    category: ['general', 'telefonia']
+  },
+  {
     question: "¿Qué es Be Online?",
     answer: "Be Online es un operador móvil virtual (OMV) mexicano que ofrece planes de telefonía celular, internet móvil a precios accesibles. Operamos sobre la Red Compartida nacional, brindando cobertura 4G LTE en todo México sin contratos ni plazos forzosos.",
     category: ['general']

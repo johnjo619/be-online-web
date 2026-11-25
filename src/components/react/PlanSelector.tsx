@@ -333,7 +333,9 @@ export default function PlanSelector({
                   {plan.prices.map((item, idx) => (
                     <button
                       key={idx}
-                      onClick={() => setModalPlan({ ...plan, id: item.offerId || plan.id, selectedDuration: item.label, selectedPrice: item.price })}
+                      // `conCine`: la MISMA decisión que pinta el sello de cine en la tarjeta; la ventana avisa que
+                      // los boletos se piden desde la app (pedido del dueño, 25-nov-2026).
+                      onClick={() => setModalPlan({ ...plan, id: item.offerId || plan.id, selectedDuration: item.label, selectedPrice: item.price, conCine })}
                       // w-full asegura que el botón ocupe el ancho y se divida exacto a la mitad
                       className="relative z-10 w-full flex justify-center items-center text-md font-bold cursor-pointer hover:scale-105 transition-transform group"
                     >

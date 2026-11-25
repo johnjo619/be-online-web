@@ -436,7 +436,8 @@ export async function portalOxxoInit(
   );
   if (res.data?.reference) return res.data;
   if (res.response?.reference) return res.response;
-  throw new Error(res.message || 'No se pudo generar el pago en OXXO.');
+  // Es PayNet (`/api/openpay/initStorePayment`), no OXXO: decir «OXXO» manda al cliente a la tienda equivocada.
+  throw new Error(res.message || 'No se pudo generar tu referencia de pago en tienda.');
 }
 
 export async function portalDigitalFemsaInit(

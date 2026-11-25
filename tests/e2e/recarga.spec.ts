@@ -1,4 +1,4 @@
-import { test, expect, type Route } from '@playwright/test';
+import { test, expect, type Locator, type Page, type Route } from '@playwright/test';
 import { installOpenPaySdkStub } from './mocks';
 
 /**
@@ -44,7 +44,10 @@ function json(route: Route, body: unknown, status = 200) {
   });
 }
 
-function installRecargaMocks(page: import('@playwright/test').Page, opts: { includeOpenPayCard?: boolean } = {}) {
+function installRecargaMocks(
+  page: import('@playwright/test').Page,
+  opts: { includeOpenPayCard?: boolean; gateways?: unknown[] } = {},
+) {
   const unexpected: string[] = [];
   /** Bodies POST capturados de `/api/openpay/createCharge` — PCI, ver openpay-card.spec.ts. */
   const openPayChargeBodies: any[] = [];
@@ -86,7 +89,12 @@ function installRecargaMocks(page: import('@playwright/test').Page, opts: { incl
       if (opts.includeOpenPayCard) {
         gateways.push({ key: 'openpayCard', label: 'Pagar con Tarjeta OpenPay', icon: '', sortOrder: 2, type: 'card', publicKey: 'pk_test_openpay_mock' });
       }
-      return json(route, { status: true, data: { gateways } });
+      return json(route, { status: true, data: { gateways: opts.gateways ?? gateways } });
+    }
+
+    if (path === '/api/openpay/initStorePayment' && method === 'POST') {
+      // Ficha de PayNet SIN `places` ni `instructions`: así se ve lo que el sitio pone por su cuenta.
+      return json(route, { status: true, data: { reference: '93000000000000001234', amount: 230, barcode_url: null, due_date: null, description: 'Recarga' } });
     }
 
     // Init de Stripe (portal) — con una sola pasarela el FE la auto-selecciona
@@ -266,6 +274,108 @@ test.describe('/recarga — wizard portal cautivo', () => {
     // ── El SDK se pidió EN SERIE: openpay.v1 antes que openpay-data.v1 ────
     expect(openPaySdkRequestOrder).toEqual(['openpay.v1', 'openpay-data.v1']);
 
+    expect(unexpected).toEqual([]);
+  });
+});
+
+/** Las pasarelas que ve una línea de Be Online en producción (25-nov-2026): Tarjeta, tarjeta Openpay y PayNet. */
+const PASARELAS_BO = [
+  { key: 'stripe', label: 'Pagar con Tarjeta', icon: '', sortOrder: 1, type: 'card', publicKey: 'pk_test_gateway_mock' },
+  { key: 'openpayCard', label: 'Pagar con Tarjeta OpenPay', icon: '', sortOrder: 2, type: 'card', publicKey: 'pk_test_openpay_mock' },
+  { key: 'openpayStore', label: 'Pagar con PayNet', icon: '', sortOrder: 3, type: 'store', publicKey: '' },
+];
+
+/** Del número al paso de pago, con la hidratación tardía de la isla resuelta (ver la primera prueba). */
+async function llegarAlPago(page: Page) {
+  const input = page.getByPlaceholder('10 dígitos o ICCID');
+  await input.click();
+  await expect(async () => {
+    await input.fill('');
+    await input.pressSequentially(MSISDN, { delay: 30 });
+    await page.waitForTimeout(400);
+    expect(await input.inputValue()).toBe(MSISDN);
+  }).toPass({ timeout: 15000 });
+  await page.getByRole('button', { name: /Continuar/ }).click();
+  await page.getByRole('button', { name: /Recargar saldo/ }).click();
+  await page.getByRole('button', { name: /BO APOLO/i }).click();
+  await expect(page.getByText('$230 MXN')).toBeVisible();
+}
+
+/**
+ * Toca la pasarela como el cliente en un celular: ve el paso de pago desde su inicio (el resumen del paquete justo
+ * debajo de la barra) y, si la que quiere no se ve, baja SOLO lo justo para verla. Nada de centrarla: así quedaba
+ * fuera de la vista lo que aparece debajo.
+ */
+async function elegirPasarela(page: Page, nombre: RegExp) {
+  await llegarAlPago(page);
+  const tarjeta = page.getByRole('button', { name: nombre });
+  await page.getByText('$230 MXN').evaluate((el) => {
+    const barra = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+    window.scrollTo(0, window.scrollY + el.getBoundingClientRect().top - barra - 16);
+  });
+  await tarjeta.evaluate((el) => el.scrollIntoView({ block: 'nearest' }));
+  const antes = await page.evaluate(() => window.scrollY);
+  await tarjeta.click();
+  return antes;
+}
+
+/** Lo que aparece al elegir tiene que ASOMAR: su orilla de arriba en pantalla con al menos 120 px debajo. */
+async function expectQueAsome(page: Page, loc: Locator) {
+  await expect.poll(async () => {
+    const caja = await loc.boundingBox();
+    const alto = page.viewportSize()!.height;
+    return caja !== null && caja.y >= 0 && caja.y <= alto - 120;
+  }, { message: 'lo que aparece al elegir la pasarela no queda a la vista' }).toBe(true);
+}
+
+test.describe('/recarga — lo que se elige se ve (25-nov-2026)', () => {
+  test('en el celular, al elegir Tarjeta el formulario queda a la vista (no abajo, fuera de la pantalla)', async ({ page }) => {
+    const { unexpected } = installRecargaMocks(page, { gateways: PASARELAS_BO });
+    await page.setViewportSize({ width: 390, height: 664 });
+    await page.goto('/recarga/');
+    await elegirPasarela(page, /Pagar con Tarjeta Visa/);
+
+    const pagar = page.getByRole('button', { name: /Pagar \$230/ });
+    await expectQueAsome(page, page.locator('form').filter({ has: pagar }));
+    await expect(pagar).toBeInViewport();
+    expect(unexpected).toEqual([]);
+  });
+
+  test('en el celular, al elegir PayNet la ficha queda a la vista', async ({ page }) => {
+    const { unexpected } = installRecargaMocks(page, { gateways: PASARELAS_BO });
+    await page.setViewportSize({ width: 390, height: 664 });
+    await page.goto('/recarga/');
+    await elegirPasarela(page, /Pagar con PayNet/);
+
+    await expectQueAsome(page, page.getByText('Referencia de pago'));
+    expect(unexpected).toEqual([]);
+  });
+
+  test('si el formulario ya se ve al elegir la pasarela, la página no se mueve', async ({ page }) => {
+    installRecargaMocks(page, { gateways: PASARELAS_BO });
+    // Pantalla alta a propósito: en Be Online, a 1440×1100, el formulario TODAVÍA queda abajo y bajar es lo correcto.
+    await page.setViewportSize({ width: 1440, height: 1600 });
+    await page.goto('/recarga/');
+    const antes = await elegirPasarela(page, /Pagar con Tarjeta Visa/);
+
+    await expect(page.getByRole('button', { name: /Pagar \$230/ })).toBeInViewport();
+    expect(await page.evaluate(() => window.scrollY)).toBe(antes);
+  });
+
+  test('PayNet no se presenta como OXXO: sus tiendas y su ficha', async ({ page }) => {
+    // Una referencia de PayNet NO se paga en OXXO. Sin lista del backend, la ficha decía «Acude a cualquier tienda
+    // OXXO» y el subtítulo «Pago en efectivo» no decía dónde.
+    const { unexpected } = installRecargaMocks(page, { gateways: PASARELAS_BO });
+    await page.goto('/recarga/');
+    await llegarAlPago(page);
+
+    const paynet = page.getByRole('button', { name: /Pagar con PayNet/ });
+    await expect(paynet).toContainText(/7.Eleven, Walmart y más · 24.48.h/);
+    await expect(paynet.getByRole('img', { name: 'OXXO' })).toHaveCount(0);
+
+    await paynet.click();
+    await expect(page.getByText('Acude a cualquier tienda participante de PayNet')).toBeVisible();
+    await expect(page.locator('[data-zona-pago]')).not.toContainText('OXXO');
     expect(unexpected).toEqual([]);
   });
 });

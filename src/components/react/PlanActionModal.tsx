@@ -14,10 +14,16 @@
 import { useEffect, useRef } from 'react';
 import type { Plan } from '../../lib/types';
 import { type ServiceType, getPlanDuration } from './planHelpers';
+import palomitas from '@/assets/images/popcorn.png';
 
 interface Props {
   open: boolean;
-  plan: (Plan & { selectedDuration?: string; selectedPrice?: string }) | null;
+  /**
+   * `conCine`: el plan lleva el sello de cine en su tarjeta (4 y 12 GB normales y todo Be Protected; la regla vive
+   * en PlanSelector/CineGratis). Entonces la ventana dice que los boletos se piden desde la app: el cine no llega
+   * solo con la compra (pedido del dueño, 25-nov-2026).
+   */
+  plan: (Plan & { selectedDuration?: string; selectedPrice?: string; conCine?: boolean }) | null;
   service: ServiceType;
   onClose: () => void;
 }
@@ -101,6 +107,15 @@ export default function PlanActionModal({ open, plan, service, onClose }: Props)
             {duration ? ` · ${duration}` : ''}
           </p>
         </div>
+
+        {plan.conCine && (
+          <p data-aviso-cine className="flex items-center gap-3 rounded-xl bg-[#FFF7E0] px-4 py-3 mb-5 font-poppins text-sm text-panda-dark text-left">
+            <img src={palomitas.src} alt="" aria-hidden="true" className="w-8 h-8 flex-shrink-0 object-contain" />
+            <span>
+              <strong>Incluye cine 2x1:</strong> tus boletos se piden desde la app Be Online.
+            </span>
+          </p>
+        )}
 
         <p className="font-poppins text-sm text-panda-dark text-center mb-5">
           ¿Es para una línea nueva o ya tienes una con Be Online?

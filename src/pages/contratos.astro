@@ -1,0 +1,62 @@
+---
+/**
+ * Contratos de adhesión del operador (IGOU TELECOM), los mismos que publica figou.mx/legales/contratos.
+ * El dueño (25-nov-2026): «bájalos de Figou y agrégalos, son generales del operador, con branding de Be Online».
+ * La página es de Be Online; los PDF van SIN CAMBIOS: son los modelos registrados ante la PROFECO y deben
+ * «corresponder fielmente» con lo registrado (cláusula de datos registrales), aunque su encabezado sea de Figou.
+ */
+import LegalLayout from "../layouts/LegalLayout.astro";
+
+const contratos = [
+  {
+    titulo: "Contrato de prestación de servicios · Prepago",
+    detalle: "Registro PROFECO 236-2021, del 13 de julio de 2021.",
+    archivo: "/docs/contrato-prepago-igou-236-2021.pdf",
+  },
+  {
+    titulo: "Contrato de prestación de servicios · Pospago",
+    detalle: "Registro PROFECO 238-2021, del 14 de julio de 2021.",
+    archivo: "/docs/contrato-pospago-igou-238-2021.pdf",
+  },
+  {
+    titulo: "Registro de contrato de adhesión 236-2021",
+    detalle: "Oficio de la PROFECO que aprueba el contrato de prepago.",
+    archivo: "/docs/registro-profeco-igou-236-2021.pdf",
+  },
+  {
+    titulo: "Registro de contrato de adhesión 238-2021",
+    detalle: "Oficio de la PROFECO que aprueba el contrato de pospago.",
+    archivo: "/docs/registro-profeco-igou-238-2021.pdf",
+  },
+];
+---
+
+<LegalLayout
+  title="Contratos — Be Online"
+  description="Contratos de adhesión de telefonía móvil de Be Online, registrados ante la PROFECO por el operador IGOU TELECOM."
+  heading="Contratos"
+  intro="Be Online presta sus servicios a través de IGOU TELECOM, S.A.P.I. de C.V. Estos son sus contratos de adhesión, registrados ante la PROFECO."
+>
+  <ul class="not-prose list-none p-0 m-0 space-y-5">
+    {
+      contratos.map((c) => (
+        <li>
+          <a
+            href={c.archivo}
+            target="_blank"
+            rel="noopener"
+            class="inline-block py-1 font-semibold text-[#142035] underline decoration-[#FFCD54] decoration-2 underline-offset-4 hover:opacity-80"
+          >
+            {c.titulo} (PDF)
+          </a>
+          <p class="text-sm text-panda-gray mt-0.5">{c.detalle}</p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="mt-8 text-sm">
+    También puedes consultarlos en el
+    <a href="https://burocomercial.profeco.gob.mx/" target="_blank" rel="noopener" class="underline">Buró Comercial de la PROFECO</a>.
+  </p>
+</LegalLayout>

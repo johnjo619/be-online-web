@@ -1,0 +1,23 @@
+---
+/**
+ * Neutralidad de la red: el Código de Políticas de Gestión de Tráfico y Administración de Red del operador
+ * (IGOU TELECOM), copiado TAL CUAL de figou.mx/legales/neutralidad-de-la-red (25-nov-2026, pedido del dueño: «son
+ * generales del operador, con branding de Be Online»). La página es de Be Online; el texto es del operador y no se
+ * edita: las URLs de la sección 8 son las que el operador tiene sin costo de datos en su red.
+ * Fuente limpia (sólo p, br, listas y ligas): src/data/legales/neutralidad-igou.html.
+ */
+import LegalLayout from "../layouts/LegalLayout.astro";
+import codigo from "../data/legales/neutralidad-igou.html?raw";
+---
+
+<LegalLayout
+  title="Neutralidad de la Red — Be Online"
+  description="Código de políticas de gestión de tráfico y administración de red del operador de Be Online (IGOU TELECOM)."
+  heading="Neutralidad de la Red"
+  intro="Be Online presta sus servicios a través de IGOU TELECOM, S.A.P.I. de C.V. Este es su código de políticas de gestión de tráfico y administración de red."
+>
+  {/* El texto del operador trae URLs largas sin espacios: sin cortar palabras desbordaba 194 px a 390. */}
+  <div class="[overflow-wrap:anywhere]">
+    <Fragment set:html={codigo} />
+  </div>
+</LegalLayout>

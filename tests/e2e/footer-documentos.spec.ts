@@ -57,6 +57,18 @@ test('Contratos y Neutralidad de la Red: páginas de Be Online con los documento
   await expect(page.locator('article')).toContainText('9. Recomendaciones para prevenir riesgos');
 });
 
+test('«Conoce más» de Be Protected abre la presentación en PDF', async ({ page, request }) => {
+  await page.route('**/api-proxy/**', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: '{"status":true,"data":[]}' }));
+  await page.goto('/');
+  // Es el único «Conoce más» de la portada (sección Be Protected, fondo amarillo).
+  const boton = page.getByRole('link', { name: 'Conoce más' });
+  await expect(boton).toHaveAttribute('href', '/docs/be-protected.pdf');
+  await expect(boton).toHaveAttribute('target', '_blank');
+  const res = await request.get('/docs/be-protected.pdf');
+  expect(res.status()).toBe(200);
+  expect((await res.body()).subarray(0, 5).toString()).toBe('%PDF-');
+});
+
 test('«Programa Beneficios» lleva a la sección Be Protected de la portada', async ({ page }) => {
   await page.route('**/api-proxy/**', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: '{"status":true,"data":[]}' }));
   await page.goto('/#be-protected');
